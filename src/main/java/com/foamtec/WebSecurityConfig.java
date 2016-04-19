@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.and().authorizeRequests().antMatchers("/appuser**").authenticated()
 		.and().authorizeRequests().antMatchers("/appuser/**").authenticated()
 
-		.and().formLogin().loginPage("/login").loginProcessingUrl("/resources/j_spring_security_check").failureUrl("/login?error")
+		.and().csrf().disable().formLogin().loginPage("/login").loginProcessingUrl("/resources/j_spring_security_check").failureUrl("/login?error")
 		.defaultSuccessUrl("/", false).usernameParameter("username").passwordParameter("password").permitAll()
 		
 		.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/resources/j_spring_security_logout")).logoutSuccessUrl("/login?logout").permitAll();
@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {  
          auth.jdbcAuthentication().dataSource(dataSource)
          .usersByUsernameQuery("SELECT U.username AS username, U.password as password, U.enabled as enabled FROM APP_USER U where U.username=?")
-         .authoritiesByUsernameQuery("SELECT U.username as username, U.role_name as authority FROM APP_USER U WHERE U.username=?")
+         .authoritiesByUsernameQuery("SELECT U.username as username, U.rolename as authority FROM APP_USER U WHERE U.username=?")
          .and().inMemoryAuthentication().withUser("user").password("password").roles("USER");
     }
 }

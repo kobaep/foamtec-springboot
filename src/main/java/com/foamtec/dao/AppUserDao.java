@@ -3,12 +3,16 @@ package com.foamtec.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.foamtec.domain.AppUser;
 
-import antlr.collections.List;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -29,12 +33,19 @@ public class AppUserDao {
 		}
 	}
 
-	public List getAll() {
-		return (List) entityManager.createQuery("from AppUser").getResultList();
+	public List<AppUser> getAll() {
+		Criteria c = ((Session) entityManager.getDelegate()).createCriteria(AppUser.class);
+		return c.list();
 	}
 
 	public AppUser getById(long id) {
 		return entityManager.find(AppUser.class, id);
+	}
+
+	public AppUser getByUsername(String username) {
+		Criteria c = ((Session) entityManager.getDelegate()).createCriteria(AppUser.class);
+		c.add(Restrictions.eq("username", username));
+		return (AppUser)c.uniqueResult();
 	}
 
 	public void update(AppUser appUser) {

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.foamtec.dao.AppUserDao;
-import com.foamtec.service.ViewControllerService;
+import com.foamtec.service.ViewService;
 
 import java.security.Principal;
 
@@ -24,16 +24,16 @@ public class MainController {
 	private AppUserDao appUserDao;
 	
 	@Autowired
-	private ViewControllerService viewControllerService;
+	private ViewService viewService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(ModelAndView model, Principal principal) {
 		LOGGER.debug("-= home page =-");
 		try {
 			principal.getName();
-			viewControllerService.addMenuAndName(model, principal);
+			viewService.addMenuAndName(model, principal);
 		} catch (Exception e) {
-			viewControllerService.addLogin(model);
+			viewService.addLogin(model);
 		}
 		model.setViewName("home");
 		return model;
@@ -49,7 +49,7 @@ public class MainController {
 		if (logout != null) {
 			model.addObject("msg", "You've been logged out successfully.");
 		}
-		viewControllerService.addLogin(model);
+		viewService.addLogin(model);
 		model.setViewName("login");
 		return model;
 	}

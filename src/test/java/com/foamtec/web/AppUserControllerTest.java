@@ -1,5 +1,6 @@
 package com.foamtec.web;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -16,13 +17,34 @@ public class AppUserControllerTest extends AbstractTestController {
 	
 	@Test
 	public void appUserPageCreateTest() throws Exception {
-		this.mockMvc.perform(get("/appuser").principal(principal).param("form", "create"))
+		this.mockMvc.perform(get("/appuser").principal(principal).param("form", ""))
 		.andExpect(status().isOk())
 		.andExpect(view().name("APPUSER/create"))
 		.andExpect(model().attribute("name", notNullValue()))
 		.andExpect(model().attribute("logout", "on"))
-		.andExpect(model().attribute("createUser", "on"))
 		.andExpect(model().attribute("roleName", notNullValue()));
+	}
+
+	@Test
+	public void appUserPageShowListTest() throws Exception {
+		this.mockMvc.perform(get("/appuser").principal(principal).param("list", ""))
+				.andExpect(status().isOk())
+				.andExpect(view().name("APPUSER/list"))
+				.andExpect(model().attribute("name", notNullValue()))
+				.andExpect(model().attribute("logout", "on"))
+				.andExpect(model().attribute("roleName", notNullValue()))
+				.andExpect(model().attribute("appUsers", notNullValue()));
+	}
+
+	@Test
+	public void appUserPageUpdateTest() throws Exception {
+		this.mockMvc.perform(get("/appuser/1").principal(principal).param("update", ""))
+				.andExpect(status().isOk())
+				.andExpect(view().name("APPUSER/update"))
+				.andExpect(model().attribute("name", notNullValue()))
+				.andExpect(model().attribute("logout", "on"))
+				.andExpect(model().attribute("roleName", notNullValue()))
+				.andExpect(model().attribute("appUser", notNullValue()));
 	}
 
 }

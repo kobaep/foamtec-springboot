@@ -55,13 +55,42 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default btn-lg">Submit</button>
             </div>
         </div>
     </form>
 </div>
 <script>
 $(document).ready(function() {
-	
+    $("#appUserId").submit(function() {
+        var data = {
+            inputUser : $("#inputUser").val(),
+            inputPassword : $("#inputPassword").val(),
+            inputName : $("#inputName").val(),
+            inputDepartment : $("#inputDepartment").val(),
+            inputDepartmentCode : $("#inputDepartmentCode").val(),
+            inputEmail : $("#inputEmail").val(),
+            inputTelephoneNumber : $("#inputTelephoneNumber").val(),
+            inputRoleName : $("#inputRoleName").val()
+        };
+        $.ajax({
+            url: '${home}appuser/create',
+            type: "POST",
+            headers: {
+                Accept: "application/json"
+            },
+            data: {
+                data : JSON.stringify(data)
+            },
+            dataType: "json",
+            success: function(data){
+                window.location.href = "${home}appuser?list";
+            },
+            error: function(data){
+                alert("saved error.");
+            }
+        });
+        return false;
+    });
 });
 </script>

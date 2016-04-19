@@ -28,7 +28,6 @@ public class MainControllerTest extends AbstractTestController {
 		.andExpect(view().name("home"))
 		.andExpect(model().attribute("name", notNullValue()))
 		.andExpect(model().attribute("logout", "on"))
-		.andExpect(model().attribute("createUser", "on"))
 		.andExpect(model().attribute("roleName", notNullValue()));
 	}
 }

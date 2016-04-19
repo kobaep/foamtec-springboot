@@ -33,7 +33,8 @@
 							<li id="login"><a href="${home}login">Login</a></li>
 						</c:if>
 						<c:if test="${roleName eq 'admin'}">
-							<li id="create"><a href="${home}appuser?form">Create User</a></li>
+							<li id="createUser"><a href="${home}appuser?form">Create User</a></li>
+							<li id="listUser"><a href="${home}appuser?list">List User</a></li>
 						</c:if>
 						<c:if test="${not empty logout}">
 							<li id="logout"><a href="${home}resources/j_spring_security_logout">Logout</a></li>

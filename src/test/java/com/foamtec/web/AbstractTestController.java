@@ -1,6 +1,7 @@
 package com.foamtec.web;
 import java.security.Principal;
 
+import com.foamtec.SpringbootFoamtecApplication;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -14,25 +15,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.foamtec.SpringbootFoamtecApplication;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SpringbootFoamtecApplication.class)
 @WebAppConfiguration
 public class AbstractTestController {
-	
-	private final Logger LOGGER = LoggerFactory.getLogger(AbstractTestController.class);
-	
-	@Autowired
+
+    private final Logger LOGGER = LoggerFactory.getLogger(AbstractTestController.class);
+
+    @Autowired
     protected WebApplicationContext wac;
 
     protected MockMvc mockMvc;
-    
+
     protected Principal principal;
 
     @Before
     public void setup() {
-    	principal = new Principal() {
+        principal = new Principal() {
             @Override
             public String getName() {
                 return "user";
@@ -45,6 +44,6 @@ public class AbstractTestController {
 
     @After
     public void after() {
-    	LOGGER.debug("-= test case stop =-");
+        LOGGER.debug("-= test case stop =-");
     }
 }
