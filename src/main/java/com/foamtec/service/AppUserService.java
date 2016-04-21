@@ -66,7 +66,7 @@ public class AppUserService {
         return appUserDao.getById(id);
     }
 
-    public AppUser findByName(String username) {
+    public AppUser findByUsername(String username) {
         return appUserDao.getByUsername(username);
     }
 }

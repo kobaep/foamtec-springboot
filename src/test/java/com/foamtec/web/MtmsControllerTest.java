@@ -1,21 +1,97 @@
 package com.foamtec.web;
 
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.foamtec.domain.MaterialType;
+import com.foamtec.service.MaterialTypeService;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class MtmsControllerTest extends AbstractTestController {
 	
 	private final Logger LOGGER = LoggerFactory.getLogger(MtmsControllerTest.class);
 
+    @Autowired
+    private MaterialTypeService materialTypeService;
+
 	@Test
-	public void homeMtmsTest() throws Exception {
-		LOGGER.debug("-= homeMtmsTest =-");
+	public void homeMtmsNonTest() throws Exception {
 		this.mockMvc.perform(get("/mtms")).andExpect(status().isOk())
-		.andExpect(view().name("MTMS/home"));
+				.andExpect(view().name("MTMS/home"))
+				.andExpect(model().attribute("login", "on"));
 	}
+
+	@Test
+	public void homeMtmsOnLoginTest() throws Exception {
+
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("inputMaterialType", "FILM");
+
+        this.mockMvc.perform(post("/mtms/materialTypePrivate/create").principal(principal).param("data", jsonObject1.toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.process", containsString("success")));
+
+        this.mockMvc.perform(get("/mtms").principal(principal))
+                .andExpect(status().isOk())
+                .andExpect(view().name("MTMS/home"))
+                .andExpect(model().attribute("name", notNullValue()))
+                .andExpect(model().attribute("logout", "on"))
+                .andExpect(model().attribute("materialTypes", notNullValue()))
+                .andExpect(model().attribute("roleName", notNullValue()));
+	}
+
+    @Test
+    public void createMaterialTypeTest() throws Exception {
+        this.mockMvc.perform(get("/mtms/materialTypePrivate").principal(principal).param("form", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name("MTMS/createMaterialType"))
+                .andExpect(model().attribute("name", notNullValue()))
+                .andExpect(model().attribute("logout", "on"))
+                .andExpect(model().attribute("roleName", notNullValue()));
+    }
+
+    @Test
+    public void updateMaterialTypeListTest() throws Exception {
+
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("inputMaterialType", "TEST1");
+
+        this.mockMvc.perform(post("/mtms/materialTypePrivate/create").principal(principal).param("data", jsonObject1.toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.process", containsString("success")));
+
+        this.mockMvc.perform(get("/mtms/materialTypePrivate/update").principal(principal).param("list",""))
+                .andExpect(status().isOk())
+                .andExpect(view().name("MTMS/updateMaterialTypeList"))
+                .andExpect(model().attribute("name", notNullValue()))
+                .andExpect(model().attribute("logout", "on"))
+                .andExpect(model().attribute("materialTypes", notNullValue()))
+                .andExpect(model().attribute("roleName", notNullValue()));
+    }
+
+    @Test
+    public void updateMaterialTypeTest() throws Exception {
+
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("inputMaterialType", "TEST2");
+
+        this.mockMvc.perform(post("/mtms/materialTypePrivate/create").principal(principal).param("data", jsonObject1.toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.process", containsString("success")));
+
+        this.mockMvc.perform(get("/mtms/materialTypePrivate/" + materialTypeService.findByTypeName("TEST2").getId()).principal(principal).param("update", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name("MTMS/updateMaterialType"))
+                .andExpect(model().attribute("name", notNullValue()))
+                .andExpect(model().attribute("materialType", notNullValue()))
+                .andExpect(model().attribute("logout", "on"))
+                .andExpect(model().attribute("roleName", notNullValue()));
+    }
 }

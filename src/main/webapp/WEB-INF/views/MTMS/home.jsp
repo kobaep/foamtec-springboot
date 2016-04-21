@@ -23,5 +23,24 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-5">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Option Menu</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <c:if test="${not empty name and roleName eq 'admin'}" >
+                            <a href="${home}mtms/materialTypePrivate?form" class="list-group-item list-group-item-info">
+                                Create Material Type
+                            </a>
+                            <a href="${home}mtms/materialTypePrivate/update?list" class="list-group-item list-group-item-info">
+                                Update Material Type
+                            </a>
+                        </c:if>
+                    </div>
+                </div>
+            </div>
+        </div>
 	</div>
 </div>

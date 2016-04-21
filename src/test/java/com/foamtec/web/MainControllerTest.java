@@ -17,17 +17,17 @@ public class MainControllerTest extends AbstractTestController {
 	@Test
 	public void homeNonLoginTest() throws Exception {
 		this.mockMvc.perform(get("/")).andExpect(status().isOk())
-		.andExpect(view().name("home"))
-		.andExpect(model().attribute("login", "on"));
+                .andExpect(view().name("home"))
+                .andExpect(model().attribute("login", "on"));
 	}
 	
 	@Test
 	public void homeOnLoginTest() throws Exception {
 		this.mockMvc.perform(get("/").principal(principal))
-		.andExpect(status().isOk())
-		.andExpect(view().name("home"))
-		.andExpect(model().attribute("name", notNullValue()))
-		.andExpect(model().attribute("logout", "on"))
-		.andExpect(model().attribute("roleName", notNullValue()));
+                .andExpect(status().isOk())
+                .andExpect(view().name("home"))
+                .andExpect(model().attribute("name", notNullValue()))
+                .andExpect(model().attribute("logout", "on"))
+                .andExpect(model().attribute("roleName", notNullValue()));
 	}
 }

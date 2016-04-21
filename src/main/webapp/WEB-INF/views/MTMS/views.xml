@@ -6,4 +6,16 @@
 	<definition name="MTMS/home" extends="layout.basic">
 		<put-attribute name="body" value="/WEB-INF/views/MTMS/home.jsp" />
 	</definition>
+
+	<definition name="MTMS/createMaterialType" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/MTMS/createMaterialType.jsp" />
+	</definition>
+
+	<definition name="MTMS/updateMaterialType" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/MTMS/updateMaterialType.jsp" />
+	</definition>
+
+	<definition name="MTMS/updateMaterialTypeList" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/MTMS/updateMaterialTypeList.jsp" />
+	</definition>
 </tiles-definitions>

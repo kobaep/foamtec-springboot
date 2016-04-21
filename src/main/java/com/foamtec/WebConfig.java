@@ -3,6 +3,7 @@ package com.foamtec;
 import javax.servlet.Filter;
 
 import com.foamtec.service.AppUserService;
+import com.foamtec.service.MaterialTypeService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -39,6 +40,11 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     @Bean
     public AppUserService appUserService() {
         return new AppUserService();
+    }
+
+    @Bean
+    public MaterialTypeService materialTypeService() {
+        return new MaterialTypeService();
     }
 	
 }

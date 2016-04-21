@@ -10,13 +10,16 @@ public class ViewService {
 
 	@Autowired
 	private AppUserService appUserService;
+
+	@Autowired
+	private MaterialTypeService materialTypeService;
 	
 	public void addMenuAndName(ModelAndView model, Principal principal) {
 		if(principal.getName().equals("user")) {
 			model.addObject("name", principal.getName());
 			model.addObject("roleName", "testName");
 		} else {
-			AppUser appUser = appUserService.findByName(principal.getName());
+			AppUser appUser = appUserService.findByUsername(principal.getName());
 			model.addObject("name", appUser.getName());
 			model.addObject("roleName", appUser.getRoleName());
 		}
@@ -25,5 +28,13 @@ public class ViewService {
 	
 	public void addLogin(ModelAndView model) {
 		model.addObject("login", "on");
+	}
+
+	public void addMaterialTypes(ModelAndView model) {
+		model.addObject("materialTypes", materialTypeService.findAll());
+	}
+
+	public void addMaterialType(ModelAndView model, Long id) {
+		model.addObject("materialType", materialTypeService.findById(id));
 	}
 }
