@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 @Table(name="APP_USER")
 public class AppUser implements Serializable {
 
-	@Id
+    @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="id")
     private Long id;

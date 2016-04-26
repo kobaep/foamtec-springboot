@@ -42,7 +42,8 @@ public class Matter implements Serializable {
     private String manufacturing;
 
     @Column(name = "rohs")
-    private String rohs;
+    @Lob
+    private byte[] rohs;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -60,13 +61,16 @@ public class Matter implements Serializable {
     private Date rohsEndDateTest;
 
     @Column(name = "msds")
-    private String msds;
+    @Lob
+    private byte[] msds;
 
     @Column(name = "spec")
-    private String spec;
+    @Lob
+    private byte[] spec;
 
     @Column(name = "halogen")
-    private String halogen;
+    @Lob
+    private byte[] halogen;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -163,11 +167,11 @@ public class Matter implements Serializable {
         this.manufacturing = manufacturing;
     }
 
-    public String getRohs() {
+    public byte[] getRohs() {
         return rohs;
     }
 
-    public void setRohs(String rohs) {
+    public void setRohs(byte[] rohs) {
         this.rohs = rohs;
     }
 
@@ -195,27 +199,27 @@ public class Matter implements Serializable {
         this.rohsEndDateTest = rohsEndDateTest;
     }
 
-    public String getMsds() {
+    public byte[] getMsds() {
         return msds;
     }
 
-    public void setMsds(String msds) {
+    public void setMsds(byte[] msds) {
         this.msds = msds;
     }
 
-    public String getSpec() {
+    public byte[] getSpec() {
         return spec;
     }
 
-    public void setSpec(String spec) {
+    public void setSpec(byte[] spec) {
         this.spec = spec;
     }
 
-    public String getHalogen() {
+    public byte[] getHalogen() {
         return halogen;
     }
 
-    public void setHalogen(String halogen) {
+    public void setHalogen(byte[] halogen) {
         this.halogen = halogen;
     }
 

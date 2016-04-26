@@ -18,4 +18,12 @@
 	<definition name="MTMS/updateMaterialTypeList" extends="layout.basic">
 		<put-attribute name="body" value="/WEB-INF/views/MTMS/updateMaterialTypeList.jsp" />
 	</definition>
+
+	<definition name="MTMS/materialList" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/MTMS/materialList.jsp" />
+	</definition>
+
+	<definition name="MTMS/createMaterial" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/MTMS/createMaterial.jsp" />
+	</definition>
 </tiles-definitions>

@@ -1,7 +1,7 @@
 package com.foamtec.web;
 
-import com.foamtec.dao.MaterialTypeDao;
 import com.foamtec.service.MaterialTypeService;
+import com.foamtec.service.MatterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +9,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.IOException;
 import java.security.Principal;
 
 /**
@@ -26,6 +25,9 @@ public class MtmsControllerJson {
 
     @Autowired
     private MaterialTypeService materialTypeService;
+
+    @Autowired
+    private MatterService matterService;
 
     @RequestMapping(value = "/mtms/materialTypePrivate/create", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
@@ -64,6 +66,43 @@ public class MtmsControllerJson {
         } catch (Exception e) {
             return new ResponseEntity<String>("{\"process\":\"fail\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @RequestMapping(value = "/mtms/materialPrivate/create", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String> createMatter(MultipartHttpServletRequest multipartHttpServletRequest, Principal principal) throws IOException{
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        try {
+            materialTypeService.createMaterial(multipartHttpServletRequest, principal);
+            return new ResponseEntity<String>("{\"process\":\"success\"}", headers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<String>("{\"process\":\"fail\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/mtms/materialSpecPdf/{id}")
+    @ResponseBody
+    public byte[] materialSpecPdf(@PathVariable Long id)  {
+        return matterService.findById(id).getSpec();
+    }
+
+    @RequestMapping(value = "/mtms/materialMsdsPdf/{id}")
+    @ResponseBody
+    public byte[] materialMsdsPdf(@PathVariable Long id)  {
+        return matterService.findById(id).getMsds();
+    }
+
+    @RequestMapping(value = "/mtms/materialRohsPdf/{id}")
+    @ResponseBody
+    public byte[] materialRohsPdf(@PathVariable Long id)  {
+        return matterService.findById(id).getRohs();
+    }
+
+    @RequestMapping(value = "/mtms/materialHalogenPdf/{id}")
+    @ResponseBody
+    public byte[] materialHalogenPdf(@PathVariable Long id)  {
+        return matterService.findById(id).getHalogen();
     }
 
 }

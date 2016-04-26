@@ -69,7 +69,7 @@
 
         $("#btnDeleteConfirm").click(function() {
             var data = {
-                inputId : "${appUser.id}"
+                inputId : "${materialType.id}"
             };
             console.log(data);
             $.ajax({
