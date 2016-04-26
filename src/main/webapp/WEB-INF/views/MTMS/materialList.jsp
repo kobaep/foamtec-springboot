@@ -33,7 +33,37 @@
                 </div>
                 <div class="panel-body">
                     <div class="list-group">
+                        <c:forEach var="material" items="${materialType.matters}">
+                            <c:choose>
+                                <c:when test="${material.status eq 'CREATE' or material.status eq 'UPDATE'}">
+                                    <a href="${home}material/${material.id}?list" class="list-group-item list-group-item-warning not-active">
+                                        <span class="badge">${fn:length(material.materialCodes)}</span>
+                                            ${material.materialName}
+                                    </a>
+                                </c:when>
+                                <c:when test="${material.status eq 'REMOVE'}">
 
+                                </c:when>
+                                <c:when test="${material.status eq 'REJECT'}">
+                                    <a href="${home}material/${material.id}?list" class="list-group-item list-group-item-danger not-active">
+                                        <span class="badge">${fn:length(material.materialCodes)}</span>
+                                            ${material.materialName}
+                                    </a>
+                                </c:when>
+                                <c:when test="${material.status eq 'REQUESTDOC'}">
+                                    <a href="${home}material/${material.id}?list" class="list-group-item list-group-item-text not-active">
+                                        <span class="badge">${fn:length(material.materialCodes)}</span>
+                                            ${material.materialName}
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${home}material/${material.id}?list" class="list-group-item list-group-item-success">
+                                        <span class="badge">${fn:length(material.materialCodes)}</span>
+                                            ${material.materialName}
+                                    </a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
                     </div>
                 </div>
             </div>

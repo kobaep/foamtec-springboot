@@ -24,4 +24,8 @@ public class MatterService {
         return matterDao.getById(id);
     }
 
+    public List<Matter> findAll() {
+        return matterDao.getAll();
+    }
+
 }

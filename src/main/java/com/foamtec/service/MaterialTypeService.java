@@ -47,7 +47,7 @@ public class MaterialTypeService {
         JSONObject jsonObject = new JSONObject(data);
         AppUser appUser = appUserService.findByUsername(principal.getName());
         MaterialType materialType = materialTypeDao.getById(jsonObject.getLong("inputId"));
-        materialType.setCreateDate(new Date());
+        materialType.setUpdateDate(new Date());
         materialType.setCreateBy(appUser);
         materialType.setTypeName(jsonObject.getString("inputMaterialType"));
         materialTypeDao.create(materialType);
@@ -75,6 +75,10 @@ public class MaterialTypeService {
         Calendar cal = Calendar.getInstance();
 
         Matter matter = new Matter();
+
+        matter.setMaterialName(multipartHttpServletRequest.getParameter("inputMaterialName"));
+        matter.setUlNumber(multipartHttpServletRequest.getParameter("inputUlNumber"));
+        matter.setManufacturing(multipartHttpServletRequest.getParameter("inputManufacturing"));
 
         if(spec != null) {
             matter.setSpec(spec.getBytes());
@@ -109,6 +113,27 @@ public class MaterialTypeService {
         matter.setCreateDate(new Date());
         matter.setStatus("CREATE");
         matter.setFolw("qa");
+
+        Set<DocumentHistory> documentHistories = new HashSet<DocumentHistory>();
+        DocumentHistory documentHistory = new DocumentHistory();
+        documentHistory.setCreateBy(appUser);
+        documentHistory.setCreateDate(new Date());
+        documentHistory.setActionType("CREATE");
+        documentHistory.setRemark("create material");
+        documentHistory.setStatus("CREATE");
+        documentHistory.setMatter(matter);
+        documentHistories.add(documentHistory);
+
+        matter.setDocumentHistorys(documentHistories);
+        matter.setMaterialType(materialType);
+
+        Set<Matter> matters = materialType.getMatters();
+
+        matters.add(matter);
+
+        materialType.setMatters(matters);
+
+        materialTypeDao.update(materialType);
     }
 
     public List<MaterialType> findAll() {
