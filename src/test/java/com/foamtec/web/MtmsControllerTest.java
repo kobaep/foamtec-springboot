@@ -94,4 +94,56 @@ public class MtmsControllerTest extends AbstractTestController {
                 .andExpect(model().attribute("logout", "on"))
                 .andExpect(model().attribute("roleName", notNullValue()));
     }
+
+    @Test
+    public void matterListNonLoginTest() throws Exception {
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("inputMaterialType", "TEST3");
+
+        this.mockMvc.perform(post("/mtms/materialTypePrivate/create").principal(principal).param("data", jsonObject1.toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.process", containsString("success")));
+
+        this.mockMvc.perform(get("/mtms/material/" + materialTypeService.findByTypeName("TEST3").getId()).param("list", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name("MTMS/materialList"))
+                .andExpect(model().attribute("materialType", notNullValue()))
+                .andExpect(model().attribute("login", "on"));
+    }
+
+    @Test
+    public void matterListOnLoginTest() throws Exception {
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("inputMaterialType", "TEST4");
+
+        this.mockMvc.perform(post("/mtms/materialTypePrivate/create").principal(principal).param("data", jsonObject1.toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.process", containsString("success")));
+
+        this.mockMvc.perform(get("/mtms/material/" + materialTypeService.findByTypeName("TEST4").getId()).principal(principal).param("list", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name("MTMS/materialList"))
+                .andExpect(model().attribute("name", notNullValue()))
+                .andExpect(model().attribute("materialType", notNullValue()))
+                .andExpect(model().attribute("logout", "on"))
+                .andExpect(model().attribute("roleName", notNullValue()));
+    }
+
+    @Test
+    public void createMaterialTest() throws Exception {
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("inputMaterialType", "TEST5");
+
+        this.mockMvc.perform(post("/mtms/materialTypePrivate/create").principal(principal).param("data", jsonObject1.toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.process", containsString("success")));
+
+        this.mockMvc.perform(get("/mtms/materialPrivate/" + materialTypeService.findByTypeName("TEST5").getId()).principal(principal).param("form", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name("MTMS/createMaterial"))
+                .andExpect(model().attribute("name", notNullValue()))
+                .andExpect(model().attribute("materialType", notNullValue()))
+                .andExpect(model().attribute("logout", "on"))
+                .andExpect(model().attribute("roleName", notNullValue()));
+    }
 }

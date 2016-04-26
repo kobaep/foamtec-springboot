@@ -17,7 +17,7 @@ public class ViewService {
 	public void addMenuAndName(ModelAndView model, Principal principal) {
 		if(principal.getName().equals("user")) {
 			model.addObject("name", principal.getName());
-			model.addObject("roleName", "testName");
+			model.addObject("roleName", "user");
 		} else {
 			AppUser appUser = appUserService.findByUsername(principal.getName());
 			model.addObject("name", appUser.getName());

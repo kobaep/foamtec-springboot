@@ -6,7 +6,7 @@
 <spring:url value="/" var="home" />
 <div class="container">
     <div class="row">
-        <div class="col-sm-offset-4 col-sm-4">
+        <div class="col-sm-offset-3 col-sm-6">
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <h3 class="panel-title">Material Type</h3>
@@ -14,7 +14,7 @@
                 <div class="panel-body">
                     <div class="list-group">
                         <c:forEach var="materialType" items="${materialTypes}">
-                            <a href="${home}materialType/${materialType.id}?update" class="list-group-item list-group-item-success">
+                            <a href="${home}mtms/materialTypePrivate/${materialType.id}?update" class="list-group-item list-group-item-success">
                                     ${materialType.typeName}
                             </a>
                         </c:forEach>

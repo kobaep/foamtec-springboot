@@ -35,7 +35,7 @@ public class MtmsController {
 	}
 
 	@RequestMapping(value = "/mtms/materialTypePrivate", params = "form", method = RequestMethod.GET)
-	public ModelAndView createMaterial(ModelAndView model, Principal principal) {
+	public ModelAndView createMaterialType(ModelAndView model, Principal principal) {
 		viewService.addMenuAndName(model, principal);
 		model.setViewName("MTMS/createMaterialType");
 		return model;
@@ -50,10 +50,31 @@ public class MtmsController {
 	}
 
 	@RequestMapping(value = "/mtms/materialTypePrivate/{id}", params = "update", method = RequestMethod.GET)
-	public ModelAndView updateMaterial(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+	public ModelAndView updateMaterialType(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
 		viewService.addMenuAndName(model, principal);
 		viewService.addMaterialType(model, id);
 		model.setViewName("MTMS/updateMaterialType");
+		return model;
+	}
+
+	@RequestMapping(value = "/mtms/material/{id}", params = "list", method = RequestMethod.GET)
+	public ModelAndView matterList(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+		try {
+			principal.getName();
+			viewService.addMenuAndName(model, principal);
+		} catch (Exception e) {
+			viewService.addLogin(model);
+		}
+		viewService.addMaterialType(model, id);
+		model.setViewName("MTMS/materialList");
+		return model;
+	}
+
+	@RequestMapping(value = "/mtms/materialPrivate/{id}", params = "form", method = RequestMethod.GET)
+	public ModelAndView createMaterial(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+		viewService.addMenuAndName(model, principal);
+		viewService.addMaterialType(model, id);
+		model.setViewName("MTMS/createMaterial");
 		return model;
 	}
 }

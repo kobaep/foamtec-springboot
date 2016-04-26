@@ -14,7 +14,7 @@
                 <div class="panel-body">
                     <div class="list-group">
                         <c:forEach var="materialType" items="${materialTypes}">
-                            <a href="${home}materialType/${materialType.id}?list" class="list-group-item list-group-item-success">
+                            <a href="${home}mtms/material/${materialType.id}?list" class="list-group-item list-group-item-success">
                                 <span class="badge">${fn:length(materialType.matters)}</span>
                                 ${materialType.typeName}
                             </a>

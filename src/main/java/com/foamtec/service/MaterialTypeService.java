@@ -2,15 +2,22 @@ package com.foamtec.service;
 
 import com.foamtec.dao.MaterialTypeDao;
 import com.foamtec.domain.AppUser;
+import com.foamtec.domain.DocumentHistory;
 import com.foamtec.domain.MaterialType;
+import com.foamtec.domain.Matter;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.IOException;
 import java.security.Principal;
-import java.util.Date;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by apichat on 4/20/2016 AD.
@@ -51,6 +58,57 @@ public class MaterialTypeService {
         JSONObject jsonObject = new JSONObject(data);
         MaterialType materialType = findById(jsonObject.getLong("inputId"));
         materialTypeDao.delete(materialType);
+    }
+
+    public void createMaterial(MultipartHttpServletRequest multipartHttpServletRequest, Principal principal) throws IOException, ParseException {
+        MultipartFile spec = multipartHttpServletRequest.getFile("inputSpec");
+        MultipartFile rohs = multipartHttpServletRequest.getFile("inputRoHs");
+        MultipartFile msds = multipartHttpServletRequest.getFile("inputMSDS");
+        MultipartFile halogen = multipartHttpServletRequest.getFile("inputHalogen");
+
+        String dateRohs = multipartHttpServletRequest.getParameter("inputDateRoHs");
+        String dateHalogen = multipartHttpServletRequest.getParameter("inputDateHF");
+
+        MaterialType materialType = materialTypeDao.getById(Long.parseLong(multipartHttpServletRequest.getParameter("id")));
+
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+
+        Matter matter = new Matter();
+
+        if(spec != null) {
+            matter.setSpec(spec.getBytes());
+        }
+        if(rohs != null) {
+            matter.setRohs(rohs.getBytes());
+            Date date = df.parse(dateRohs);
+            matter.setRohsDateTest(date);
+            cal.setTime(date);
+            cal.add(Calendar.YEAR, 1);
+            matter.setRohsEndDateTest(cal.getTime());
+            cal.add(Calendar.MONTH, -3);
+            matter.setRohsAlertDateTest(cal.getTime());
+        }
+        if(msds != null) {
+            matter.setMsds(msds.getBytes());
+        }
+        if(halogen != null) {
+            matter.setHalogen(halogen.getBytes());
+            Date date = df.parse(dateHalogen);
+            matter.setHalogenDateTest(date);
+            cal.setTime(date);
+            cal.add(Calendar.YEAR, 1);
+            matter.setHalogenEndDateTest(cal.getTime());
+            cal.add(Calendar.MONTH, -3);
+            matter.setHalogenAlertDateTest(cal.getTime());
+        }
+
+        AppUser appUser = appUserService.findByUsername(principal.getName());
+
+        matter.setCreateBy(appUser);
+        matter.setCreateDate(new Date());
+        matter.setStatus("CREATE");
+        matter.setFolw("qa");
     }
 
     public List<MaterialType> findAll() {

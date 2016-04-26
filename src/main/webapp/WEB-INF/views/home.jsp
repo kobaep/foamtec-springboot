@@ -13,7 +13,7 @@
 	<div class="row">
 		<div class="col-md-4">
 			<h2>FAMS</h2>
-			<p>FA Management Service</p>
+			<p>FA Management System</p>
 			<p>ระบบบริหารจัดการส่วนงาน FA</p>
 			<p>
 				<a class="btn btn-default" href="#" role="button">View
@@ -22,7 +22,7 @@
 		</div>
 		<div class="col-md-4">
 			<h2>MTMS</h2>
-			<p>Material Management Service</p>
+			<p>Material Management System</p>
 			<p>ระบบบริหารจัดการส่วนงาน Material</p>
 			<p>
 				<a class="btn btn-default" href="${home}mtms"
@@ -30,10 +30,11 @@
 			</p>
 		</div>
 		<div class="col-md-4">
-			<h2>Heading</h2>
-			<p>ABC</p>
+			<h2>ESTS</h2>
+			<p>Employee Self Test System</p>
+			<p>ระบบสอบด้วยตัวเอง</p>
 			<p>
-				<a class="btn btn-default" href="#" role="button">View details</a>
+				<a class="btn btn-default" href="${home}mtms/materialPdf/1.pdf" target="_blank" role="button">View details</a>
 			</p>
 		</div>
 	</div>

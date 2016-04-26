@@ -21,31 +21,28 @@
 </div>
 <script>
     $(document).ready(function() {
-        $(document).ready(function() {
-
-            $("#materialTypeFormId").submit(function() {
-                var data = {
-                    inputMaterialType : $("#inputMaterialType").val()
-                };
-                $.ajax({
-                    url: '${home}mtms/materialTypePrivate/create',
-                    type: "POST",
-                    headers: {
-                        Accept: "application/json"
-                    },
-                    data: {
-                        data : JSON.stringify(data)
-                    },
-                    dataType: "json",
-                    success: function(data){
-                        window.location.href = "${home}mtms";
-                    },
-                    error: function(data){
-                        alert("saved error.");
-                    }
-                });
-                return false;
+        $("#materialTypeFormId").submit(function() {
+            var data = {
+                inputMaterialType : $("#inputMaterialType").val()
+            };
+            $.ajax({
+                url: '${home}mtms/materialTypePrivate/create',
+                type: "POST",
+                headers: {
+                    Accept: "application/json"
+                },
+                data: {
+                    data : JSON.stringify(data)
+                },
+                dataType: "json",
+                success: function(data){
+                    window.location.href = "${home}mtms";
+                },
+                error: function(data){
+                    alert("saved error.");
+                }
             });
+            return false;
         });
     });
 </script>

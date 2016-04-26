@@ -2,16 +2,13 @@ package com.foamtec;
 
 import javax.servlet.Filter;
 
-import com.foamtec.service.AppUserService;
-import com.foamtec.service.MaterialTypeService;
+import com.foamtec.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import com.foamtec.service.ViewService;
 
 @Configuration
 @EnableWebMvc
@@ -45,6 +42,11 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     @Bean
     public MaterialTypeService materialTypeService() {
         return new MaterialTypeService();
+    }
+
+    @Bean
+    public MatterService matterService() {
+        return new MatterService();
     }
 	
 }
