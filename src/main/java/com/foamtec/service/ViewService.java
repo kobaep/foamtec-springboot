@@ -13,6 +13,9 @@ public class ViewService {
 
 	@Autowired
 	private MaterialTypeService materialTypeService;
+
+	@Autowired
+	private MatterService matterService;
 	
 	public void addMenuAndName(ModelAndView model, Principal principal) {
 		if(principal.getName().equals("user")) {
@@ -32,6 +35,7 @@ public class ViewService {
 
 	public void addMaterialTypes(ModelAndView model) {
 		model.addObject("materialTypes", materialTypeService.findAll());
+		model.addObject("materials", matterService.findAll());
 	}
 
 	public void addMaterialType(ModelAndView model, Long id) {

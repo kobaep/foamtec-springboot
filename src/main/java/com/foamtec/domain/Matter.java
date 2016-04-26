@@ -35,7 +35,7 @@ public class Matter implements Serializable {
     @OneToOne(fetch = FetchType.EAGER)
     private AppUser updateBy;
 
-    @Column(name = "materialName")
+    @Column(name = "materialName", unique = true)
     private String materialName;
 
     @Column(name = "manufacturing")

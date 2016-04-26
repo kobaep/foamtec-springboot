@@ -15,7 +15,8 @@
                     <div class="list-group">
                         <c:forEach var="materialType" items="${materialTypes}">
                             <a href="${home}mtms/materialTypePrivate/${materialType.id}?update" class="list-group-item list-group-item-success">
-                                    ${materialType.typeName}
+                                <span class="badge">${fn:length(materialType.matters)}</span>
+                                ${materialType.typeName}
                             </a>
                         </c:forEach>
                     </div>

@@ -38,6 +38,10 @@
                                 Update Material Type
                             </a>
                         </c:if>
+                        <a href="${home}materialType?waitApproveList" class="list-group-item list-group-item-info">
+                            <span class="badge">${fn:length(materials)}</span>
+                            Waiting Approve
+                        </a>
                     </div>
                 </div>
             </div>

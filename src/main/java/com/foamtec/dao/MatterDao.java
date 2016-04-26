@@ -1,6 +1,5 @@
 package com.foamtec.dao;
 
-import com.foamtec.domain.MaterialType;
 import com.foamtec.domain.Matter;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -25,6 +24,10 @@ public class MatterDao {
 
     public Matter getById(long id) {
         return entityManager.find(Matter.class, id);
+    }
+
+    public List<Matter> getAll() {
+        return entityManager.createQuery("SELECT o FROM Matter o order by createDate", Matter.class).getResultList();
     }
 
 }

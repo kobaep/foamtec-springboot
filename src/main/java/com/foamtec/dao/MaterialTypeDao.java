@@ -35,9 +35,7 @@ public class MaterialTypeDao {
     }
 
     public List<MaterialType> getAll() {
-        Criteria c = ((Session) entityManager.getDelegate()).createCriteria(MaterialType.class);
-        c.addOrder(Order.asc("createDate"));
-        return c.list();
+        return entityManager.createQuery("SELECT o FROM MaterialType o order by createDate", MaterialType.class).getResultList();
     }
 
     public MaterialType getById(long id) {
@@ -46,6 +44,7 @@ public class MaterialTypeDao {
 
     public void update(MaterialType materialType) {
         entityManager.merge(materialType);
+        entityManager.flush();
     }
 
     public MaterialType findByTypeName(String typeName) {
