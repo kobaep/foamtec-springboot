@@ -103,6 +103,18 @@ public class Matter implements Serializable {
     @Column(name = "reason")
     private String reason;
 
+    @Column(name = "specUrl")
+    private String specUrl;
+
+    @Column(name = "rohsUrl")
+    private String rohsUrl;
+
+    @Column(name = "msdsUrl")
+    private String msdsUrl;
+
+    @Column(name = "halogenUrl")
+    private String halogenUrl;
+
     @OrderBy("createDate")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "matter")
     private Set<MaterialCode> materialCodes = new HashSet<MaterialCode>();
@@ -301,5 +313,37 @@ public class Matter implements Serializable {
 
     public void setDocumentHistorys(Set<DocumentHistory> documentHistorys) {
         this.documentHistorys = documentHistorys;
+    }
+
+    public String getSpecUrl() {
+        return specUrl;
+    }
+
+    public void setSpecUrl(String specUrl) {
+        this.specUrl = specUrl;
+    }
+
+    public String getRohsUrl() {
+        return rohsUrl;
+    }
+
+    public void setRohsUrl(String rohsUrl) {
+        this.rohsUrl = rohsUrl;
+    }
+
+    public String getMsdsUrl() {
+        return msdsUrl;
+    }
+
+    public void setMsdsUrl(String msdsUrl) {
+        this.msdsUrl = msdsUrl;
+    }
+
+    public String getHalogenUrl() {
+        return halogenUrl;
+    }
+
+    public void setHalogenUrl(String halogenUrl) {
+        this.halogenUrl = halogenUrl;
     }
 }
