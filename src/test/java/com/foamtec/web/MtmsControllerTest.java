@@ -28,6 +28,26 @@ public class MtmsControllerTest extends AbstractTestController {
 				.andExpect(model().attribute("login", "on"));
 	}
 
+    @Test
+    public void materialWaitApproveListNonLoginTest() throws Exception {
+        this.mockMvc.perform(get("/mtms/material").param("waitApproveList", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name("MTMS/waitApproveList"))
+                .andExpect(model().attribute("materials", notNullValue()))
+                .andExpect(model().attribute("login", "on"));
+    }
+
+    @Test
+    public void materialWaitApproveListOnLoginTest() throws Exception {
+        this.mockMvc.perform(get("/mtms/material").param("waitApproveList", "").principal(principal))
+                .andExpect(status().isOk())
+                .andExpect(view().name("MTMS/waitApproveList"))
+                .andExpect(model().attribute("materials", notNullValue()))
+                .andExpect(model().attribute("name", notNullValue()))
+                .andExpect(model().attribute("logout", "on"))
+                .andExpect(model().attribute("roleName", notNullValue()));
+    }
+
 	@Test
 	public void homeMtmsOnLoginTest() throws Exception {
 
@@ -146,4 +166,41 @@ public class MtmsControllerTest extends AbstractTestController {
                 .andExpect(model().attribute("logout", "on"))
                 .andExpect(model().attribute("roleName", notNullValue()));
     }
+
+    @Test
+    public void materialUpdateListNonLoginTest() throws Exception {
+
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("inputMaterialType", "TEST6");
+
+        this.mockMvc.perform(post("/mtms/materialTypePrivate/create").principal(principal).param("data", jsonObject1.toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.process", containsString("success")));
+
+        this.mockMvc.perform(get("/mtms/material/" + materialTypeService.findByTypeName("TEST6").getId()).param("updateList", ""))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("materialType", notNullValue()))
+                .andExpect(view().name("MTMS/materialUpdateList"))
+                .andExpect(model().attribute("login", "on"));
+    }
+
+    @Test
+    public void materialUpdateListOnLoginTest() throws Exception {
+
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("inputMaterialType", "TEST7");
+
+        this.mockMvc.perform(post("/mtms/materialTypePrivate/create").principal(principal).param("data", jsonObject1.toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.process", containsString("success")));
+
+        this.mockMvc.perform(get("/mtms/material/" + materialTypeService.findByTypeName("TEST7").getId()).principal(principal).param("updateList", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name("MTMS/materialUpdateList"))
+                .andExpect(model().attribute("materialType", notNullValue()))
+                .andExpect(model().attribute("name", notNullValue()))
+                .andExpect(model().attribute("logout", "on"))
+                .andExpect(model().attribute("roleName", notNullValue()));
+    }
+
 }

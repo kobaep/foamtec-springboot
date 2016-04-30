@@ -16,7 +16,7 @@
                         <a href="${home}mtms/materialPrivate/${materialType.id}?form" class="list-group-item list-group-item-info">
                             Create Material
                         </a>
-                        <a href="${home}mtms/materialPrivate/${materialType.id}?update" class="list-group-item list-group-item-info">
+                        <a href="${home}mtms/material/${materialType.id}?updateList" class="list-group-item list-group-item-info">
                             Update Material
                         </a>
                         <a href="${home}mtms/materialSapPrivate/${materialType.id}?form" class="list-group-item list-group-item-info">

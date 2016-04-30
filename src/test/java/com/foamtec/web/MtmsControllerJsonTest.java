@@ -1,6 +1,7 @@
 package com.foamtec.web;
 
 import com.foamtec.dao.MaterialTypeDao;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.hamcrest.Matchers;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -8,12 +9,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.http.MediaType;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.File;
 import java.util.*;
 
