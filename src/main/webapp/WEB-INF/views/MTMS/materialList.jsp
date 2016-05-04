@@ -51,13 +51,13 @@
                                     </a>
                                 </c:when>
                                 <c:when test="${material.status eq 'REQUESTDOC'}">
-                                    <a href="${home}material/${material.id}?list" class="list-group-item list-group-item-text not-active">
+                                    <a href="${home}material/${material.id}?list" class="list-group-item list-group-item-warning not-active">
                                         <span class="badge">${fn:length(material.materialCodes)}</span>
                                             ${material.materialName}
                                     </a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="${home}material/${material.id}?list" class="list-group-item list-group-item-success">
+                                    <a href="${home}mtms/material/${material.id}?approvel" class="list-group-item list-group-item-success">
                                         <span class="badge">${fn:length(material.materialCodes)}</span>
                                             ${material.materialName}
                                     </a>

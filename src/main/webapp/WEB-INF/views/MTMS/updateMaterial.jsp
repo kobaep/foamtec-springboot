@@ -80,7 +80,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" id="btnUpdate" class="btn btn-primary btn-lg">Update</button>
-                <c:if test="${material.status eq 'CREATE' or material.status eq 'UPDATE'}">
+                <c:if test="${material.status eq 'CREATE'}">
                     <button type="button" id="btnDelete" class="btn btn-danger btn-lg col-sm-offset-1">Remove</button>
                 </c:if>
             </div>

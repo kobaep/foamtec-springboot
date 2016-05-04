@@ -47,6 +47,13 @@ public class MatterDao {
         return query.list();
     }
 
+    public List<Matter> findByStatus(String status) {
+        Session session = ((Session) entityManager.getDelegate());
+        org.hibernate.Query query = session.createQuery("SELECT o FROM Matter o WHERE o.status = :status order by createDate");
+        query.setParameter("status", status);
+        return query.list();
+    }
+
     public void update(Matter matter) {
         entityManager.merge(matter);
         entityManager.flush();

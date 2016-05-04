@@ -42,6 +42,10 @@
                             <span class="badge">${fn:length(materials)}</span>
                             Waiting Approve
                         </a>
+                        <a href="${home}mtms/material?rejectList" class="list-group-item list-group-item-danger">
+                            <span class="badge">${fn:length(materialsReject)}</span>
+                            Additional requests or reject
+                        </a>
                     </div>
                 </div>
             </div>

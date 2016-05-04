@@ -44,6 +44,10 @@ public class MatterService {
         return matterDao.findByStatus(status1, status2);
     }
 
+    public List<Matter> findByStatus(String status) {
+        return matterDao.findByStatus(status);
+    }
+
     public void updateMaterialFileUrlPath(MultipartHttpServletRequest multipartHttpServletRequest, Principal principal, HttpServletRequest request) throws IOException, ParseException {
         MultipartFile spec = multipartHttpServletRequest.getFile("inputSpec");
         MultipartFile rohs = multipartHttpServletRequest.getFile("inputRoHs");

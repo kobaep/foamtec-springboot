@@ -42,4 +42,12 @@
 	<definition name="MTMS/approveMaterial" extends="layout.basic">
 		<put-attribute name="body" value="/WEB-INF/views/MTMS/approveMaterial.jsp" />
 	</definition>
+
+	<definition name="MTMS/rejectListMaterial" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/MTMS/rejectListMaterial.jsp" />
+	</definition>
+
+	<definition name="MTMS/materialApprovel" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/MTMS/materialApprovel.jsp" />
+	</definition>
 </tiles-definitions>

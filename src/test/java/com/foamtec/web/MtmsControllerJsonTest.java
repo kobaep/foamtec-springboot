@@ -1,6 +1,7 @@
 package com.foamtec.web;
 
 import com.foamtec.dao.MaterialTypeDao;
+import com.foamtec.service.MaterialTypeService;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.hamcrest.Matchers;
 import org.json.JSONObject;
@@ -8,6 +9,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.util.MultiValueMap;
@@ -25,6 +27,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.hamcrest.Matchers.*;
 /**
@@ -36,6 +39,9 @@ public class MtmsControllerJsonTest extends AbstractTestController {
 
     @Autowired
     private MaterialTypeDao materialTypeDao;
+
+    @Autowired
+    private MaterialTypeService materialTypeService;
 
     @Test
     public void materialTypeCreateTest() throws Exception {

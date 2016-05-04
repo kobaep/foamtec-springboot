@@ -2,6 +2,8 @@ package com.foamtec.web;
 
 import java.security.Principal;
 
+import com.foamtec.service.MaterialTypeService;
+import com.foamtec.service.MatterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,12 @@ public class MtmsController {
 	@Autowired
 	private ViewService viewService;
 
+	@Autowired
+	private MaterialTypeService materialTypeService;
+
+	@Autowired
+	private MatterService matterService;
+
 	@RequestMapping(value = "/mtms", method = RequestMethod.GET)
 	public ModelAndView homeMtms(ModelAndView model, Principal principal) {
 		try {
@@ -29,7 +37,9 @@ public class MtmsController {
 		} catch (Exception e) {
 			viewService.addLogin(model);
 		}
-		viewService.addMaterialTypes(model);
+		model.addObject("materialTypes", materialTypeService.findAll());
+		model.addObject("materials", matterService.findByStatus("CREATE","UPDATE"));
+		model.addObject("materialsReject", matterService.findByStatus("REJECT", "REQUESTDOC"));
 		model.setViewName("MTMS/home");
 		return model;
 	}
@@ -42,7 +52,7 @@ public class MtmsController {
 		} catch (Exception e) {
 			viewService.addLogin(model);
 		}
-		viewService.addMaterialTypes(model);
+		model.addObject("materials", matterService.findByStatus("CREATE","UPDATE"));
 		model.setViewName("MTMS/waitApproveList");
 		return model;
 	}
@@ -57,7 +67,7 @@ public class MtmsController {
 	@RequestMapping(value = "/mtms/materialTypePrivate/update", params = "list", method = RequestMethod.GET)
 	public ModelAndView updateMaterialTypeList(ModelAndView model, Principal principal) {
 		viewService.addMenuAndName(model, principal);
-		viewService.addMaterialTypes(model);
+		model.addObject("materialTypes", materialTypeService.findAll());
 		model.setViewName("MTMS/updateMaterialTypeList");
 		return model;
 	}
@@ -65,7 +75,7 @@ public class MtmsController {
 	@RequestMapping(value = "/mtms/materialTypePrivate/{id}", params = "update", method = RequestMethod.GET)
 	public ModelAndView updateMaterialType(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
 		viewService.addMenuAndName(model, principal);
-		viewService.addMaterialType(model, id);
+		model.addObject("materialType", materialTypeService.findById(id));
 		model.setViewName("MTMS/updateMaterialType");
 		return model;
 	}
@@ -78,7 +88,7 @@ public class MtmsController {
 		} catch (Exception e) {
 			viewService.addLogin(model);
 		}
-		viewService.addMaterialType(model, id);
+		model.addObject("materialType", materialTypeService.findById(id));
 		model.setViewName("MTMS/materialList");
 		return model;
 	}
@@ -91,7 +101,7 @@ public class MtmsController {
 		} catch (Exception e) {
 			viewService.addLogin(model);
 		}
-		viewService.addMaterialType(model, id);
+		model.addObject("materialType", materialTypeService.findById(id));
 		model.setViewName("MTMS/materialUpdateList");
 		return model;
 	}
@@ -99,7 +109,7 @@ public class MtmsController {
 	@RequestMapping(value = "/mtms/materialPrivate/{id}", params = "form", method = RequestMethod.GET)
 	public ModelAndView createMaterial(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
 		viewService.addMenuAndName(model, principal);
-		viewService.addMaterialType(model, id);
+		model.addObject("materialType", materialTypeService.findById(id));
 		model.setViewName("MTMS/createMaterial");
 		return model;
 	}
@@ -107,7 +117,7 @@ public class MtmsController {
 	@RequestMapping(value = "/mtms/materialPrivate/{id}", params = "update", method = RequestMethod.GET)
 	public ModelAndView updateMaterial(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
 		viewService.addMenuAndName(model, principal);
-		viewService.addMaterial(model, id);
+		model.addObject("material", matterService.findById(id));
 		model.setViewName("MTMS/updateMaterial");
 		return model;
 	}
@@ -115,8 +125,34 @@ public class MtmsController {
 	@RequestMapping(value = "/mtms/materialPrivate/{id}", params = "approve", method = RequestMethod.GET)
 	public ModelAndView approveMaterial(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
 		viewService.addMenuAndName(model, principal);
-		viewService.addMaterial(model, id);
+		model.addObject("material", matterService.findById(id));
 		model.setViewName("MTMS/approveMaterial");
+		return model;
+	}
+
+	@RequestMapping(value = "/mtms/material", params = "rejectList", method = RequestMethod.GET)
+	public ModelAndView rejectListMaterial(ModelAndView model, Principal principal) {
+		try {
+			principal.getName();
+			viewService.addMenuAndName(model, principal);
+		} catch (Exception e) {
+			viewService.addLogin(model);
+		}
+		model.addObject("materialsReject", matterService.findByStatus("REJECT", "REQUESTDOC"));
+		model.setViewName("MTMS/rejectListMaterial");
+		return model;
+	}
+
+	@RequestMapping(value = "/mtms/material/{id}", params = "approvel", method = RequestMethod.GET)
+	public ModelAndView materialsApprovel(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+		try {
+			principal.getName();
+			viewService.addMenuAndName(model, principal);
+		} catch (Exception e) {
+			viewService.addLogin(model);
+		}
+		model.addObject("material", matterService.findById(id));
+		model.setViewName("MTMS/materialApprovel");
 		return model;
 	}
 }

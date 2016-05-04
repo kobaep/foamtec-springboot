@@ -32,17 +32,4 @@ public class ViewService {
 	public void addLogin(ModelAndView model) {
 		model.addObject("login", "on");
 	}
-
-	public void addMaterialTypes(ModelAndView model) {
-		model.addObject("materialTypes", materialTypeService.findAll());
-		model.addObject("materials", matterService.findByStatus("CREATE","UPDATE"));
-	}
-
-	public void addMaterialType(ModelAndView model, Long id) {
-		model.addObject("materialType", materialTypeService.findById(id));
-	}
-
-	public void addMaterial(ModelAndView model, Long id) {
-		model.addObject("material", matterService.findById(id));
-	}
 }
