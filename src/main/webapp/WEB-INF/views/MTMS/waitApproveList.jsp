@@ -67,7 +67,7 @@
                                     </c:choose>
                                     <td>${appuser.name}</td>
                                     <td>
-                                        <a class="btn btn-primary btn-sm" href="${home}materialPrivate/${material.id}?approve" role="button">
+                                        <a class="btn btn-primary btn-sm" href="${home}mtms/materialPrivate/${material.id}?approve" role="button">
                                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                         </a>
                                     </td>

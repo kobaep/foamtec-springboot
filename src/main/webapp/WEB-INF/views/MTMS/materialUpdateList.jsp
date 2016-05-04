@@ -14,7 +14,7 @@
                 <div class="panel-body">
                     <div class="list-group">
                         <c:forEach var="material" items="${materialType.matters}">
-                            <c:if test="${material.status eq 'CREATE'}">
+                            <c:if test="${material.status eq 'CREATE' or material.status eq 'UPDATE'}">
                                 <a href="${home}mtms/materialPrivate/${material.id}?update" class="list-group-item list-group-item-success">
                                     <span class="badge">${fn:length(material.materialCodes)}</span>
                                         ${material.materialName}

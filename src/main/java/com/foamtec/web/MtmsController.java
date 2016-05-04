@@ -111,4 +111,12 @@ public class MtmsController {
 		model.setViewName("MTMS/updateMaterial");
 		return model;
 	}
+
+	@RequestMapping(value = "/mtms/materialPrivate/{id}", params = "approve", method = RequestMethod.GET)
+	public ModelAndView approveMaterial(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+		viewService.addMenuAndName(model, principal);
+		viewService.addMaterial(model, id);
+		model.setViewName("MTMS/approveMaterial");
+		return model;
+	}
 }

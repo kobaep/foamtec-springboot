@@ -80,13 +80,29 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" id="btnUpdate" class="btn btn-primary btn-lg">Update</button>
-                <c:if test="${material.status eq 'CREATE' or material.status eq 'REJECT'}">
-                    <button type="button" id="btnCancle" class="btn btn-danger btn-lg col-sm-offset-1">Remove</button>
+                <c:if test="${material.status eq 'CREATE' or material.status eq 'UPDATE'}">
+                    <button type="button" id="btnDelete" class="btn btn-danger btn-lg col-sm-offset-1">Remove</button>
                 </c:if>
             </div>
         </div>
     </form>
     <c:set var="materialType" value="${material.materialType}"/>
+</div>
+<div class="modal fade" id="alertDeleteModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <h4 class="modal-title">Warning</h4>
+            </div>
+            <div class="modal-body">
+                Delete form database.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnDeleteConfirm">Confirm</button>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
     $(document).ready(function() {
@@ -144,7 +160,11 @@
             return false;
         });
 
-        $("#btnCancle").click(function() {
+        $("#btnDelete").click(function() {
+            $("#alertDeleteModal").modal({show:true});
+        });
+
+        $("#btnDeleteConfirm").click(function() {
             var data = {
                 inputId : "${material.id}"
             };

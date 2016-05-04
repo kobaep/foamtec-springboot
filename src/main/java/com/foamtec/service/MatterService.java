@@ -40,6 +40,10 @@ public class MatterService {
         return matterDao.getAll();
     }
 
+    public List<Matter> findByStatus(String status1, String status2) {
+        return matterDao.findByStatus(status1, status2);
+    }
+
     public void updateMaterialFileUrlPath(MultipartHttpServletRequest multipartHttpServletRequest, Principal principal, HttpServletRequest request) throws IOException, ParseException {
         MultipartFile spec = multipartHttpServletRequest.getFile("inputSpec");
         MultipartFile rohs = multipartHttpServletRequest.getFile("inputRoHs");
@@ -119,11 +123,11 @@ public class MatterService {
         AppUser appUser = appUserService.findByUsername(principal.getName());
 
         matter.setCreateBy(appUser);
-        matter.setCreateDate(new Date());
+        matter.setUpdateDate(new Date());
         matter.setStatus("UPDATE");
-        matter.setFolw("qa");
+        matter.setFolw("QA");
 
-        Set<DocumentHistory> documentHistories = new HashSet<DocumentHistory>();
+        Set<DocumentHistory> documentHistories = matter.getDocumentHistorys();
         DocumentHistory documentHistory = new DocumentHistory();
         documentHistory.setCreateBy(appUser);
         documentHistory.setCreateDate(new Date());
@@ -141,7 +145,35 @@ public class MatterService {
     public void remove(String data) {
         JSONObject jsonObject = new JSONObject(data);
         Matter matter = matterDao.getById(jsonObject.getLong("inputId"));
-//        matterDao.delete(matter);
+        matterDao.delete(matter);
+    }
+
+    public void approveOrReject(String data, Principal principal) {
+        JSONObject jsonObject = new JSONObject(data);
+        Matter matter = matterDao.getById(jsonObject.getLong("inputId"));
+        String action = jsonObject.getString("action");
+        String reason = jsonObject.getString("reason");
+
+        AppUser appUser = appUserService.findByUsername(principal.getName());
+
+        matter.setStatus(action);
+        if (action.equals("APPROVE")) {
+            matter.setFolw("PUBLIC");
+        } else {
+            matter.setFolw("CREATOR");
+        }
+        Set<DocumentHistory> documentHistories = matter.getDocumentHistorys();
+        DocumentHistory documentHistory = new DocumentHistory();
+        documentHistory.setActionType(action);
+        documentHistory.setStatus(action);
+        documentHistory.setRemark(reason);
+        documentHistory.setCreateBy(appUser);
+        documentHistory.setCreateDate(new Date());
+        documentHistory.setMatter(matter);
+
+        documentHistories.add(documentHistory);
+        matter.setDocumentHistorys(documentHistories);
+        matterDao.update(matter);
     }
 
 }

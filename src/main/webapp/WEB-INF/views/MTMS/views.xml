@@ -38,4 +38,8 @@
 	<definition name="MTMS/updateMaterial" extends="layout.basic">
 		<put-attribute name="body" value="/WEB-INF/views/MTMS/updateMaterial.jsp" />
 	</definition>
+
+	<definition name="MTMS/approveMaterial" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/MTMS/approveMaterial.jsp" />
+	</definition>
 </tiles-definitions>

@@ -35,7 +35,7 @@ public class ViewService {
 
 	public void addMaterialTypes(ModelAndView model) {
 		model.addObject("materialTypes", materialTypeService.findAll());
-		model.addObject("materials", matterService.findAll());
+		model.addObject("materials", matterService.findByStatus("CREATE","UPDATE"));
 	}
 
 	public void addMaterialType(ModelAndView model, Long id) {
