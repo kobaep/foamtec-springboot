@@ -46,6 +46,10 @@
                             <span class="badge">${fn:length(materialsReject)}</span>
                             Additional requests or reject
                         </a>
+                        <a href="${home}mtms/material?expiredList" class="list-group-item list-group-item-info">
+                            <span class="badge">${fn:length(materialExpired)}</span>
+                            Material Expired
+                        </a>
                     </div>
                 </div>
             </div>

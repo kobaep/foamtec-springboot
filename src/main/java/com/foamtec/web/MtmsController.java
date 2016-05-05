@@ -1,6 +1,7 @@
 package com.foamtec.web;
 
 import java.security.Principal;
+import java.util.Date;
 
 import com.foamtec.service.MaterialTypeService;
 import com.foamtec.service.MatterService;
@@ -40,6 +41,7 @@ public class MtmsController {
 		model.addObject("materialTypes", materialTypeService.findAll());
 		model.addObject("materials", matterService.findByStatus("CREATE","UPDATE"));
 		model.addObject("materialsReject", matterService.findByStatus("REJECT", "REQUESTDOC"));
+		model.addObject("materialExpired", matterService.findAllMaterialGe(new Date()));
 		model.setViewName("MTMS/home");
 		return model;
 	}
@@ -155,4 +157,18 @@ public class MtmsController {
 		model.setViewName("MTMS/materialApprovel");
 		return model;
 	}
+
+	@RequestMapping(value = "/mtms/material", params = "expiredList", method = RequestMethod.GET)
+	public ModelAndView materialExpired(ModelAndView model, Principal principal) {
+		try {
+			principal.getName();
+			viewService.addMenuAndName(model, principal);
+		} catch (Exception e) {
+			viewService.addLogin(model);
+		}
+		model.addObject("materialExpired", matterService.findExpiredList());
+		model.setViewName("MTMS/expiredList");
+		return model;
+	}
+
 }

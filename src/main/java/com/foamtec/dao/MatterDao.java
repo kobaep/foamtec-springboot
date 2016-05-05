@@ -13,10 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.*;
 
 /**
  * Created by apichat on 4/21/2016 AD.
@@ -71,5 +71,18 @@ public class MatterDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Matter> findAllMaterialGe(Date date) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Matter> cq = builder.createQuery(Matter.class);
+        Root<Matter> root = cq.from(Matter.class);
+        cq.where(
+                builder.or(
+                        builder.lessThanOrEqualTo(root.<Date>get("rohsAlertDateTest"), date),
+                        builder.lessThanOrEqualTo(root.<Date>get("halogenAlertDateTest"), date)
+                )
+        );
+        return entityManager.createQuery(cq).getResultList();
     }
 }

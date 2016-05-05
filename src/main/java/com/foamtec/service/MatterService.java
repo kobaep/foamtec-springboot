@@ -180,4 +180,32 @@ public class MatterService {
         matterDao.update(matter);
     }
 
+    public List<Matter> findAllMaterialGe(Date date) {
+        return matterDao.findAllMaterialGe(date);
+    }
+
+    public List<Matter> findExpiredList() {
+        List<Matter> matters = findAllMaterialGe(new Date());
+        List<Matter> mattersOut = new ArrayList<Matter>();
+        for (Matter m : matters) {
+            Calendar calcu = Calendar.getInstance();
+            calcu.setTime(new Date());
+            if (m.getRohsAlertDateTest() != null) {
+                Calendar calex3 = Calendar.getInstance();
+                calex3.setTime(m.getRohsAlertDateTest());
+                if(calcu.compareTo(calex3) > 0) {
+                    m.setRohs(null);
+                }
+            }
+            if (m.getHalogenAlertDateTest() != null) {
+                Calendar calex4 = Calendar.getInstance();
+                calex4.setTime(m.getHalogenAlertDateTest());
+                if(calcu.compareTo(calex4) > 0) {
+                    m.setHalogen(null);
+                }
+            }
+            mattersOut.add(m);
+        }
+        return mattersOut;
+    }
 }

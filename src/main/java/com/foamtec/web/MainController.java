@@ -17,18 +17,12 @@ import org.slf4j.LoggerFactory;
 
 @Controller
 public class MainController {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
-
-	@Autowired
-	private AppUserDao appUserDao;
 	
 	@Autowired
 	private ViewService viewService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(ModelAndView model, Principal principal) {
-		LOGGER.debug("-= home page =-");
 		try {
 			principal.getName();
 			viewService.addMenuAndName(model, principal);
