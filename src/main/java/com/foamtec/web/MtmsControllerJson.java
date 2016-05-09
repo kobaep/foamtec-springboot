@@ -110,11 +110,11 @@ public class MtmsControllerJson {
 
     @RequestMapping(value = "/mtms/materialPrivate/approve", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
-    public ResponseEntity<String> approveMatter(@RequestParam("data") String data, Principal principal) {
+    public ResponseEntity<String> approveMatter(@RequestParam("data") String data,HttpServletRequest request, Principal principal) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
         try {
-            matterService.approveOrReject(data, principal);
+            matterService.approveOrReject(data,request, principal);
             return new ResponseEntity<String>("{\"process\":\"success\"}", headers, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("{\"process\":\"fail\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -123,11 +123,11 @@ public class MtmsControllerJson {
 
     @RequestMapping(value = "/mtms/materialPrivate/reject", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
-    public ResponseEntity<String> rejectMatter(@RequestParam("data") String data, Principal principal) {
+    public ResponseEntity<String> rejectMatter(@RequestParam("data") String data,HttpServletRequest request, Principal principal) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
         try {
-            matterService.approveOrReject(data, principal);
+            matterService.approveOrReject(data,request, principal);
             return new ResponseEntity<String>("{\"process\":\"success\"}", headers, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("{\"process\":\"fail\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -136,11 +136,11 @@ public class MtmsControllerJson {
 
     @RequestMapping(value = "/mtms/materialPrivate/request", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
-    public ResponseEntity<String> requestMatter(@RequestParam("data") String data, Principal principal) {
+    public ResponseEntity<String> requestMatter(@RequestParam("data") String data,HttpServletRequest request, Principal principal) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
         try {
-            matterService.approveOrReject(data, principal);
+            matterService.approveOrReject(data,request, principal);
             return new ResponseEntity<String>("{\"process\":\"success\"}", headers, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("{\"process\":\"fail\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);

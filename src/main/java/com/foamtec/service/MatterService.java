@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Principal;
@@ -31,6 +32,9 @@ public class MatterService {
 
     @Autowired
     private AppUserService appUserService;
+
+    @Autowired
+    private FileBackupService fileBackupService;
 
     public Matter findById(Long id) {
         return matterDao.getById(id);
@@ -152,7 +156,7 @@ public class MatterService {
         matterDao.delete(matter);
     }
 
-    public void approveOrReject(String data, Principal principal) {
+    public void approveOrReject(String data,HttpServletRequest request, Principal principal) throws IOException {
         JSONObject jsonObject = new JSONObject(data);
         Matter matter = matterDao.getById(jsonObject.getLong("inputId"));
         String action = jsonObject.getString("action");
@@ -160,14 +164,16 @@ public class MatterService {
 
         AppUser appUser = appUserService.findByUsername(principal.getName());
 
+        Set<DocumentHistory> documentHistories = matter.getDocumentHistorys();
+        DocumentHistory documentHistory = new DocumentHistory();
+
         matter.setStatus(action);
         if (action.equals("APPROVE")) {
             matter.setFolw("PUBLIC");
+            fileBackupService.createFileBackup(matter, request, documentHistory);
         } else {
             matter.setFolw("CREATOR");
         }
-        Set<DocumentHistory> documentHistories = matter.getDocumentHistorys();
-        DocumentHistory documentHistory = new DocumentHistory();
         documentHistory.setActionType(action);
         documentHistory.setStatus(action);
         documentHistory.setRemark(reason);
@@ -197,12 +203,10 @@ public class MatterService {
                     m.setRohs(null);
                 }
             }
-            if (m.getHalogenAlertDateTest() != null) {
-                Calendar calex4 = Calendar.getInstance();
-                calex4.setTime(m.getHalogenAlertDateTest());
-                if(calcu.compareTo(calex4) > 0) {
-                    m.setHalogen(null);
-                }
+            Calendar calex4 = Calendar.getInstance();
+            calex4.setTime(m.getHalogenAlertDateTest());
+            if(calcu.compareTo(calex4) > 0) {
+                m.setHalogen(null);
             }
             mattersOut.add(m);
         }

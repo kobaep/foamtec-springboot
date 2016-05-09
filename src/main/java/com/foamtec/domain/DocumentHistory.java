@@ -34,6 +34,12 @@ public class DocumentHistory implements Serializable {
     @Column(name="status")
     private String status;
 
+    @Column(name="backupDocumentNUmber")
+    private String backupDocumentNUmber;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private FileBackup fileBackup;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "matter")
     private Matter matter;
@@ -86,6 +92,22 @@ public class DocumentHistory implements Serializable {
         this.status = status;
     }
 
+    public String getBackupDocumentNUmber() {
+        return backupDocumentNUmber;
+    }
+
+    public void setBackupDocumentNUmber(String backupDocumentNUmber) {
+        this.backupDocumentNUmber = backupDocumentNUmber;
+    }
+
+    public FileBackup getFileBackup() {
+        return fileBackup;
+    }
+
+    public void setFileBackup(FileBackup fileBackup) {
+        this.fileBackup = fileBackup;
+    }
+
     public Matter getMatter() {
         return matter;
     }
@@ -93,5 +115,4 @@ public class DocumentHistory implements Serializable {
     public void setMatter(Matter matter) {
         this.matter = matter;
     }
-
 }

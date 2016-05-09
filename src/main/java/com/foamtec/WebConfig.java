@@ -56,5 +56,9 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     public MatterService matterService() {
         return new MatterService();
     }
-	
+
+    @Bean
+    public FileBackupService fileBackupService() {
+        return new FileBackupService();
+    }
 }
