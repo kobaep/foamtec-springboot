@@ -16,7 +16,7 @@
 			<p>FA Management System</p>
 			<p>ระบบบริหารจัดการส่วนงาน FA</p>
 			<p>
-				<a class="btn btn-default" href="#" role="button">View
+				<a class="btn btn-default" href="${home}fams" role="button">View
 					details</a>
 			</p>
 		</div>

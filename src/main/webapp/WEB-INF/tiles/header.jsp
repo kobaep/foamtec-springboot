@@ -14,7 +14,15 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li id="linkFAMS"><a href="#">FAMS <span class="sr-only">(current)</span></a></li>
+				<li id="linkFAMS" class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						FAMS <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="${home}fams">Status</a></li>
+						<li><a href="${home}fams/requestPrivate?form">Request</a></li>
+					</ul>
+				</li>
 				<li id="linkMTMS"><a href="${home}mtms">MTMS <span class="sr-only">(current)</span></a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

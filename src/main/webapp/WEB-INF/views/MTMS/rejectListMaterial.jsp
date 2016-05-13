@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-primary">
-                <div class="panel-heading">Reject By QA</div>
+                <div class="panel-heading">Reject Or Request By QA</div>
                 <div class="panel-body">
                     <div style="height: 700px;" class="table-responsive">
                         <table class="table table-hover">

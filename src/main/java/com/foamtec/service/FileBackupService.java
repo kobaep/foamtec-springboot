@@ -67,7 +67,7 @@ public class FileBackupService {
         String pathBackup = request.getRealPath("./resources/filePDFBackup/");
         String dirBackup = "BACKUP" + fileBackup.getId();
         documentHistory.setBackupDocumentNUmber(dirBackup);
-        File backupFile = new File(pathBackup + dirBackup + "/ROHS/spec.pdf");
+        File backupFile = new File(pathBackup + dirBackup + "/ROHS/rohs.pdf");
         backupFile.getParentFile().mkdirs();
         OutputStream outStream = new FileOutputStream(backupFile);
 
@@ -78,7 +78,7 @@ public class FileBackupService {
         }
         inStream.close();
         outStream.close();
-        fileBackup.setSpecUrl(dirBackup + "/ROHS/spec.pdf");
+        fileBackup.setSpecUrl(dirBackup + "/ROHS/rohs.pdf");
     }
 
     public void backupMsdsUrl(Matter matter, HttpServletRequest request, FileBackup fileBackup, DocumentHistory documentHistory) throws IOException {
@@ -89,7 +89,7 @@ public class FileBackupService {
         String pathBackup = request.getRealPath("./resources/filePDFBackup/");
         String dirBackup = "BACKUP" + fileBackup.getId();
         documentHistory.setBackupDocumentNUmber(dirBackup);
-        File backupFile = new File(pathBackup + dirBackup + "/MSDS/spec.pdf");
+        File backupFile = new File(pathBackup + dirBackup + "/MSDS/msds.pdf");
         backupFile.getParentFile().mkdirs();
         OutputStream outStream = new FileOutputStream(backupFile);
 
@@ -100,7 +100,7 @@ public class FileBackupService {
         }
         inStream.close();
         outStream.close();
-        fileBackup.setSpecUrl(dirBackup + "/MSDS/spec.pdf");
+        fileBackup.setSpecUrl(dirBackup + "/MSDS/msds.pdf");
     }
 
     public void backupHalogenUrl(Matter matter, HttpServletRequest request, FileBackup fileBackup, DocumentHistory documentHistory) throws IOException {
@@ -111,7 +111,7 @@ public class FileBackupService {
         String pathBackup = request.getRealPath("./resources/filePDFBackup/");
         String dirBackup = "BACKUP" + fileBackup.getId();
         documentHistory.setBackupDocumentNUmber(dirBackup);
-        File backupFile = new File(pathBackup + dirBackup + "/HALOGEN/spec.pdf");
+        File backupFile = new File(pathBackup + dirBackup + "/HALOGEN/halogen.pdf");
         backupFile.getParentFile().mkdirs();
         OutputStream outStream = new FileOutputStream(backupFile);
 
@@ -122,6 +122,6 @@ public class FileBackupService {
         }
         inStream.close();
         outStream.close();
-        fileBackup.setSpecUrl(dirBackup + "/HALOGEN/spec.pdf");
+        fileBackup.setSpecUrl(dirBackup + "/HALOGEN/halogen.pdf");
     }
 }

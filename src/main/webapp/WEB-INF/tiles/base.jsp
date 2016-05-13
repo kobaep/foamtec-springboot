@@ -20,15 +20,12 @@
     <spring:url value="/resources/core/js/jquery.min.js" var="jqueryJs" />
     <spring:url value="/resources/core/js/bootstrap.min.js" var="bootstrapJs" />
     <spring:url value="/resources/core/js/jquery-ui.min.js" var="jqueryUiJs" />
+    <spring:url value="/resources/core/js/angular.min.js" var="angularJs" />
     <script src="${coreJs}"></script>
     <script src="${jqueryJs}"></script>
     <script src="${jqueryUiJs}"></script>
     <script src="${bootstrapJs}"></script>
-    <script>
-        var session = {
-            context: '/' + (window.location.pathname.split('/')[1])
-        };
-    </script>
+    <script src="${angularJs}"></script>
 </head>
 <body onunload="">
     <tiles:insertAttribute name="header" />

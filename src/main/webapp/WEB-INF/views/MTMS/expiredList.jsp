@@ -84,7 +84,7 @@
     <div class="row">
         <div class="col-sm-12">
             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Document OK,
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <font color="red">Date Document Expired</font>
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <font color="red">Date expired or no document</font>
         </div>
     </div>
 </div>
