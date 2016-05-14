@@ -24,6 +24,15 @@
 					</ul>
 				</li>
 				<li id="linkMTMS"><a href="${home}mtms">MTMS <span class="sr-only">(current)</span></a></li>
+				<li id="linkCustomer" class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						CUSTOMER <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="${home}customer/">Detail</a></li>
+						<li><a href="${home}customer/createPrivate?form">Create</a></li>
+					</ul>
+				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
