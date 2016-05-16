@@ -6,4 +6,8 @@
 	<definition name="CUSTOMER/home" extends="layout.basic">
 		<put-attribute name="body" value="/WEB-INF/views/CUSTOMER/home.jsp" />
 	</definition>
+
+	<definition name="CUSTOMER/create" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/CUSTOMER/create.jsp" />
+	</definition>
 </tiles-definitions>

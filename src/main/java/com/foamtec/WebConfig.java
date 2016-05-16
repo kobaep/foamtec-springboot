@@ -61,4 +61,9 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     public FileBackupService fileBackupService() {
         return new FileBackupService();
     }
+
+    @Bean
+    public CustomerService customerService() {
+        return new CustomerService();
+    }
 }
