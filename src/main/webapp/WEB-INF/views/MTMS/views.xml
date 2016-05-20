@@ -54,4 +54,8 @@
 	<definition name="MTMS/expiredList" extends="layout.basic">
 		<put-attribute name="body" value="/WEB-INF/views/MTMS/expiredList.jsp" />
 	</definition>
+
+	<definition name="MTMS/createSap" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/MTMS/createSap.jsp" />
+	</definition>
 </tiles-definitions>

@@ -5,6 +5,7 @@ import com.foamtec.domain.DocumentHistory;
 import com.foamtec.domain.FileBackup;
 import com.foamtec.domain.Matter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
@@ -12,6 +13,7 @@ import java.io.*;
 /**
  * Created by apichat on 5/5/2016 AD.
  */
+@Service
 public class FileBackupService {
 
     @Autowired

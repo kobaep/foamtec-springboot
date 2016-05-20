@@ -25,6 +25,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.and().authorizeRequests().antMatchers("/mtms/materialTypePrivate/**").authenticated()
 		.and().authorizeRequests().antMatchers("/mtms/materialPrivate/**").authenticated()
 		.and().authorizeRequests().antMatchers("/mtms/materialPrivate**").authenticated()
+		.and().authorizeRequests().antMatchers("/mtms/materialSapPrivate/**").authenticated()
+		.and().authorizeRequests().antMatchers("/mtms/materialSapPrivate**").authenticated()
 		.and().authorizeRequests().antMatchers("/fams/requestPrivate/**").authenticated()
 		.and().authorizeRequests().antMatchers("/fams/requestPrivate**").authenticated()
 		.and().authorizeRequests().antMatchers("/customer/createPrivate**").authenticated()

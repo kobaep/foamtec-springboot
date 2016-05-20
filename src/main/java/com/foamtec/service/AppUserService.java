@@ -2,10 +2,12 @@ package com.foamtec.service;
 
 import com.foamtec.dao.AppUserDao;
 import com.foamtec.domain.AppUser;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 /**
  * Created by apichat on 4/19/2016 AD.
  */
+@Service
 public class AppUserService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(AppUserService.class);
@@ -68,5 +71,16 @@ public class AppUserService {
 
     public AppUser findByUsername(String username) {
         return appUserDao.getByUsername(username);
+    }
+
+    public JSONArray getAllJson() {
+        List<AppUser> appUsers = findAll();
+        JSONArray jsonArray = new JSONArray();
+        for (AppUser a : appUsers) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("name", a.getName());
+            jsonArray.put(jsonObject);
+        }
+        return jsonArray;
     }
 }

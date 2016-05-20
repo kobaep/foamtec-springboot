@@ -1,13 +1,13 @@
 package com.foamtec.service;
 
+import com.foamtec.dao.AppUserDao;
 import com.foamtec.dao.MaterialTypeDao;
 import com.foamtec.dao.MatterDao;
-import com.foamtec.domain.AppUser;
-import com.foamtec.domain.DocumentHistory;
-import com.foamtec.domain.MaterialType;
-import com.foamtec.domain.Matter;
+import com.foamtec.domain.*;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -25,6 +25,7 @@ import java.util.*;
 /**
  * Created by apichat on 4/21/2016 AD.
  */
+@Service
 public class MatterService {
 
     @Autowired
@@ -216,5 +217,37 @@ public class MatterService {
             mattersOut.add(m);
         }
         return mattersOut;
+    }
+
+    public void createSapCode(String data, Principal principal) {
+        AppUser appUser = appUserService.findByUsername(principal.getName());
+        JSONObject jsonObject = new JSONObject(data);
+        Matter matter = matterDao.getById(jsonObject.getLong("inputMaterialId"));
+        Set<MaterialCode> materialCodes = matter.getMaterialCodes();
+        MaterialCode materialCode = new MaterialCode();
+        materialCode.setCodeName(jsonObject.getString("inputSapCode"));
+        materialCode.setCreateDate(new Date());
+        materialCode.setMatter(matter);
+        materialCode.setUpdateBy(appUser);
+        materialCodes.add(materialCode);
+        matter.setMaterialCodes(materialCodes);
+        matterDao.update(matter);
+    }
+
+    public JSONArray getAllJson() {
+        List<Matter> matters = matterDao.findByStatus("APPROVE");
+        JSONArray jsonArray = new JSONArray();
+        for (Matter m : matters) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("name", m.getMaterialName());
+            jsonArray.put(jsonObject);
+            Set<MaterialCode> materialCodes = m.getMaterialCodes();
+            for (MaterialCode materialCode : materialCodes) {
+                JSONObject jsonObject2 = new JSONObject();
+                jsonObject2.put("name", materialCode.getCodeName());
+                jsonArray.put(jsonObject2);
+            }
+        }
+        return jsonArray;
     }
 }

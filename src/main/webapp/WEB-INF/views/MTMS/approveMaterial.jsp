@@ -73,7 +73,24 @@
                         <button type="button" id="btnApprove" class="col-sm-offset-1 btn btn-success btn-lg">Approve</button>
                     </div>
                 </div>
+            </div>
         </form>
+    </div>
+</div>
+<div class="modal fade" id="alertApproveModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <h4 class="modal-title">Approve</h4>
+            </div>
+            <div class="modal-body">
+                Confirm approve
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btnApproveReason">confirm</button>
+            </div>
+        </div>
     </div>
 </div>
 <div class="modal fade" id="alertRejectModal" role="dialog">
@@ -95,6 +112,10 @@
 <script>
     $(document).ready(function() {
         $("#btnApprove").click(function() {
+            $("#alertApproveModal").modal({show:true});
+        });
+
+        $("#btnApproveReason").click(function() {
             var data = {
                 inputId : $("#inputId").val(),
                 action : "APPROVE",

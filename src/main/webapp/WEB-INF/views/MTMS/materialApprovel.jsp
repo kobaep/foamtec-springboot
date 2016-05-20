@@ -100,10 +100,24 @@
         </div>
     </c:if>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
             <div class="panel panel-danger">
                 <div class="panel-heading">
                     <h3 class="panel-title">Code SAP</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <c:forEach var="materialCode" items="${material.materialCodes}">
+                            <li class="list-group-item">${materialCode.codeName}</li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">History</h3>
                 </div>
                 <div class="panel-body">
                     <ul class="list-group">

@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -25,6 +26,7 @@ import java.util.*;
 /**
  * Created by apichat on 4/20/2016 AD.
  */
+@Service
 public class MaterialTypeService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(MaterialTypeService.class);

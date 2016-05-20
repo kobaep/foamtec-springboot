@@ -67,9 +67,18 @@
                                     </c:choose>
                                     <td>${appuser.name}</td>
                                     <td>
-                                        <a class="btn btn-primary btn-sm" href="${home}mtms/materialPrivate/${material.id}?approve" role="button">
-                                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                                        </a>
+                                    <c:choose>
+                                        <c:when test="${roleName eq 'qa' or roleName eq 'admin'}">
+                                            <a class="btn btn-primary btn-sm" href="${home}mtms/materialPrivate/${material.id}?approve" role="button">
+                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                            </a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a class="btn btn-primary btn-sm disabled" href="${home}mtms/materialPrivate/${material.id}?approve" role="button">
+                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                            </a>
+                                        </c:otherwise>
+                                    </c:choose>
                                     </td>
                                 </tr>
                             </c:forEach>

@@ -2,8 +2,10 @@ package com.foamtec.service;
 
 import com.foamtec.dao.CustomerDao;
 import com.foamtec.domain.Customer;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
 /**
  * Created by apichat on 5/16/2016 AD.
  */
+@Service
 public class CustomerService {
 
     @Autowired
@@ -25,5 +28,16 @@ public class CustomerService {
 
     public List<Customer> getAll() {
         return customerDao.getAll();
+    }
+
+    public JSONArray getAllJson() {
+        List<Customer> customers = getAll();
+        JSONArray jsonArray = new JSONArray();
+        for (Customer c : customers) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("name", c.getName());
+            jsonArray.put(jsonObject);
+        }
+        return jsonArray;
     }
 }

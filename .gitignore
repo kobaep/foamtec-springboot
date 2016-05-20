@@ -13,3 +13,5 @@ derby.log
 spring3-web.iml
 mvnw*
 spring.iml
+src/main/webapp/resources/filePDF/
+src/main/webapp/resources/filePDFBackup/

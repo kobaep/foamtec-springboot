@@ -36,34 +36,4 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         multipartResolver.setMaxUploadSize(50 * 1024 * 1024);
         return multipartResolver;
     }
-	
-	@Bean
-	public ViewService viewService() {
-		return new ViewService();
-	}
-
-    @Bean
-    public AppUserService appUserService() {
-        return new AppUserService();
-    }
-
-    @Bean
-    public MaterialTypeService materialTypeService() {
-        return new MaterialTypeService();
-    }
-
-    @Bean
-    public MatterService matterService() {
-        return new MatterService();
-    }
-
-    @Bean
-    public FileBackupService fileBackupService() {
-        return new FileBackupService();
-    }
-
-    @Bean
-    public CustomerService customerService() {
-        return new CustomerService();
-    }
 }

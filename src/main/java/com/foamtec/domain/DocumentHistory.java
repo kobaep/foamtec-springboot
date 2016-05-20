@@ -44,6 +44,10 @@ public class DocumentHistory implements Serializable {
     @JoinColumn(name = "matter")
     private Matter matter;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "faRequest")
+    private FaRequest faRequest;
+
     public Long getId() {
         return id;
     }
@@ -114,5 +118,13 @@ public class DocumentHistory implements Serializable {
 
     public void setMatter(Matter matter) {
         this.matter = matter;
+    }
+
+    public FaRequest getFaRequest() {
+        return faRequest;
+    }
+
+    public void setFaRequest(FaRequest faRequest) {
+        this.faRequest = faRequest;
     }
 }

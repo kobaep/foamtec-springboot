@@ -75,25 +75,25 @@
                 <div class="form-group">
                     <label for="inputFaApprove" class="col-sm-3 control-label">FA Approve :</label>
                     <div class="col-sm-9">
-                        <input type="number" class="form-control" id="inputFaApprove" placeholder="Qty" autocomplete="off" required>
+                        <input type="number" class="form-control" id="inputFaApprove" placeholder="Qty" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputFaForSell" class="col-sm-3 control-label">FA For Sell :</label>
                     <div class="col-sm-9">
-                        <input type="number" class="form-control" id="inputFaForSell" placeholder="Qty" autocomplete="off" required>
+                        <input type="number" class="form-control" id="inputFaForSell" placeholder="Qty" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputSampleTest" class="col-sm-3 control-label">Sample Test :</label>
                     <div class="col-sm-9">
-                        <input type="number" class="form-control" id="inputSampleTest" placeholder="Qty" autocomplete="off" required>
+                        <input type="number" class="form-control" id="inputSampleTest" placeholder="Qty" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputSamplePcc" class="col-sm-3 control-label">Sample PCC :</label>
                     <div class="col-sm-9">
-                        <input type="number" class="form-control" id="inputSamplePcc" placeholder="Qty" autocomplete="off" required>
+                        <input type="number" class="form-control" id="inputSamplePcc" placeholder="Qty" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -197,18 +197,132 @@
 
         $("#inputNeedDate").datepicker({ dateFormat: "dd/mm/yy" });
 
-        var customers = [
-            "FOAMTEC",
-            "CANON",
-            "TOYOTA",
-            "DELTA",
-        ];
+        var customers = [];
+
+        $.ajax({
+            url: '${home}customer/createPrivate/customers',
+            type: "POST",
+            headers: {
+                Accept: "application/json"
+            },
+            data: {
+                data : JSON.stringify("")
+            },
+            dataType: "json",
+            success: function(data){
+                $.each(data, function(key, value) {
+                    customers.push(value.name);
+                });
+            },
+            error: function(data){
+                alert("no data");
+            }
+        });
+
         $("#inputCustomer").autocomplete({
             source: customers
         });
 
-        $("#inputMat1").autocomplete({
-            source: customers
+        var appUsers = [];
+
+        $.ajax({
+            url: '${home}appuser/appusers',
+            type: "POST",
+            headers: {
+                Accept: "application/json"
+            },
+            data: {
+                data : JSON.stringify("")
+            },
+            dataType: "json",
+            success: function(data){
+                $.each(data, function(key, value) {
+                    appUsers.push(value.name);
+                });
+            },
+            error: function(data){
+                alert("no data");
+            }
         });
+
+        $("#inputSaleOut").autocomplete({
+            source: appUsers
+        });
+
+        var materials = [];
+
+        $.ajax({
+            url: '${home}mtms/materialPrivate/allMatAndSap',
+            type: "POST",
+            headers: {
+                Accept: "application/json"
+            },
+            data: {
+                data : JSON.stringify("")
+            },
+            dataType: "json",
+            success: function(data){
+                $.each(data, function(key, value) {
+                    materials.push(value.name);
+                });
+            },
+            error: function(data){
+                alert("no data");
+            }
+        });
+
+        $("#inputMat1").autocomplete({
+            source: materials
+        });
+
+        $("#inputMat2").autocomplete({
+            source: materials
+        });
+
+        $("#inputMat3").autocomplete({
+            source: materials
+        });
+
+        $("#inputMat4").autocomplete({
+            source: materials
+        });
+
+        $("#inputMat5").autocomplete({
+            source: materials
+        });
+
+        $("#inputMat6").autocomplete({
+            source: materials
+        });
+
+        $("#materialFormId").submit(function() {
+            var data = {
+                inputCustomer : $("#inputCustomer").val(),
+                inputProductGroup : $("#inputProductGroup").val(),
+                inputPartNo : $("#inputPartNo").val(),
+                inputRevision : $("#inputRevision").val(),
+                inputSaleOut : $("#inputSaleOut").val(),
+                inputQwsNo : $("#inputQwsNo").val(),
+                inputApqpNo : $("#inputApqpNo").val(),
+                inputNeedDate : $("#inputNeedDate").val(),
+                inputFaApprove : $("#inputFaApprove").val(),
+                inputFaForSell : $("#inputFaForSell").val(),
+                inputSampleTest : $("#inputSampleTest").val(),
+                inputSamplePcc : $("#inputSamplePcc").val(),
+                inputMat1 : $("#inputMat1").val(),
+                inputMat1 : $("#inputMat1").val(),
+                inputMat2 : $("#inputMat2").val(),
+                inputMat3 : $("#inputMat3").val(),
+                inputMat4 : $("#inputMat4").val(),
+                inputMat5 : $("#inputMat5").val(),
+                inputMat6 : $("#inputMat6").val(),
+                inputDocumentRequest : $("#inputDocumentRequest").val(),
+                inputTools : $("#inputTools").val(),
+                inputRemark : $("#inputRemark").val()
+            }
+            console.log(data);
+            return false;
+        });
+
     });
 </script>

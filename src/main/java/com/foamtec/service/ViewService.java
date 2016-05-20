@@ -4,8 +4,10 @@ import java.security.Principal;
 
 import com.foamtec.domain.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+@Service
 public class ViewService {
 
 	@Autowired

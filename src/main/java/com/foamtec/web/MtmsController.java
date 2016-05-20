@@ -171,4 +171,12 @@ public class MtmsController {
 		return model;
 	}
 
+	@RequestMapping(value = "/mtms/materialSapPrivate/{id}", params = "form", method = RequestMethod.GET)
+	public ModelAndView createSap(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+		viewService.addMenuAndName(model, principal);
+		model.addObject("materialType", materialTypeService.findById(id));
+		model.setViewName("MTMS/createSap");
+		return model;
+	}
+
 }
