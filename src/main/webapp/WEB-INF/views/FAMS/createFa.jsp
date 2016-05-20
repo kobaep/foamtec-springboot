@@ -296,6 +296,46 @@
         });
 
         $("#materialFormId").submit(function() {
+
+            if(customers.indexOf($("#inputCustomer").val()) < 0) {
+                $("#inputCustomer").focus();
+                return false;
+            }
+
+            if(appUsers.indexOf($("#inputSaleOut").val()) < 0) {
+                $("#inputSaleOut").focus();
+                return false;
+            }
+
+            if(materials.indexOf($("#inputMat1").val()) < 0) {
+                $("#inputMat1").focus();
+                return false;
+            }
+            var inputMat2 = $("#inputMat2").val();
+            if(materials.indexOf(inputMat2) < 0 && inputMat2.length > 0) {
+                $("#inputMat2").focus();
+                return false;
+            }
+            var inputMat3 = $("#inputMat3").val();
+            if(materials.indexOf(inputMat3) < 0 && inputMat3.length > 0) {
+                $("#inputMat3").focus();
+                return false;
+            }
+            var inputMat4 = $("#inputMat4").val();
+            if(materials.indexOf(inputMat4) < 0 && inputMat4.length > 0) {
+                $("#inputMat4").focus();
+                return false;
+            }
+            var inputMat5 = $("#inputMat5").val();
+            if(materials.indexOf(inputMat5) < 0 && inputMat5.length > 0) {
+                $("#inputMat5").focus();
+                return false;
+            }
+            var inputMat6 = $("#inputMat6").val();
+            if(materials.indexOf(inputMat6) < 0 && inputMat6.length > 0) {
+                $("#inputMat6").focus();
+                return false;
+            }
             var data = {
                 inputCustomer : $("#inputCustomer").val(),
                 inputProductGroup : $("#inputProductGroup").val(),
@@ -321,6 +361,23 @@
                 inputRemark : $("#inputRemark").val()
             }
             console.log(data);
+            $.ajax({
+                url: '${home}fams/requestPrivate/create',
+                type: "POST",
+                headers: {
+                    Accept: "application/json"
+                },
+                data: {
+                    data : JSON.stringify(data)
+                },
+                dataType: "json",
+                success: function(data){
+                    window.location.href = "${home}fams";
+                },
+                error: function(data){
+                    alert("saved error.");
+                }
+            });
             return false;
         });
 

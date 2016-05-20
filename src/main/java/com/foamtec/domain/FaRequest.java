@@ -21,6 +21,9 @@ public class FaRequest implements Serializable {
     @Column(name="id")
     private Long id;
 
+    @Column(name="faNumber")
+    private String faNumber;
+
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     @Column(name="createDate")
@@ -43,6 +46,9 @@ public class FaRequest implements Serializable {
     @Column(name="productGroup")
     private String productGroup;
 
+    @Column(name="partNo")
+    private String partNo;
+
     @Column(name="revision")
     private String revision;
 
@@ -55,8 +61,10 @@ public class FaRequest implements Serializable {
     @Column(name="apqpNo")
     private String apqpNo;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     @Column(name="needDate")
-    private String needDate;
+    private Date needDate;
 
     @Value("0")
     @Column(name="faApproveQty")
@@ -92,6 +100,9 @@ public class FaRequest implements Serializable {
     @Column(name="material6")
     private String material6;
 
+    @Column(name="documentRequest")
+    private String documentRequest;
+
     @Column(name="tool")
     private String tool;
 
@@ -105,4 +116,235 @@ public class FaRequest implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "faRequest")
     private Set<DocumentHistory> documentHistorys = new HashSet<DocumentHistory>();
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFaNumber() {
+        return faNumber;
+    }
+
+    public void setFaNumber(String faNumber) {
+        this.faNumber = faNumber;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public AppUser getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(AppUser createBy) {
+        this.createBy = createBy;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public AppUser getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(AppUser updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public String getProductGroup() {
+        return productGroup;
+    }
+
+    public void setProductGroup(String productGroup) {
+        this.productGroup = productGroup;
+    }
+
+    public String getPartNo() {
+        return partNo;
+    }
+
+    public void setPartNo(String partNo) {
+        this.partNo = partNo;
+    }
+
+    public String getRevision() {
+        return revision;
+    }
+
+    public void setRevision(String revision) {
+        this.revision = revision;
+    }
+
+    public String getSaleOut() {
+        return saleOut;
+    }
+
+    public void setSaleOut(String saleOut) {
+        this.saleOut = saleOut;
+    }
+
+    public String getQwsNo() {
+        return qwsNo;
+    }
+
+    public void setQwsNo(String qwsNo) {
+        this.qwsNo = qwsNo;
+    }
+
+    public String getApqpNo() {
+        return apqpNo;
+    }
+
+    public void setApqpNo(String apqpNo) {
+        this.apqpNo = apqpNo;
+    }
+
+    public Date getNeedDate() {
+        return needDate;
+    }
+
+    public void setNeedDate(Date needDate) {
+        this.needDate = needDate;
+    }
+
+    public Integer getFaApproveQty() {
+        return faApproveQty;
+    }
+
+    public void setFaApproveQty(Integer faApproveQty) {
+        this.faApproveQty = faApproveQty;
+    }
+
+    public Integer getFaForSellQty() {
+        return faForSellQty;
+    }
+
+    public void setFaForSellQty(Integer faForSellQty) {
+        this.faForSellQty = faForSellQty;
+    }
+
+    public Integer getSamplTestQty() {
+        return samplTestQty;
+    }
+
+    public void setSamplTestQty(Integer samplTestQty) {
+        this.samplTestQty = samplTestQty;
+    }
+
+    public Integer getSamplePccQty() {
+        return samplePccQty;
+    }
+
+    public void setSamplePccQty(Integer samplePccQty) {
+        this.samplePccQty = samplePccQty;
+    }
+
+    public String getMaterial1() {
+        return material1;
+    }
+
+    public void setMaterial1(String material1) {
+        this.material1 = material1;
+    }
+
+    public String getMaterial2() {
+        return material2;
+    }
+
+    public void setMaterial2(String material2) {
+        this.material2 = material2;
+    }
+
+    public String getMaterial3() {
+        return material3;
+    }
+
+    public void setMaterial3(String material3) {
+        this.material3 = material3;
+    }
+
+    public String getMaterial4() {
+        return material4;
+    }
+
+    public void setMaterial4(String material4) {
+        this.material4 = material4;
+    }
+
+    public String getMaterial5() {
+        return material5;
+    }
+
+    public void setMaterial5(String material5) {
+        this.material5 = material5;
+    }
+
+    public String getMaterial6() {
+        return material6;
+    }
+
+    public void setMaterial6(String material6) {
+        this.material6 = material6;
+    }
+
+    public String getDocumentRequest() {
+        return documentRequest;
+    }
+
+    public void setDocumentRequest(String documentRequest) {
+        this.documentRequest = documentRequest;
+    }
+
+    public String getTool() {
+        return tool;
+    }
+
+    public void setTool(String tool) {
+        this.tool = tool;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Set<DocumentHistory> getDocumentHistorys() {
+        return documentHistorys;
+    }
+
+    public void setDocumentHistorys(Set<DocumentHistory> documentHistorys) {
+        this.documentHistorys = documentHistorys;
+    }
 }
