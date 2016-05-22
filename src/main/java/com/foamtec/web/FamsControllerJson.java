@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 
 /**
@@ -30,6 +33,32 @@ public class FamsControllerJson {
         headers.add("Content-Type", "application/json; charset=utf-8");
         try {
             faRequestService.create(data, principal);
+            return new ResponseEntity<String>("{\"process\":\"success\"}", headers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<String>("{\"process\":\"fail\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/fams/engineerPrivate/approve", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String> engineerApprove(@RequestParam("data") String data, Principal principal) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        try {
+            faRequestService.engineerApprove(data, principal);
+            return new ResponseEntity<String>("{\"process\":\"success\"}", headers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<String>("{\"process\":\"fail\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/fams/engineerPrivate/reject", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String> engineerReject(@RequestParam("data") String data, Principal principal) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        try {
+            faRequestService.engineerReject(data, principal);
             return new ResponseEntity<String>("{\"process\":\"success\"}", headers, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("{\"process\":\"fail\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);

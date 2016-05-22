@@ -1,48 +1,257 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <spring:url value="/" var="home" />
 <%@page session="true"%>
 <div class="container">
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#saleRequest">Sale Request FA</a></li>
-        <li><a data-toggle="tab" href="#engineerApprove">Engineer Approve</a></li>
-        <li><a data-toggle="tab" href="#qaFirst">QA First Inspection</a></li>
-    </ul>
-    <div class="tab-content">
-        <div id="saleRequest" class="tab-pane fade in active">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h3 class="panel-title" align="center">FA Request</h3>
+    <div class="row">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#saleRequest">Sale Request FA</a></li>
+            <li><a data-toggle="tab" href="#engineerApprove">Engineer Approve</a></li>
+            <li><a data-toggle="tab" href="#qaFirst">QA First Inspection</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="saleRequest" class="tab-pane fade in active">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" align="center">FA Request</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive" style="height: 300px;">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>FA No.</th>
+                                        <th>Request Date</th>
+                                        <th>Need Date</th>
+                                        <th>Customer</th>
+                                        <th>Part No.</th>
+                                        <th>Sale Out</th>
+                                        <th>Request By</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="faRequest" items="${faRequestSaleCreates}" varStatus="loop">
+                                        <tr>
+                                            <td>${loop.index + 1}</td>
+                                            <td>${faRequest.faNumber}</td>
+                                            <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${faRequest.createDate}" /></td>
+                                            <td><fmt:formatDate pattern="dd/MM/yyyy"  value="${faRequest.needDate}" /></td>
+                                            <td>${faRequest.customer}</td>
+                                            <td>${faRequest.partNo}</td>
+                                            <td>${faRequest.saleOut}</td>
+                                            <c:set var="appuserCreate" value="${faRequest.createBy}"/>
+                                            <td>${appuserCreate.name}</td>
+                                            <td>
+                                                <a class="btn btn-primary btn-sm" href="${home}fams/show/${faRequest.id}?detail" role="button">
+                                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <div class="table-responsive" style="height: 540px;">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>FA No.</th>
-                                    <th>Request Date</th>
-                                    <th>Need Date</th>
-                                    <th>Customer</th>
-                                    <th>Part No.</th>
-                                    <th>Sale Out</th>
-                                    <th>Request By</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
+            </div>
+            <div id="engineerApprove" class="tab-pane fade">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" align="center">Engineer Approve</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive" style="height: 300px;">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>FA No.</th>
+                                        <th>Request Date</th>
+                                        <th>Need Date</th>
+                                        <th>Customer</th>
+                                        <th>Part No.</th>
+                                        <th>Sale Out</th>
+                                        <th>Request By</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="faRequest" items="${faRequestEngineerApproves}" varStatus="loop">
+                                        <tr>
+                                            <td>${loop.index + 1}</td>
+                                            <td>${faRequest.faNumber}</td>
+                                            <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${faRequest.createDate}" /></td>
+                                            <td><fmt:formatDate pattern="dd/MM/yyyy"  value="${faRequest.needDate}" /></td>
+                                            <td>${faRequest.customer}</td>
+                                            <td>${faRequest.partNo}</td>
+                                            <td>${faRequest.saleOut}</td>
+                                            <c:set var="appuserCreate" value="${faRequest.createBy}"/>
+                                            <td>${appuserCreate.name}</td>
+                                            <td>
+                                                <a class="btn btn-primary btn-sm" href="${home}fams/show/${faRequest.id}?detail" role="button">
+                                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="qaFirst" class="tab-pane fade">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" align="center">QA First Shot</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive" style="height: 300px;">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>FA No.</th>
+                                        <th>Request Date</th>
+                                        <th>Need Date</th>
+                                        <th>Customer</th>
+                                        <th>Part No.</th>
+                                        <th>Sale Out</th>
+                                        <th>Request By</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="faRequest" items="${faRequestQaApproves}" varStatus="loop">
+                                        <tr>
+                                            <td>${loop.index + 1}</td>
+                                            <td>${faRequest.faNumber}</td>
+                                            <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${faRequest.createDate}" /></td>
+                                            <td><fmt:formatDate pattern="dd/MM/yyyy"  value="${faRequest.needDate}" /></td>
+                                            <td>${faRequest.customer}</td>
+                                            <td>${faRequest.partNo}</td>
+                                            <td>${faRequest.saleOut}</td>
+                                            <c:set var="appuserCreate" value="${faRequest.createBy}"/>
+                                            <td>${appuserCreate.name}</td>
+                                            <td>
+                                                <a class="btn btn-primary btn-sm" href="${home}fams/show/${faRequest.id}?detail" role="button">
+                                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="engineerApprove" class="tab-pane fade">
-            Engineer Approve
-        </div>
-        <div id="qaFirst" class="tab-pane fade">
-            QA First
+    </div>
+    <div class="row">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#engReject">Engineer Reject</a></li>
+            <li><a data-toggle="tab" href="#qaRejectFirst">QA Reject First Shot</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="engReject" class="tab-pane fade in active">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" align="center">Engineer Reject</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive" style="height: 300px;">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>FA No.</th>
+                                        <th>Request Date</th>
+                                        <th>Need Date</th>
+                                        <th>Customer</th>
+                                        <th>Part No.</th>
+                                        <th>Sale Out</th>
+                                        <th>Request By</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="faRequest" items="${faRequestEngineerRejects}" varStatus="loop">
+                                        <tr>
+                                            <td>${loop.index + 1}</td>
+                                            <td>${faRequest.faNumber}</td>
+                                            <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${faRequest.createDate}" /></td>
+                                            <td><fmt:formatDate pattern="dd/MM/yyyy"  value="${faRequest.needDate}" /></td>
+                                            <td>${faRequest.customer}</td>
+                                            <td>${faRequest.partNo}</td>
+                                            <td>${faRequest.saleOut}</td>
+                                            <c:set var="appuserCreate" value="${faRequest.createBy}"/>
+                                            <td>${appuserCreate.name}</td>
+                                            <td>
+                                                <a class="btn btn-primary btn-sm" href="${home}fams/show/${faRequest.id}?detail" role="button">
+                                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="qaRejectFirst" class="tab-pane fade">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" align="center">QA Reject First Shot</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive" style="height: 300px;">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>FA No.</th>
+                                        <th>Request Date</th>
+                                        <th>Need Date</th>
+                                        <th>Customer</th>
+                                        <th>Part No.</th>
+                                        <th>Sale Out</th>
+                                        <th>Request By</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="faRequest" items="${tt}" varStatus="loop">
+                                        <tr>
+                                            <td>${loop.index + 1}</td>
+                                            <td>${faRequest.faNumber}</td>
+                                            <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${faRequest.createDate}" /></td>
+                                            <td><fmt:formatDate pattern="dd/MM/yyyy"  value="${faRequest.needDate}" /></td>
+                                            <td>${faRequest.customer}</td>
+                                            <td>${faRequest.partNo}</td>
+                                            <td>${faRequest.saleOut}</td>
+                                            <c:set var="appuserCreate" value="${faRequest.createBy}"/>
+                                            <td>${appuserCreate.name}</td>
+                                            <td>
+                                                <a class="btn btn-primary btn-sm" href="${home}fams/show/${faRequest.id}?detail" role="button">
+                                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -38,4 +38,20 @@ public class FaRequestDao {
     public void update(FaRequest faRequest) {
         entityManager.merge(faRequest);
     }
+
+    public List<FaRequest> findByStatus(String status) {
+        Session session = ((Session) entityManager.getDelegate());
+        org.hibernate.Query query = session.createQuery("SELECT o FROM FaRequest o WHERE o.status = :status order by updateDate");
+        query.setParameter("status", status);
+        return query.list();
+    }
+
+    public List<FaRequest> findByStatus(String status1, String status2) {
+        Session session = ((Session) entityManager.getDelegate());
+        org.hibernate.Query query = session.createQuery("SELECT o FROM FaRequest o WHERE o.status = :status1 or  o.status = :status2 order by updateDate");
+        query.setParameter("status1", status1);
+        query.setParameter("status2", status2);
+        return query.list();
+    }
+
 }

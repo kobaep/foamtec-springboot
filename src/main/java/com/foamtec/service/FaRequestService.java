@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -52,6 +53,9 @@ public class FaRequestService {
         AppUser appUser = appUserDao.getByUsername(principal.getName());
 
         FaRequest faRequest = new FaRequest();
+        faRequestDao.create(faRequest);
+        faRequest.setFaNumber("FA" + String.format("%06d", faRequest.getId()));
+
         faRequest.setCreateBy(appUser);
         faRequest.setCreateDate(new Date());
         faRequest.setUpdateDate(new Date());
@@ -65,15 +69,23 @@ public class FaRequestService {
         faRequest.setNeedDate(convertToDate(inputNeedDate));
         if(inputFaApprove.length() > 0) {
             faRequest.setFaApproveQty(Integer.parseInt(inputFaApprove));
+        } else {
+            faRequest.setFaApproveQty(0);
         }
         if(inputFaForSell.length() > 0) {
             faRequest.setFaForSellQty(Integer.parseInt(inputFaForSell));
+        } else {
+            faRequest.setFaForSellQty(0);
         }
         if(inputSampleTest.length() > 0) {
             faRequest.setSamplTestQty(Integer.parseInt(inputSampleTest));
+        } else {
+            faRequest.setSamplTestQty(0);
         }
         if(inputSamplePcc.length() > 0) {
             faRequest.setSamplePccQty(Integer.parseInt(inputSamplePcc));
+        } else {
+            faRequest.setSamplePccQty(0);
         }
         faRequest.setMaterial1(inputMat1);
         if(inputMat2.length() > 0) {
@@ -108,8 +120,6 @@ public class FaRequestService {
         documentHistory.setFaRequest(faRequest);
         documentHistories.add(documentHistory);
         faRequest.setDocumentHistorys(documentHistories);
-        faRequestDao.create(faRequest);
-        faRequest.setFaNumber("FA" + String.format("%07d", faRequest.getId()));
         faRequestDao.update(faRequest);
     }
 
@@ -120,5 +130,66 @@ public class FaRequestService {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public List<FaRequest> findByStatus(String status) {
+        return faRequestDao.findByStatus(status);
+    }
+
+    public List<FaRequest> findByStatus(String status1, String status2) {
+        return faRequestDao.findByStatus(status1, status2);
+    }
+
+    public FaRequest findById(Long id) {
+        return faRequestDao.getById(id);
+    }
+
+    public void engineerApprove(String data, Principal principal) {
+        JSONObject jsonObject = new JSONObject(data);
+        Long id = jsonObject.getLong("inputId");
+        String action = jsonObject.getString("action");
+        String commitDate = jsonObject.getString("inputCommitDate");
+        String process = jsonObject.getString("inputProcess");
+        AppUser appUser = appUserDao.getByUsername(principal.getName());
+        FaRequest faRequest = faRequestDao.getById(id);
+        faRequest.setStatus(action);
+        faRequest.setEngCommitDate(convertToDate(commitDate));
+        faRequest.setProcess(process);
+        faRequest.setUpdateDate(new Date());
+        faRequest.setUpdateBy(appUser);
+        Set<DocumentHistory> documentHistorys = faRequest.getDocumentHistorys();
+        DocumentHistory documentHistory = new DocumentHistory();
+        documentHistory.setActionType(action);
+        documentHistory.setRemark("Engineer review approve");
+        documentHistory.setStatus(action);
+        documentHistory.setCreateDate(new Date());
+        documentHistory.setCreateBy(appUser);
+        documentHistory.setFaRequest(faRequest);
+        documentHistorys.add(documentHistory);
+        faRequest.setDocumentHistorys(documentHistorys);
+        faRequestDao.update(faRequest);
+    }
+
+    public void engineerReject(String data, Principal principal) {
+        JSONObject jsonObject = new JSONObject(data);
+        Long id = jsonObject.getLong("inputId");
+        String action = jsonObject.getString("action");
+        String reason = jsonObject.getString("inputReason");
+        AppUser appUser = appUserDao.getByUsername(principal.getName());
+        FaRequest faRequest = faRequestDao.getById(id);
+        faRequest.setStatus(action);
+        faRequest.setUpdateDate(new Date());
+        faRequest.setUpdateBy(appUser);
+        Set<DocumentHistory> documentHistorys = faRequest.getDocumentHistorys();
+        DocumentHistory documentHistory = new DocumentHistory();
+        documentHistory.setActionType(action);
+        documentHistory.setRemark(reason);
+        documentHistory.setStatus(action);
+        documentHistory.setCreateDate(new Date());
+        documentHistory.setCreateBy(appUser);
+        documentHistory.setFaRequest(faRequest);
+        documentHistorys.add(documentHistory);
+        faRequest.setDocumentHistorys(documentHistorys);
+        faRequestDao.update(faRequest);
     }
 }

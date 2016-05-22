@@ -10,4 +10,16 @@
 	<definition name="FAMS/createFa" extends="layout.basic">
 		<put-attribute name="body" value="/WEB-INF/views/FAMS/createFa.jsp" />
 	</definition>
+
+	<definition name="FAMS/showDetail" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/showDetail.jsp" />
+	</definition>
+
+	<definition name="FAMS/engineerView" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/engineerView.jsp" />
+	</definition>
+
+	<definition name="FAMS/engineerReview" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/engineerReview.jsp" />
+	</definition>
 </tiles-definitions>

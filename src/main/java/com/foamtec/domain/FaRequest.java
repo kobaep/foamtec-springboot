@@ -112,6 +112,17 @@ public class FaRequest implements Serializable {
     @Column(name="status")
     private String status;
 
+    @Column(name="process")
+    private String process;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
+    @Column(name="engCommitDate")
+    private Date engCommitDate;
+
+    @Column(name="engineerReason")
+    private String engineerReason;
+
     @OrderBy("createDate")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "faRequest")
     private Set<DocumentHistory> documentHistorys = new HashSet<DocumentHistory>();
@@ -338,6 +349,30 @@ public class FaRequest implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getProcess() {
+        return process;
+    }
+
+    public void setProcess(String process) {
+        this.process = process;
+    }
+
+    public Date getEngCommitDate() {
+        return engCommitDate;
+    }
+
+    public void setEngCommitDate(Date engCommitDate) {
+        this.engCommitDate = engCommitDate;
+    }
+
+    public String getEngineerReason() {
+        return engineerReason;
+    }
+
+    public void setEngineerReason(String engineerReason) {
+        this.engineerReason = engineerReason;
     }
 
     public Set<DocumentHistory> getDocumentHistorys() {
