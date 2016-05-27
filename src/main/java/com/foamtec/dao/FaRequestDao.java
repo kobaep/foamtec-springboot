@@ -71,4 +71,27 @@ public class FaRequestDao {
         return entityManager.createQuery(cq).getResultList();
     }
 
+    public List<FaRequest> findByNameAndStatus(String name, String status) {
+        Session session = ((Session) entityManager.getDelegate());
+        org.hibernate.Query query = session.createQuery("SELECT o FROM FaRequest o WHERE o.saleOut = :name and  o.status = :status order by updateDate");
+        query.setParameter("name", name);
+        query.setParameter("status", status);
+        return query.list();
+    }
+
+    public List<FaRequest> findByStartDateEndDateAndStatusByUser(Date start, Date end, String statusSearch, String name) {
+        Criteria c = ((Session)entityManager.getDelegate()).createCriteria(FaRequest.class);
+        Criterion case1 = Restrictions.between("updateDate", start, end);
+        Criterion case2 = Restrictions.like("customer", statusSearch);
+        Criterion case3 = Restrictions.like("partNo", statusSearch);
+        Criterion case4 = Restrictions.like("faNumber", statusSearch);
+        Criterion case5 = Restrictions.or(case2, case3, case4);
+        Criterion case6 = Restrictions.eq("saleOut", name);
+        Criterion case7 = Restrictions.eq("status", "saleCoSendItem");
+
+        c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        c.add(Restrictions.and(case1, case5, case6, case7));
+        return c.list();
+    }
+
 }

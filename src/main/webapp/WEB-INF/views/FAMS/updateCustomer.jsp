@@ -238,6 +238,35 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputContract" class="col-sm-3 control-label">Contact Person :</label>
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="inputContract" placeholder="Name" autocomplete="off" required>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputInvoice" class="col-sm-3 control-label">Invoice No. :</label>
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="inputInvoice" placeholder="Invoice No" autocomplete="off" required>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-list"></span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-4" align="center">
+                        <button type="button" id="btnApprove" class="btn btn-lg btn-success">Save Data</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">History</div>
                 <div class="panel-body">
@@ -274,3 +303,53 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="alertApproveModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <h4 class="modal-title">Save</h4>
+            </div>
+            <div class="modal-body">
+                Confirm save
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btnApproveReason">confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+
+        $("#btnApprove").click(function() {
+            $("#alertApproveModal").modal({show:true});
+        });
+
+        $("#btnApproveReason").click(function() {
+            var data = {
+                inputId : "${faRequest.id}",
+                inputContract : $("#inputContract").val(),
+                inputInvoice : $("#inputInvoice").val()
+            };
+            $.ajax({
+                url: "${home}fams/requestPrivate/saleCoSendItem",
+                type: "POST",
+                headers: {
+                    Accept: "application/json"
+                },
+                data: {
+                    data : JSON.stringify(data)
+                },
+                dataType: "json",
+                success: function(data){
+                    window.location.href = "${home}fams/requestPrivate?updateList";
+                },
+                error: function(data){
+                    alert("saved error.");
+                }
+            });
+            return false;
+        });
+    });
+</script>

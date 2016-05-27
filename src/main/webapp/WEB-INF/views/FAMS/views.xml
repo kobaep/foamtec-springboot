@@ -43,11 +43,39 @@
 		<put-attribute name="body" value="/WEB-INF/views/FAMS/reviewFirst.jsp" />
 	</definition>
 
+	<definition name="FAMS/reviewFinal" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/reviewFinal.jsp" />
+	</definition>
+
 	<definition name="FAMS/showEngApprove" extends="layout.basic">
 		<put-attribute name="body" value="/WEB-INF/views/FAMS/showEngApprove.jsp" />
 	</definition>
 
 	<definition name="FAMS/showQaFirst" extends="layout.basic">
 		<put-attribute name="body" value="/WEB-INF/views/FAMS/showQaFirst.jsp" />
+	</definition>
+
+	<definition name="FAMS/sendItemFinal" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/engineerSendItemFinal.jsp" />
+	</definition>
+
+	<definition name="FAMS/updateCustomer" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/updateCustomer.jsp" />
+	</definition>
+
+	<definition name="FAMS/showSaleCo" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/showSaleCo.jsp" />
+	</definition>
+
+	<definition name="FAMS/updateListSaleOut" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/updateListSaleOut.jsp" />
+	</definition>
+
+	<definition name="FAMS/saleOutFollow" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/saleOutFollow.jsp" />
+	</definition>
+
+	<definition name="FAMS/listCustomerResult" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/listCustomerResult.jsp" />
 	</definition>
 </tiles-definitions>

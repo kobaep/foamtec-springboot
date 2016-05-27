@@ -232,6 +232,11 @@
                             <textarea id="inputProcess" rows="4" class="form-control" disabled><jsp:text/>${faRequest.process}</textarea>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <button type="button" id="btnApprove" class="btn btn-success">Send Item Final</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -274,3 +279,71 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="alertSendItemFinalModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <h4 class="modal-title">Send Item Final</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputTooling" class="col-sm-4 control-label">Tooling No. Or Method :</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="inputTooling" placeholder="Tooling No. Or Method" autocomplete="off" required>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-check"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputQty" class="col-sm-4 control-label">Qty :</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="inputQty" placeholder="Pcs." autocomplete="off" required>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-sort-by-order"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btnSendFinal">Send Item Final</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $("#btnApprove").click(function() {
+            $("#alertSendItemFinalModal").modal({show:true});
+        });
+
+        $("#btnSendFinal").click(function() {
+            var data = {
+                inputId : "${faRequest.id}",
+                inputTooling : $("#inputTooling").val(),
+                inputQty : $("#inputQty").val()
+            };
+            $.ajax({
+                url: "${home}fams/engineerPrivate/sendFinal",
+                type: "POST",
+                headers: {
+                    Accept: "application/json"
+                },
+                data: {
+                    data : JSON.stringify(data)
+                },
+                dataType: "json",
+                success: function(data){
+                    window.location.href = "${home}fams/engineerPrivate?engineerView";
+                },
+                error: function(data){
+                    alert("saved error.");
+                }
+            });
+            return false;
+        });
+    });
+</script>

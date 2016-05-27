@@ -225,28 +225,30 @@
                                         <th>No.</th>
                                         <th>FA No.</th>
                                         <th>Request Date</th>
+                                        <th>Update Date</th>
                                         <th>Need Date</th>
                                         <th>Customer</th>
                                         <th>Part No.</th>
-                                        <th>Sale Out</th>
-                                        <th>Request By</th>
+                                        <th>Status</th>
+                                        <th>Update By</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="faRequest" items="${tt}" varStatus="loop">
+                                    <c:forEach var="faRequest" items="${faRequestQaRejectFinal}" varStatus="loop">
                                         <tr>
                                             <td>${loop.index + 1}</td>
                                             <td>${faRequest.faNumber}</td>
                                             <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${faRequest.createDate}" /></td>
+                                            <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${faRequest.updateDate}" /></td>
                                             <td><fmt:formatDate pattern="dd/MM/yyyy"  value="${faRequest.needDate}" /></td>
                                             <td>${faRequest.customer}</td>
                                             <td>${faRequest.partNo}</td>
-                                            <td>${faRequest.saleOut}</td>
-                                            <c:set var="appuserCreate" value="${faRequest.createBy}"/>
-                                            <td>${appuserCreate.name}</td>
+                                            <td>${faRequest.status}</td>
+                                            <c:set var="appuser" value="${faRequest.updateBy}"/>
+                                            <td>${appuser.name}</td>
                                             <td>
-                                                <a class="btn btn-primary btn-sm" href="${home}fams/show/${faRequest.id}?detail" role="button">
+                                                <a class="btn btn-primary btn-sm" href="${home}fams/engineerPrivate/${faRequest.id}?sendItemFinal" role="button">
                                                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                                 </a>
                                             </td>

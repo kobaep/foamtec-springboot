@@ -6,7 +6,7 @@
 <%@page session="true"%>
 <spring:url value="/" var="home" />
 <div class="container">
-    <div class="panel panel-success">
+    <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title" align="center">FA Request By ${name}</h3>
         </div>
@@ -30,8 +30,46 @@
                     <tbody>
                         <c:forEach var="faRequest" items="${faRequests}" varStatus="loop">
                             <c:choose>
-                                <c:when test="${faRequest.status eq 'saleCancel' or faRequest.status eq 'engCancel'}">
+                                <c:when test="${faRequest.status eq 'saleCancel' or faRequest.status eq 'engCancel' or faRequest.status eq 'saleCoSendItem'}">
 
+                                </c:when>
+                                <c:when test="${faRequest.status eq 'engReject' or faRequest.status eq 'qaRejectFirstShot' or faRequest.status eq 'qaRejectFinal'}">
+                                    <tr class="danger">
+                                        <td>${loop.index + 1}</td>
+                                        <td>${faRequest.faNumber}</td>
+                                        <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${faRequest.createDate}" /></td>
+                                        <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${faRequest.updateDate}" /></td>
+                                        <td><fmt:formatDate pattern="dd/MM/yyyy"  value="${faRequest.needDate}" /></td>
+                                        <td>${faRequest.customer}</td>
+                                        <td>${faRequest.partNo}</td>
+                                        <c:set var="appuser" value="${faRequest.updateBy}"/>
+                                        <td>${appuser.name}</td>
+                                        <td>${faRequest.status}</td>
+                                        <td>
+                                            <a class="btn btn-primary btn-sm" href="${home}fams/requestPrivate/${faRequest.id}?update" role="button">
+                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:when>
+                                <c:when test="${faRequest.status eq 'qaApproveFinal'}">
+                                    <tr class="success">
+                                        <td>${loop.index + 1}</td>
+                                        <td>${faRequest.faNumber}</td>
+                                        <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${faRequest.createDate}" /></td>
+                                        <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${faRequest.updateDate}" /></td>
+                                        <td><fmt:formatDate pattern="dd/MM/yyyy"  value="${faRequest.needDate}" /></td>
+                                        <td>${faRequest.customer}</td>
+                                        <td>${faRequest.partNo}</td>
+                                        <c:set var="appuser" value="${faRequest.updateBy}"/>
+                                        <td>${appuser.name}</td>
+                                        <td>${faRequest.status}</td>
+                                        <td>
+                                            <a class="btn btn-primary btn-sm" href="${home}fams/requestPrivate/${faRequest.id}?updateCustomer" role="button">
+                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 </c:when>
                                 <c:otherwise>
                                     <tr>

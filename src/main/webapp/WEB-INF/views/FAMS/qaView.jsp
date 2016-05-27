@@ -61,7 +61,52 @@
             </div>
         </div>
         <div id="qaLast" class="tab-pane fade">
-
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title" align="center">Final Inspection</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive" style="height: 540px;">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>FA No.</th>
+                                    <th>Request Date</th>
+                                    <th>Update Date</th>
+                                    <th>Need Date</th>
+                                    <th>Customer</th>
+                                    <th>Part No.</th>
+                                    <th>Status</th>
+                                    <th>Update By</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="faRequest" items="${faRequestEngineerSendFinal}" varStatus="loop">
+                                    <tr>
+                                        <td>${loop.index + 1}</td>
+                                        <td>${faRequest.faNumber}</td>
+                                        <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${faRequest.createDate}" /></td>
+                                        <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${faRequest.updateDate}" /></td>
+                                        <td><fmt:formatDate pattern="dd/MM/yyyy"  value="${faRequest.needDate}" /></td>
+                                        <td>${faRequest.customer}</td>
+                                        <td>${faRequest.partNo}</td>
+                                        <td>${faRequest.status}</td>
+                                        <c:set var="appuser" value="${faRequest.updateBy}"/>
+                                        <td>${appuser.name}</td>
+                                        <td>
+                                            <a class="btn btn-primary btn-sm" href="${home}fams/qaPrivate/${faRequest.id}?reviewFinal" role="button">
+                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -232,6 +232,18 @@
                             <textarea id="inputProcess" rows="4" class="form-control" disabled><jsp:text/>${faRequest.process}</textarea>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Contract :</label>
+                        <div class="col-sm-8">
+                            <label class="form-control-static">${faRequest.saleCoContract}</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Invoice No :</label>
+                        <div class="col-sm-8">
+                            <label class="form-control-static">${faRequest.invoiceNo}</label>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

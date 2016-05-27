@@ -139,6 +139,15 @@ public class FaRequest implements Serializable {
     @Column(name="qtyFirst")
     private Integer qtyFirst;
 
+    @Column(name="saleCoContract")
+    private String saleCoContract;
+
+    @Column(name="invoiceNo")
+    private String invoiceNo;
+
+    @Column(name="customerRemark")
+    private String customerRemark;
+
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     @Column(name="engCommitDate")
@@ -469,5 +478,29 @@ public class FaRequest implements Serializable {
 
     public void setQtyFirst(Integer qtyFirst) {
         this.qtyFirst = qtyFirst;
+    }
+
+    public String getSaleCoContract() {
+        return saleCoContract;
+    }
+
+    public void setSaleCoContract(String saleCoContract) {
+        this.saleCoContract = saleCoContract;
+    }
+
+    public String getInvoiceNo() {
+        return invoiceNo;
+    }
+
+    public void setInvoiceNo(String invoiceNo) {
+        this.invoiceNo = invoiceNo;
+    }
+
+    public String getCustomerRemark() {
+        return customerRemark;
+    }
+
+    public void setCustomerRemark(String customerRemark) {
+        this.customerRemark = customerRemark;
     }
 }
