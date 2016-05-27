@@ -100,6 +100,24 @@ public class FaRequest implements Serializable {
     @Column(name="material6")
     private String material6;
 
+    @Column(name="batch1")
+    private String batch1;
+
+    @Column(name="batch2")
+    private String batch2;
+
+    @Column(name="batch3")
+    private String batch3;
+
+    @Column(name="batch4")
+    private String batch4;
+
+    @Column(name="batch5")
+    private String batch5;
+
+    @Column(name="batch6")
+    private String batch6;
+
     @Column(name="documentRequest")
     private String documentRequest;
 
@@ -114,6 +132,12 @@ public class FaRequest implements Serializable {
 
     @Column(name="process")
     private String process;
+
+    @Column(name="methodFirst")
+    private String methodFirst;
+
+    @Column(name="qtyFirst")
+    private Integer qtyFirst;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
@@ -381,5 +405,69 @@ public class FaRequest implements Serializable {
 
     public void setDocumentHistorys(Set<DocumentHistory> documentHistorys) {
         this.documentHistorys = documentHistorys;
+    }
+
+    public String getBatch1() {
+        return batch1;
+    }
+
+    public void setBatch1(String batch1) {
+        this.batch1 = batch1;
+    }
+
+    public String getBatch2() {
+        return batch2;
+    }
+
+    public void setBatch2(String batch2) {
+        this.batch2 = batch2;
+    }
+
+    public String getBatch3() {
+        return batch3;
+    }
+
+    public void setBatch3(String batch3) {
+        this.batch3 = batch3;
+    }
+
+    public String getBatch4() {
+        return batch4;
+    }
+
+    public void setBatch4(String batch4) {
+        this.batch4 = batch4;
+    }
+
+    public String getBatch5() {
+        return batch5;
+    }
+
+    public void setBatch5(String batch5) {
+        this.batch5 = batch5;
+    }
+
+    public String getBatch6() {
+        return batch6;
+    }
+
+    public void setBatch6(String batch6) {
+        this.batch6 = batch6;
+    }
+
+    public String getMethodFirst() {
+        return methodFirst;
+    }
+
+    public void setMethodFirst(String methodFirst) {
+        this.methodFirst = methodFirst;
+    }
+
+    public Integer getQtyFirst() {
+        return qtyFirst;
+    }
+
+    public void setQtyFirst(Integer qtyFirst) {
+        this.qtyFirst = qtyFirst;
     }
 }

@@ -57,6 +57,7 @@ public class FaRequestService {
         faRequest.setFaNumber("FA" + String.format("%06d", faRequest.getId()));
 
         faRequest.setCreateBy(appUser);
+        faRequest.setUpdateBy(appUser);
         faRequest.setCreateDate(new Date());
         faRequest.setUpdateDate(new Date());
         faRequest.setCustomer(inputCustomer);
@@ -123,6 +124,124 @@ public class FaRequestService {
         faRequestDao.update(faRequest);
     }
 
+    public void update(String data, Principal principal) {
+        JSONObject jsonObject = new JSONObject(data);
+        Long id = jsonObject.getLong("id");
+        String inputCustomer = jsonObject.getString("inputCustomer");
+        String inputProductGroup = jsonObject.getString("inputProductGroup");
+        String inputPartNo = jsonObject.getString("inputPartNo");
+        String inputRevision = jsonObject.getString("inputRevision");
+        String inputSaleOut = jsonObject.getString("inputSaleOut");
+        String inputQwsNo = jsonObject.getString("inputQwsNo");
+        String inputApqpNo = jsonObject.getString("inputApqpNo");
+        String inputNeedDate = jsonObject.getString("inputNeedDate");
+        String inputFaApprove = jsonObject.getString("inputFaApprove");
+        String inputFaForSell = jsonObject.getString("inputFaForSell");
+        String inputSampleTest = jsonObject.getString("inputSampleTest");
+        String inputSamplePcc = jsonObject.getString("inputSamplePcc");
+        String inputMat1 = jsonObject.getString("inputMat1");
+        String inputMat2 = jsonObject.getString("inputMat2");
+        String inputMat3 = jsonObject.getString("inputMat3");
+        String inputMat4 = jsonObject.getString("inputMat4");
+        String inputMat5 = jsonObject.getString("inputMat5");
+        String inputMat6 = jsonObject.getString("inputMat6");
+        String inputDocumentRequest = jsonObject.getString("inputDocumentRequest");
+        String inputTools = jsonObject.getString("inputTools");
+        String inputRemark = jsonObject.getString("inputRemark");
+        AppUser appUser = appUserDao.getByUsername(principal.getName());
+
+        FaRequest faRequest = faRequestDao.getById(id);
+
+        faRequest.setUpdateBy(appUser);
+        faRequest.setUpdateDate(new Date());
+        faRequest.setCustomer(inputCustomer);
+        faRequest.setProductGroup(inputProductGroup);
+        faRequest.setPartNo(inputPartNo);
+        faRequest.setRevision(inputRevision);
+        faRequest.setSaleOut(inputSaleOut);
+        faRequest.setQwsNo(inputQwsNo);
+        faRequest.setApqpNo(inputApqpNo);
+        faRequest.setNeedDate(convertToDate(inputNeedDate));
+        if(inputFaApprove.length() > 0) {
+            faRequest.setFaApproveQty(Integer.parseInt(inputFaApprove));
+        } else {
+            faRequest.setFaApproveQty(0);
+        }
+        if(inputFaForSell.length() > 0) {
+            faRequest.setFaForSellQty(Integer.parseInt(inputFaForSell));
+        } else {
+            faRequest.setFaForSellQty(0);
+        }
+        if(inputSampleTest.length() > 0) {
+            faRequest.setSamplTestQty(Integer.parseInt(inputSampleTest));
+        } else {
+            faRequest.setSamplTestQty(0);
+        }
+        if(inputSamplePcc.length() > 0) {
+            faRequest.setSamplePccQty(Integer.parseInt(inputSamplePcc));
+        } else {
+            faRequest.setSamplePccQty(0);
+        }
+        faRequest.setMaterial1(inputMat1);
+        if(inputMat2.length() > 0) {
+            faRequest.setMaterial2(inputMat2);
+        }
+        if(inputMat3.length() > 0) {
+            faRequest.setMaterial3(inputMat3);
+        }
+        if(inputMat4.length() > 0) {
+            faRequest.setMaterial4(inputMat4);
+        }
+        if(inputMat5.length() > 0) {
+            faRequest.setMaterial5(inputMat5);
+        }
+        if(inputMat6.length() > 0) {
+            faRequest.setMaterial6(inputMat6);
+        }
+        faRequest.setDocumentRequest(inputDocumentRequest);
+        faRequest.setTool(inputTools);
+        if(inputRemark.length() > 0) {
+            faRequest.setRemark(inputRemark);
+        }
+        faRequest.setStatus("saleUpdate");
+
+        Set<DocumentHistory> documentHistories = faRequest.getDocumentHistorys();
+        DocumentHistory documentHistory = new DocumentHistory();
+        documentHistory.setCreateDate(new Date());
+        documentHistory.setCreateBy(appUser);
+        documentHistory.setStatus("saleUpdate");
+        documentHistory.setActionType("saleUpdate");
+        documentHistory.setRemark("Sale update FA request.");
+        documentHistory.setFaRequest(faRequest);
+        documentHistories.add(documentHistory);
+        faRequest.setDocumentHistorys(documentHistories);
+        faRequestDao.update(faRequest);
+    }
+
+    public void cancel(String data, Principal principal) {
+        JSONObject jsonObject = new JSONObject(data);
+        Long id = jsonObject.getLong("inputId");
+        AppUser appUser = appUserDao.getByUsername(principal.getName());
+
+        FaRequest faRequest = faRequestDao.getById(id);
+
+        faRequest.setUpdateBy(appUser);
+        faRequest.setUpdateDate(new Date());
+        faRequest.setStatus("saleCancel");
+
+        Set<DocumentHistory> documentHistories = faRequest.getDocumentHistorys();
+        DocumentHistory documentHistory = new DocumentHistory();
+        documentHistory.setCreateDate(new Date());
+        documentHistory.setCreateBy(appUser);
+        documentHistory.setStatus("saleCancel");
+        documentHistory.setActionType("saleCancel");
+        documentHistory.setRemark("Sale saleCancel FA request.");
+        documentHistory.setFaRequest(faRequest);
+        documentHistories.add(documentHistory);
+        faRequest.setDocumentHistorys(documentHistories);
+        faRequestDao.update(faRequest);
+    }
+
     public Date convertToDate(String dateString) {
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -150,6 +269,12 @@ public class FaRequestService {
         String action = jsonObject.getString("action");
         String commitDate = jsonObject.getString("inputCommitDate");
         String process = jsonObject.getString("inputProcess");
+        String batch1 = jsonObject.getString("inputBatch1");
+        String batch2 = jsonObject.getString("inputBatch2");
+        String batch3 = jsonObject.getString("inputBatch3");
+        String batch4 = jsonObject.getString("inputBatch4");
+        String batch5 = jsonObject.getString("inputBatch5");
+        String batch6 = jsonObject.getString("inputBatch6");
         AppUser appUser = appUserDao.getByUsername(principal.getName());
         FaRequest faRequest = faRequestDao.getById(id);
         faRequest.setStatus(action);
@@ -157,6 +282,22 @@ public class FaRequestService {
         faRequest.setProcess(process);
         faRequest.setUpdateDate(new Date());
         faRequest.setUpdateBy(appUser);
+        faRequest.setBatch1(batch1);
+        if (!batch2.equals("noNo")) {
+            faRequest.setBatch2(batch2);
+        }
+        if (!batch3.equals("noNo")) {
+            faRequest.setBatch3(batch3);
+        }
+        if (!batch4.equals("noNo")) {
+            faRequest.setBatch4(batch4);
+        }
+        if (!batch5.equals("noNo")) {
+            faRequest.setBatch5(batch5);
+        }
+        if (!batch6.equals("noNo")) {
+            faRequest.setBatch6(batch6);
+        }
         Set<DocumentHistory> documentHistorys = faRequest.getDocumentHistorys();
         DocumentHistory documentHistory = new DocumentHistory();
         documentHistory.setActionType(action);
@@ -185,6 +326,104 @@ public class FaRequestService {
         documentHistory.setActionType(action);
         documentHistory.setRemark(reason);
         documentHistory.setStatus(action);
+        documentHistory.setCreateDate(new Date());
+        documentHistory.setCreateBy(appUser);
+        documentHistory.setFaRequest(faRequest);
+        documentHistorys.add(documentHistory);
+        faRequest.setDocumentHistorys(documentHistorys);
+        faRequestDao.update(faRequest);
+    }
+
+    public List<FaRequest> findByName(String name) {
+        AppUser appUser = appUserDao.getByUsername(name);
+        return faRequestDao.findByName(appUser);
+    }
+
+    public void engineerSendFirst(String data, Principal principal) {
+        JSONObject jsonObject = new JSONObject(data);
+        Long id = jsonObject.getLong("inputId");
+        String inputTooling = jsonObject.getString("inputTooling");
+        Integer inputQty = jsonObject.getInt("inputQty");
+        AppUser appUser = appUserDao.getByUsername(principal.getName());
+        FaRequest faRequest = faRequestDao.getById(id);
+        faRequest.setMethodFirst(inputTooling);
+        faRequest.setQtyFirst(inputQty);
+        faRequest.setStatus("engSendFirst");
+        faRequest.setUpdateDate(new Date());
+        faRequest.setUpdateBy(appUser);
+        Set<DocumentHistory> documentHistorys = faRequest.getDocumentHistorys();
+        DocumentHistory documentHistory = new DocumentHistory();
+        documentHistory.setActionType("engSendFirst");
+        documentHistory.setRemark("Engineer send item first shot.");
+        documentHistory.setStatus("engSendFirst");
+        documentHistory.setCreateDate(new Date());
+        documentHistory.setCreateBy(appUser);
+        documentHistory.setMethodFirst(inputTooling);
+        documentHistory.setQtyFirst(inputQty);
+        documentHistory.setFaRequest(faRequest);
+        documentHistorys.add(documentHistory);
+        faRequest.setDocumentHistorys(documentHistorys);
+        faRequestDao.update(faRequest);
+    }
+
+    public void engineerCancel(String data, Principal principal) {
+        JSONObject jsonObject = new JSONObject(data);
+        Long id = jsonObject.getLong("inputId");
+        String inputReason = jsonObject.getString("inputReason");
+        AppUser appUser = appUserDao.getByUsername(principal.getName());
+        FaRequest faRequest = faRequestDao.getById(id);
+        faRequest.setStatus("engCancel");
+        faRequest.setUpdateDate(new Date());
+        faRequest.setUpdateBy(appUser);
+        Set<DocumentHistory> documentHistorys = faRequest.getDocumentHistorys();
+        DocumentHistory documentHistory = new DocumentHistory();
+        documentHistory.setActionType("engCancel");
+        documentHistory.setRemark(inputReason);
+        documentHistory.setStatus("engCancel");
+        documentHistory.setCreateDate(new Date());
+        documentHistory.setCreateBy(appUser);
+        documentHistory.setFaRequest(faRequest);
+        documentHistorys.add(documentHistory);
+        faRequest.setDocumentHistorys(documentHistorys);
+        faRequestDao.update(faRequest);
+    }
+
+    public void qaApproveFirst(String data, Principal principal) {
+        JSONObject jsonObject = new JSONObject(data);
+        Long id = jsonObject.getLong("inputId");
+        String action = jsonObject.getString("action");
+        AppUser appUser = appUserDao.getByUsername(principal.getName());
+        FaRequest faRequest = faRequestDao.getById(id);
+        faRequest.setStatus("qaApproveFirstShot");
+        faRequest.setUpdateDate(new Date());
+        faRequest.setUpdateBy(appUser);
+        Set<DocumentHistory> documentHistorys = faRequest.getDocumentHistorys();
+        DocumentHistory documentHistory = new DocumentHistory();
+        documentHistory.setActionType("qaApproveFirstShot");
+        documentHistory.setRemark("QA approve first shot.");
+        documentHistory.setStatus("qaApproveFirstShot");
+        documentHistory.setCreateDate(new Date());
+        documentHistory.setCreateBy(appUser);
+        documentHistory.setFaRequest(faRequest);
+        documentHistorys.add(documentHistory);
+        faRequest.setDocumentHistorys(documentHistorys);
+        faRequestDao.update(faRequest);
+    }
+
+    public void qaRejectFirst(String data, Principal principal) {
+        JSONObject jsonObject = new JSONObject(data);
+        Long id = jsonObject.getLong("inputId");
+        String inputReason = jsonObject.getString("inputReason");
+        AppUser appUser = appUserDao.getByUsername(principal.getName());
+        FaRequest faRequest = faRequestDao.getById(id);
+        faRequest.setStatus("qaRejectFirstShot");
+        faRequest.setUpdateDate(new Date());
+        faRequest.setUpdateBy(appUser);
+        Set<DocumentHistory> documentHistorys = faRequest.getDocumentHistorys();
+        DocumentHistory documentHistory = new DocumentHistory();
+        documentHistory.setActionType("qaRejectFirstShot");
+        documentHistory.setRemark(inputReason);
+        documentHistory.setStatus("qaRejectFirstShot");
         documentHistory.setCreateDate(new Date());
         documentHistory.setCreateBy(appUser);
         documentHistory.setFaRequest(faRequest);

@@ -34,6 +34,12 @@ public class DocumentHistory implements Serializable {
     @Column(name="status")
     private String status;
 
+    @Column(name="methodFirst")
+    private String methodFirst;
+
+    @Column(name="qtyFirst")
+    private Integer qtyFirst;
+
     @Column(name="backupDocumentNUmber")
     private String backupDocumentNUmber;
 
@@ -126,5 +132,21 @@ public class DocumentHistory implements Serializable {
 
     public void setFaRequest(FaRequest faRequest) {
         this.faRequest = faRequest;
+    }
+
+    public String getMethodFirst() {
+        return methodFirst;
+    }
+
+    public void setMethodFirst(String methodFirst) {
+        this.methodFirst = methodFirst;
+    }
+
+    public Integer getQtyFirst() {
+        return qtyFirst;
+    }
+
+    public void setQtyFirst(Integer qtyFirst) {
+        this.qtyFirst = qtyFirst;
     }
 }

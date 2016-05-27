@@ -22,4 +22,32 @@
 	<definition name="FAMS/engineerReview" extends="layout.basic">
 		<put-attribute name="body" value="/WEB-INF/views/FAMS/engineerReview.jsp" />
 	</definition>
+
+	<definition name="FAMS/updateListSale" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/updateListSale.jsp" />
+	</definition>
+
+	<definition name="FAMS/saleUpdate" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/saleUpdate.jsp" />
+	</definition>
+
+	<definition name="FAMS/engineerSendItemFirst" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/engineerSendItemFirst.jsp" />
+	</definition>
+
+	<definition name="FAMS/qaView" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/qaView.jsp" />
+	</definition>
+
+	<definition name="FAMS/reviewFirst" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/reviewFirst.jsp" />
+	</definition>
+
+	<definition name="FAMS/showEngApprove" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/showEngApprove.jsp" />
+	</definition>
+
+	<definition name="FAMS/showQaFirst" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/showQaFirst.jsp" />
+	</definition>
 </tiles-definitions>

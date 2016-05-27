@@ -51,6 +51,9 @@ public class FamsController {
         model.addObject("faRequestSaleCreates", faRequestService.findByStatus("saleCreate", "saleUpdate"));
         model.addObject("faRequestEngineerApproves", faRequestService.findByStatus("engApprove"));
         model.addObject("faRequestEngineerRejects", faRequestService.findByStatus("engReject"));
+        model.addObject("faRequestEngineerSendFirst", faRequestService.findByStatus("engSendFirst"));
+        model.addObject("faRequestQaApproveFirst", faRequestService.findByStatus("qaApproveFirstShot"));
+        model.addObject("faRequestQaRejectFirst", faRequestService.findByStatus("qaRejectFirstShot"));
         model.setViewName("FAMS/home");
         return model;
     }
@@ -72,6 +75,32 @@ public class FamsController {
         }
         model.addObject("faRequest", faRequestService.findById(id));
         model.setViewName("FAMS/showDetail");
+        return model;
+    }
+
+    @RequestMapping(value = "/fams/showEngApprove/{id}", params = "detail", method = RequestMethod.GET)
+    public ModelAndView showEngApprove(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+        try {
+            principal.getName();
+            viewService.addMenuAndName(model, principal);
+        } catch (Exception e) {
+            viewService.addLogin(model);
+        }
+        model.addObject("faRequest", faRequestService.findById(id));
+        model.setViewName("FAMS/showEngApprove");
+        return model;
+    }
+
+    @RequestMapping(value = "/fams/showQaFirst/{id}", params = "detail", method = RequestMethod.GET)
+    public ModelAndView showQaFirst(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+        try {
+            principal.getName();
+            viewService.addMenuAndName(model, principal);
+        } catch (Exception e) {
+            viewService.addLogin(model);
+        }
+        model.addObject("faRequest", faRequestService.findById(id));
+        model.setViewName("FAMS/showQaFirst");
         return model;
     }
 
@@ -120,7 +149,8 @@ public class FamsController {
         viewService.addMenuAndName(model, principal);
         model.addObject("faRequestSaleCreates", faRequestService.findByStatus("saleCreate", "saleUpdate"));
         model.addObject("faRequestEngineerApproves", faRequestService.findByStatus("engApprove"));
-        model.addObject("faRequestEngineerRejects", faRequestService.findByStatus("engReject"));
+        model.addObject("faRequestQaApproveFirst", faRequestService.findByStatus("qaApproveFirstShot"));
+        model.addObject("faRequestQaRejectFirst", faRequestService.findByStatus("qaRejectFirstShot"));
         model.setViewName("FAMS/engineerView");
         return model;
     }
@@ -130,6 +160,46 @@ public class FamsController {
         viewService.addMenuAndName(model, principal);
         model.addObject("faRequest", faRequestService.findById(id));
         model.setViewName("FAMS/engineerReview");
+        return model;
+    }
+
+    @RequestMapping(value = "/fams/engineerPrivate/{id}", params = "sendItemFirst", method = RequestMethod.GET)
+    public ModelAndView engineerSendItemFirst(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+        viewService.addMenuAndName(model, principal);
+        model.addObject("faRequest", faRequestService.findById(id));
+        model.setViewName("FAMS/engineerSendItemFirst");
+        return model;
+    }
+
+    @RequestMapping(value = "/fams/requestPrivate", params = "updateList", method = RequestMethod.GET)
+    public ModelAndView updateListSale(ModelAndView model, Principal principal) {
+        viewService.addMenuAndName(model, principal);
+        model.addObject("faRequests", faRequestService.findByName(principal.getName()));
+        model.setViewName("FAMS/updateListSale");
+        return model;
+    }
+
+    @RequestMapping(value = "/fams/requestPrivate/{id}", params = "update", method = RequestMethod.GET)
+    public ModelAndView saleUpdate(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+        viewService.addMenuAndName(model, principal);
+        model.addObject("faRequest", faRequestService.findById(id));
+        model.setViewName("FAMS/saleUpdate");
+        return model;
+    }
+
+    @RequestMapping(value = "/fams/qaPrivate", params = "qaView", method = RequestMethod.GET)
+    public ModelAndView qaView(ModelAndView model, Principal principal) {
+        viewService.addMenuAndName(model, principal);
+        model.addObject("faRequestEngineerSendFirst", faRequestService.findByStatus("engSendFirst"));
+        model.setViewName("FAMS/qaView");
+        return model;
+    }
+
+    @RequestMapping(value = "/fams/qaPrivate/{id}", params = "reviewFirst", method = RequestMethod.GET)
+    public ModelAndView qaReviewFirst(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+        viewService.addMenuAndName(model, principal);
+        model.addObject("faRequest", faRequestService.findById(id));
+        model.setViewName("FAMS/reviewFirst");
         return model;
     }
 }

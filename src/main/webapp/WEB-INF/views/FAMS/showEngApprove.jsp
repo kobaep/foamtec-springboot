@@ -1,10 +1,11 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <spring:url value="/" var="home" />
+<%@page session="true"%>
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
@@ -98,65 +99,108 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label">Material 1 :</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-4 control-label" for="inputBatch1">Material 1 :</label>
+                        <div class="col-sm-4">
                             <label class="form-control-static">${faRequest.material1}</label>
                         </div>
+                        <div class="col-sm-4">
+                            <label class="form-control-static">Batch : ${faRequest.batch1}</label>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label">Material 2 :</label>
-                        <div class="col-sm-8">
-                            <c:if test="${not empty faRequest.material2}">
+                        <label class="col-sm-4 control-label" for="inputBatch2">Material 2 :</label>
+                        <c:if test="${not empty faRequest.material2}">
+                            <div class="col-sm-4">
                                 <label class="form-control-static">${faRequest.material2}</label>
-                            </c:if>
-                            <c:if test="${empty faRequest.material2}">
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-control-static">Batch : ${faRequest.batch2}</label>
+                            </div>
+                        </c:if>
+                        <c:if test="${empty faRequest.material2}">
+                            <div class="col-sm-4">
                                 <label class="form-control-static"> n/a </label>
-                            </c:if>
-                        </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control hidden" id="inputBatch2" value="noNo">
+                            </div>
+                        </c:if>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label">Material 3 :</label>
-                        <div class="col-sm-8">
-                            <c:if test="${not empty faRequest.material3}">
+                        <label class="col-sm-4 control-label" for="inputBatch3">Material 3 :</label>
+                        <c:if test="${not empty faRequest.material3}">
+                            <div class="col-sm-4">
                                 <label class="form-control-static">${faRequest.material3}</label>
-                            </c:if>
-                            <c:if test="${empty faRequest.material3}">
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-control-static">Batch : ${faRequest.batch3}</label>
+                            </div>
+                        </c:if>
+                        <c:if test="${empty faRequest.material3}">
+                            <div class="col-sm-4">
                                 <label class="form-control-static"> n/a </label>
-                            </c:if>
-                        </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control hidden" id="inputBatch3" value="noNo">
+                            </div>
+                        </c:if>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label">Material 4 :</label>
-                        <div class="col-sm-8">
-                            <c:if test="${not empty faRequest.material4}">
+                        <label class="col-sm-4 control-label" for="inputBatch4">Material 4 :</label>
+                        <c:if test="${not empty faRequest.material4}">
+                            <div class="col-sm-4">
                                 <label class="form-control-static">${faRequest.material4}</label>
-                            </c:if>
-                            <c:if test="${empty faRequest.material4}">
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-control-static">Batch : ${faRequest.batch4}</label>
+                            </div>
+                        </c:if>
+                        <c:if test="${empty faRequest.material4}">
+                            <div class="col-sm-4">
                                 <label class="form-control-static"> n/a </label>
-                            </c:if>
-                        </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control hidden" id="inputBatch4" value="noNo">
+                            </div>
+                        </c:if>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label">Material 5 :</label>
-                        <div class="col-sm-8">
-                            <c:if test="${not empty faRequest.material5}">
+                        <label class="col-sm-4 control-label" for="inputBatch5">Material 5 :</label>
+                        <c:if test="${not empty faRequest.material5}">
+                            <div class="col-sm-4">
                                 <label class="form-control-static">${faRequest.material5}</label>
-                            </c:if>
-                            <c:if test="${empty faRequest.material5}">
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-control-static">Batch : ${faRequest.batch5}</label>
+                            </div>
+                        </c:if>
+                        <c:if test="${empty faRequest.material5}">
+                            <div class="col-sm-4">
                                 <label class="form-control-static"> n/a </label>
-                            </c:if>
-                        </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control hidden" id="inputBatch5" value="noNo">
+                            </div>
+                        </c:if>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label">Material 6 :</label>
-                        <div class="col-sm-8">
-                            <c:if test="${not empty faRequest.material6}">
+                        <label class="col-sm-4 control-label" for="inputBatch2">Material 6 :</label>
+                        <c:if test="${not empty faRequest.material6}">
+                            <div class="col-sm-4">
                                 <label class="form-control-static">${faRequest.material6}</label>
-                            </c:if>
-                            <c:if test="${empty faRequest.material6}">
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-control-static">Batch : ${faRequest.batch6}</label>
+                            </div>
+                        </c:if>
+                        <c:if test="${empty faRequest.material6}">
+                            <div class="col-sm-4">
                                 <label class="form-control-static"> n/a </label>
-                            </c:if>
-                        </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control hidden" id="inputBatch6" value="noNo">
+                            </div>
+                        </c:if>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label">Document Request :</label>
@@ -173,7 +217,19 @@
                     <div class="form-group">
                         <label for="inputRemark" class="col-sm-4 control-label">Remark :</label>
                         <div class="col-sm-8">
-                            <textarea id="inputRemark" rows="2" class="form-control"  disabled>${faRequest.remark}</textarea>
+                            <textarea id="inputRemark" rows="2" class="form-control" disabled>${faRequest.remark}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputCommitDate" class="col-sm-4 control-label">Commit Date :</label>
+                        <div class="col-sm-8">
+                            <label class="form-control-static"><fmt:formatDate pattern="dd/MM/yyyy"  value="${faRequest.engCommitDate}" /></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputProcess" class="col-sm-4 control-label">Process :</label>
+                        <div class="col-sm-8">
+                            <textarea id="inputProcess" rows="4" class="form-control" disabled><jsp:text/>${faRequest.process}</textarea>
                         </div>
                     </div>
                 </div>

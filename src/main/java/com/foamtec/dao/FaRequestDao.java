@@ -5,11 +5,17 @@ import com.foamtec.domain.Customer;
 import com.foamtec.domain.FaRequest;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,6 +58,17 @@ public class FaRequestDao {
         query.setParameter("status1", status1);
         query.setParameter("status2", status2);
         return query.list();
+    }
+
+    public List<FaRequest> findByName(AppUser appUser) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<FaRequest> cq = builder.createQuery(FaRequest.class);
+        Root<FaRequest> root = cq.from(FaRequest.class);
+        cq.where(
+                builder.equal(root.get("createBy"), appUser)
+        );
+        cq.orderBy(builder.asc(root.get("updateDate")));
+        return entityManager.createQuery(cq).getResultList();
     }
 
 }
