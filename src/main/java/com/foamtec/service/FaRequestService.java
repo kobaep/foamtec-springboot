@@ -587,7 +587,7 @@ public class FaRequestService {
         faRequestDao.update(faRequest);
     }
 
-    public JSONArray findByStartDateEndDateStatus(String data, Principal principal) {
+    public JSONArray findByStartDateEndDateStatus(String data) {
         try {
             JSONObject jsonObject = new JSONObject(data);
             String startDateSt = jsonObject.getString("startDate");
@@ -608,9 +608,8 @@ public class FaRequestService {
             if(partNumber.length == 2) {
                 statusSearch = "%" + partNumber[1] + "%";
             }
-            AppUser appUser = appUserDao.getByUsername(principal.getName());
             JSONArray dataAllForSend = new JSONArray();
-            List<FaRequest> faRequests = faRequestDao.findByStartDateEndDateAndStatusByUser(startDate, endDate, statusSearch, appUser.getName());
+            List<FaRequest> faRequests = faRequestDao.findByStartDateEndDateAndStatusByUser(startDate, endDate, statusSearch);
             int i = 1;
             for(FaRequest faRequest : faRequests) {
                 JSONObject jsonObject1 = new JSONObject();

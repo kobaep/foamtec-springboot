@@ -20,11 +20,11 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="${home}fams">Status</a></li>
+						<li><a href="${home}fams/search?search">Search</a></li>
 						<c:if test="${roleName eq 'admin' or roleName eq 'sale'}">
                             <li><a href="${home}fams/requestPrivate?form">Request</a></li>
                             <li><a href="${home}fams/requestPrivate?updateList">List</a></li>
                             <li><a href="${home}fams/requestPrivate?updateListSaleOut">Follow Customer</a></li>
-                            <li><a href="${home}fams/requestPrivate?listCustomerResult">Customer Result</a></li>
                         </c:if>
                         <c:if test="${roleName eq 'admin' or roleName eq 'engineer'}">
                             <li><a href="${home}fams/engineerPrivate?engineerView">Engineer View</a></li>

@@ -79,18 +79,16 @@ public class FaRequestDao {
         return query.list();
     }
 
-    public List<FaRequest> findByStartDateEndDateAndStatusByUser(Date start, Date end, String statusSearch, String name) {
+    public List<FaRequest> findByStartDateEndDateAndStatusByUser(Date start, Date end, String statusSearch) {
         Criteria c = ((Session)entityManager.getDelegate()).createCriteria(FaRequest.class);
         Criterion case1 = Restrictions.between("updateDate", start, end);
         Criterion case2 = Restrictions.like("customer", statusSearch);
         Criterion case3 = Restrictions.like("partNo", statusSearch);
         Criterion case4 = Restrictions.like("faNumber", statusSearch);
         Criterion case5 = Restrictions.or(case2, case3, case4);
-        Criterion case6 = Restrictions.eq("saleOut", name);
-        Criterion case7 = Restrictions.eq("status", "saleCoSendItem");
 
         c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        c.add(Restrictions.and(case1, case5, case6, case7));
+        c.add(Restrictions.and(case1, case5));
         return c.list();
     }
 

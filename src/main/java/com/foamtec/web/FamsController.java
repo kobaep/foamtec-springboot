@@ -213,11 +213,14 @@ public class FamsController {
         return model;
     }
 
-    @RequestMapping(value = "/fams/requestPrivate", params = "listCustomerResult", method = RequestMethod.GET)
+    @RequestMapping(value = "/fams/search", params = "search", method = RequestMethod.GET)
     public ModelAndView listCustomerResult(ModelAndView model, Principal principal) {
-        viewService.addMenuAndName(model, principal);
-        model.addObject("faRequestCustomerApproves", faRequestService.findByNameAndStatus(principal.getName(), "customerApprove"));
-        model.addObject("faRequestCustomerRejects", faRequestService.findByNameAndStatus(principal.getName(), "customerReject"));
+        try {
+            principal.getName();
+            viewService.addMenuAndName(model, principal);
+        } catch (Exception e) {
+            viewService.addLogin(model);
+        }
         model.setViewName("FAMS/listCustomerResult");
         return model;
     }
