@@ -65,6 +65,10 @@ public class AppUserService {
         return appUserDao.getAll();
     }
 
+    public List<AppUser> findAllSaleOut() {
+        return appUserDao.getAllSaleOut();
+    }
+
     public AppUser findById(Long id) {
         return appUserDao.getById(id);
     }
@@ -73,8 +77,8 @@ public class AppUserService {
         return appUserDao.getByUsername(username);
     }
 
-    public JSONArray getAllJson() {
-        List<AppUser> appUsers = findAll();
+    public JSONArray getAllSaleOutJson() {
+        List<AppUser> appUsers = findAllSaleOut();
         JSONArray jsonArray = new JSONArray();
         for (AppUser a : appUsers) {
             JSONObject jsonObject = new JSONObject();

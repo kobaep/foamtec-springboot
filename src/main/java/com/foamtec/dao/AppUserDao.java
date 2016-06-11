@@ -38,6 +38,13 @@ public class AppUserDao {
 		return c.list();
 	}
 
+	public List<AppUser> getAllSaleOut() {
+		Session session = ((Session) entityManager.getDelegate());
+		org.hibernate.Query query = session.createQuery("SELECT o FROM AppUser o WHERE o.roleName = :roleName order by id");
+		query.setParameter("roleName", "saleOut");
+		return query.list();
+	}
+
 	public AppUser getById(long id) {
 		return entityManager.find(AppUser.class, id);
 	}

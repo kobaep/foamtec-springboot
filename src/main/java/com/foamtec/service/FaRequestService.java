@@ -9,7 +9,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -31,8 +36,8 @@ public class FaRequestService {
     @Autowired
     private AppUserDao appUserDao;
 
-    public void create(String data, Principal principal) {
-        JSONObject jsonObject = new JSONObject(data);
+    public void create(MultipartHttpServletRequest multipartHttpServletRequest, Principal principal) throws IOException {
+        JSONObject jsonObject = new JSONObject(multipartHttpServletRequest.getParameter("data"));
         String inputCustomer = jsonObject.getString("inputCustomer");
         String inputProductGroup = jsonObject.getString("inputProductGroup");
         String inputPartNo = jsonObject.getString("inputPartNo");
@@ -56,9 +61,34 @@ public class FaRequestService {
         String inputRemark = jsonObject.getString("inputRemark");
         AppUser appUser = appUserDao.getByUsername(principal.getName());
 
+        MultipartFile drawing = multipartHttpServletRequest.getFile("inputFile1");
+        MultipartFile other = multipartHttpServletRequest.getFile("inputFile2");
+
+        String path = multipartHttpServletRequest.getRealPath("./resources/filePDFFARequest/");
+
         FaRequest faRequest = new FaRequest();
         faRequestDao.create(faRequest);
         faRequest.setFaNumber("FA" + String.format("%06d", faRequest.getId()));
+
+        if(drawing != null) {
+            String url = "/" + faRequest.getFaNumber() + "/Drawing.pdf";
+            File convFile = new File(path + url);
+            convFile.getParentFile().mkdirs();
+            faRequest.setFileDrawing(url);
+            FileOutputStream fos = new FileOutputStream(convFile);
+            fos.write(drawing.getBytes());
+            fos.close();
+        }
+
+        if(other != null) {
+            String url = "/" +faRequest.getFaNumber() + "/Other.pdf";
+            File convFile = new File(path + url);
+            convFile.getParentFile().mkdirs();
+            faRequest.setFileOther(url);
+            FileOutputStream fos = new FileOutputStream(convFile);
+            fos.write(other.getBytes());
+            fos.close();
+        }
 
         faRequest.setCreateBy(appUser);
         faRequest.setUpdateBy(appUser);

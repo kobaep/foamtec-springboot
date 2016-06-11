@@ -68,13 +68,13 @@ public class AppUserControllerJson {
         }
     }
 
-    @RequestMapping(value = "/appuser/appusers", method = RequestMethod.POST, headers = "Accept=application/json")
+    @RequestMapping(value = "/appuser/appusersSaleOut", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public ResponseEntity<String> getAllAppuser(@RequestParam("data") String data, Principal principal) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
         try {
-            return new ResponseEntity<String>(appUserService.getAllJson().toString() , headers, HttpStatus.OK);
+            return new ResponseEntity<String>(appUserService.getAllSaleOutJson().toString() , headers, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("{\"process\":\"fail\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }

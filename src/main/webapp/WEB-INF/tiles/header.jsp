@@ -21,7 +21,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="${home}fams">Status</a></li>
 						<li><a href="${home}fams/search?search">Search</a></li>
-						<c:if test="${roleName eq 'admin' or roleName eq 'sale'}">
+						<c:if test="${roleName eq 'admin' or roleName eq 'saleCo' or roleName eq 'saleOut'}">
                             <li><a href="${home}fams/requestPrivate?form">Request</a></li>
                             <li><a href="${home}fams/requestPrivate?updateList">List</a></li>
                             <li><a href="${home}fams/requestPrivate?updateListSaleOut">Follow Customer</a></li>

@@ -148,6 +148,12 @@ public class FaRequest implements Serializable {
     @Column(name="customerRemark")
     private String customerRemark;
 
+    @Column(name="fileDrawing")
+    private String fileDrawing;
+
+    @Column(name="fileOther")
+    private String fileOther;
+
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     @Column(name="engCommitDate")
@@ -502,5 +508,21 @@ public class FaRequest implements Serializable {
 
     public void setCustomerRemark(String customerRemark) {
         this.customerRemark = customerRemark;
+    }
+
+    public String getFileDrawing() {
+        return fileDrawing;
+    }
+
+    public void setFileDrawing(String fileDrawing) {
+        this.fileDrawing = fileDrawing;
+    }
+
+    public String getFileOther() {
+        return fileOther;
+    }
+
+    public void setFileOther(String fileOther) {
+        this.fileOther = fileOther;
     }
 }

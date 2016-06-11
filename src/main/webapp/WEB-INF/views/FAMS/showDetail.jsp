@@ -9,174 +9,197 @@
     <div class="row">
         <div class="col-sm-12">
             <form class="form-horizontal">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">FA Number :</label>
-                        <div class="col-sm-8">
-                            <label class="form-control-static">${faRequest.faNumber}</label>
+                <fieldset>
+                    <legend>FA Detail</legend>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">FA Number :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.faNumber}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Customer :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.customer}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Product Group :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.productGroup}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Part No. :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.partNo}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Revision :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.revision}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Request By :</label>
+                            <div class="col-sm-8">
+                                <c:set var="appuserCreate" value="${faRequest.createBy}"/>
+                                <label class="form-control-static">${appuserCreate.name}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Sale Out :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.saleOut}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">QWS No. :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.qwsNo}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">APQP No. :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.apqpNo}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Need Date :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static"><fmt:formatDate pattern="dd/MM/yyyy"  value="${faRequest.needDate}" /></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">FA Approve :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.faApproveQty} pcs</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">FA For Sell :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.faForSellQty} pcs</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Sample Test :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.samplTestQty} pcs</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Sample PCC :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.samplePccQty} pcs</label>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Customer :</label>
-                        <div class="col-sm-8">
-                            <label class="form-control-static">${faRequest.customer}</label>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Material 1 :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.material1}</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Product Group :</label>
-                        <div class="col-sm-8">
-                            <label class="form-control-static">${faRequest.productGroup}</label>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Material 2 :</label>
+                            <div class="col-sm-8">
+                                <c:if test="${not empty faRequest.material2}">
+                                    <label class="form-control-static">${faRequest.material2}</label>
+                                </c:if>
+                                <c:if test="${empty faRequest.material2}">
+                                    <label class="form-control-static"> n/a </label>
+                                </c:if>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Part No. :</label>
-                        <div class="col-sm-8">
-                            <label class="form-control-static">${faRequest.partNo}</label>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Material 3 :</label>
+                            <div class="col-sm-8">
+                                <c:if test="${not empty faRequest.material3}">
+                                    <label class="form-control-static">${faRequest.material3}</label>
+                                </c:if>
+                                <c:if test="${empty faRequest.material3}">
+                                    <label class="form-control-static"> n/a </label>
+                                </c:if>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Revision :</label>
-                        <div class="col-sm-8">
-                            <label class="form-control-static">${faRequest.revision}</label>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Material 4 :</label>
+                            <div class="col-sm-8">
+                                <c:if test="${not empty faRequest.material4}">
+                                    <label class="form-control-static">${faRequest.material4}</label>
+                                </c:if>
+                                <c:if test="${empty faRequest.material4}">
+                                    <label class="form-control-static"> n/a </label>
+                                </c:if>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Request By :</label>
-                        <div class="col-sm-8">
-                            <c:set var="appuserCreate" value="${faRequest.createBy}"/>
-                            <label class="form-control-static">${appuserCreate.name}</label>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Material 5 :</label>
+                            <div class="col-sm-8">
+                                <c:if test="${not empty faRequest.material5}">
+                                    <label class="form-control-static">${faRequest.material5}</label>
+                                </c:if>
+                                <c:if test="${empty faRequest.material5}">
+                                    <label class="form-control-static"> n/a </label>
+                                </c:if>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Sale Out :</label>
-                        <div class="col-sm-8">
-                            <label class="form-control-static">${faRequest.saleOut}</label>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Material 6 :</label>
+                            <div class="col-sm-8">
+                                <c:if test="${not empty faRequest.material6}">
+                                    <label class="form-control-static">${faRequest.material6}</label>
+                                </c:if>
+                                <c:if test="${empty faRequest.material6}">
+                                    <label class="form-control-static"> n/a </label>
+                                </c:if>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">QWS No. :</label>
-                        <div class="col-sm-8">
-                            <label class="form-control-static">${faRequest.qwsNo}</label>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Document Request :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.documentRequest}</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">APQP No. :</label>
-                        <div class="col-sm-8">
-                            <label class="form-control-static">${faRequest.apqpNo}</label>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Tools :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.tool}</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Need Date :</label>
-                        <div class="col-sm-8">
-                            <label class="form-control-static"><fmt:formatDate pattern="dd/MM/yyyy"  value="${faRequest.needDate}" /></label>
+                        <div class="form-group">
+                            <label for="inputRemark" class="col-sm-4 control-label">Remark :</label>
+                            <div class="col-sm-8">
+                                <textarea id="inputRemark" rows="2" class="form-control"  disabled>${faRequest.remark}</textarea>
+                            </div>
                         </div>
+                        <c:if test="${not empty faRequest.fileDrawing}">
+                            <div class="form-group form-inline">
+                                <label class="col-sm-4 control-label">Drawing :</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">
+                                        <a class="btn btn-info" href="${home}resources/filePDFFARequest${faRequest.fileDrawing}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </c:if>
+                        <c:if test="${not empty faRequest.fileOther}">
+                            <div class="form-group form-inline">
+                                <label class="col-sm-4 control-label">Other :</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">
+                                        <a class="btn btn-info" href="${home}resources/filePDFFARequest${faRequest.fileOther}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </c:if>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">FA Approve :</label>
-                        <div class="col-sm-8">
-                            <label class="form-control-static">${faRequest.faApproveQty} pcs</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">FA For Sell :</label>
-                        <div class="col-sm-8">
-                            <label class="form-control-static">${faRequest.faForSellQty} pcs</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Sample Test :</label>
-                        <div class="col-sm-8">
-                            <label class="form-control-static">${faRequest.samplTestQty} pcs</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Sample PCC :</label>
-                        <div class="col-sm-8">
-                            <label class="form-control-static">${faRequest.samplePccQty} pcs</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Material 1 :</label>
-                        <div class="col-sm-8">
-                            <label class="form-control-static">${faRequest.material1}</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Material 2 :</label>
-                        <div class="col-sm-8">
-                            <c:if test="${not empty faRequest.material2}">
-                                <label class="form-control-static">${faRequest.material2}</label>
-                            </c:if>
-                            <c:if test="${empty faRequest.material2}">
-                                <label class="form-control-static"> n/a </label>
-                            </c:if>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Material 3 :</label>
-                        <div class="col-sm-8">
-                            <c:if test="${not empty faRequest.material3}">
-                                <label class="form-control-static">${faRequest.material3}</label>
-                            </c:if>
-                            <c:if test="${empty faRequest.material3}">
-                                <label class="form-control-static"> n/a </label>
-                            </c:if>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Material 4 :</label>
-                        <div class="col-sm-8">
-                            <c:if test="${not empty faRequest.material4}">
-                                <label class="form-control-static">${faRequest.material4}</label>
-                            </c:if>
-                            <c:if test="${empty faRequest.material4}">
-                                <label class="form-control-static"> n/a </label>
-                            </c:if>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Material 5 :</label>
-                        <div class="col-sm-8">
-                            <c:if test="${not empty faRequest.material5}">
-                                <label class="form-control-static">${faRequest.material5}</label>
-                            </c:if>
-                            <c:if test="${empty faRequest.material5}">
-                                <label class="form-control-static"> n/a </label>
-                            </c:if>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Material 6 :</label>
-                        <div class="col-sm-8">
-                            <c:if test="${not empty faRequest.material6}">
-                                <label class="form-control-static">${faRequest.material6}</label>
-                            </c:if>
-                            <c:if test="${empty faRequest.material6}">
-                                <label class="form-control-static"> n/a </label>
-                            </c:if>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Document Request :</label>
-                        <div class="col-sm-8">
-                            <label class="form-control-static">${faRequest.documentRequest}</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Tools :</label>
-                        <div class="col-sm-8">
-                            <label class="form-control-static">${faRequest.tool}</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputRemark" class="col-sm-4 control-label">Remark :</label>
-                        <div class="col-sm-8">
-                            <textarea id="inputRemark" rows="2" class="form-control"  disabled>${faRequest.remark}</textarea>
-                        </div>
-                    </div>
-                </div>
+                </fieldset>
             </form>
         </div>
     </div>
