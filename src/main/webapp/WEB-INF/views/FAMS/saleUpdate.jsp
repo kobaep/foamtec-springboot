@@ -185,8 +185,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-9">
-                            <a class="btn btn-info" href="${home}fams/generate/file/${faRequest.id}?pdf" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download</a>
+                        <label for="inputFile1" class="col-sm-3 control-label">Drawing :</label>
+                        <div class="col-sm-9 form-inline">
+                            <span class="btn btn-file"><input type="file" id="inputFile1"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputFile2" class="col-sm-3 control-label">Other File :</label>
+                        <div class="col-sm-9 form-inline">
+                            <span class="btn btn-file"><input type="file" id="inputFile2"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -265,7 +272,7 @@
         var appUsers = [];
 
         $.ajax({
-            url: '${home}appuser/appusers',
+            url: '${home}appuser/appusersSaleOut',
             type: "POST",
             headers: {
                 Accept: "application/json"
@@ -400,17 +407,23 @@
                 inputTools : $("#inputTools").val(),
                 inputRemark : $("#inputRemark").val()
             }
-            console.log(data);
+
+            var formData = new FormData();
+            formData.append("inputFile1", $("#inputFile1")[0].files[0]);
+            formData.append("inputFile2", $("#inputFile2")[0].files[0]);
+            formData.append("data", JSON.stringify(data));
+
             $.ajax({
                 url: '${home}fams/requestPrivate/saleUpdate',
                 type: "POST",
                 headers: {
                     Accept: "application/json"
                 },
-                data: {
-                    data : JSON.stringify(data)
-                },
+                data: formData,
                 dataType: "json",
+                contentType: false,
+                processData: false,
+                async: false,
                 success: function(data){
                     window.location.href = "${home}fams/requestPrivate?updateList";
                 },

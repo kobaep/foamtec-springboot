@@ -258,8 +258,16 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-4 col-sm-8">
-                            <button type="button" id="btnApprove" class="btn btn-success">Approve</button>
-                            <button type="button" id="btnReject" class="btn btn-danger col-sm-offset-1">Reject</button>
+                            <c:choose>
+                                <c:when test="${faRequest.status eq 'saleCreate' or faRequest.status eq 'saleUpdate'}">
+                                    <button type="button" id="btnApprove" class="btn btn-success">Approve</button>
+                                    <button type="button" id="btnReject" class="btn btn-danger col-sm-offset-1">Reject</button>
+                                </c:when>
+                                <c:otherwise>
+                                    <button type="button" id="btnApprove" class="btn btn-success" disabled>Approve</button>
+                                    <button type="button" id="btnReject" class="btn btn-danger col-sm-offset-1" disabled>Reject</button>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>

@@ -98,10 +98,30 @@
                                 <label class="form-control-static">${faRequest.samplePccQty} pcs</label>
                             </div>
                         </div>
+                        <c:if test="${not empty faRequest.fileData1}">
+                            <div class="form-group form-inline">
+                                <label class="col-sm-4 control-label">File Data 1 :</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">
+                                        <a class="btn btn-info" href="${home}resources/filePDFFARequest${faRequest.fileData1}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </c:if>
+                        <c:if test="${not empty faRequest.fileData2}">
+                            <div class="form-group form-inline">
+                                <label class="col-sm-4 control-label">File Data 2 :</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">
+                                        <a class="btn btn-info" href="${home}resources/filePDFFARequest${faRequest.fileData2}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </c:if>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="col-sm-4 control-label" for="inputBatch1">Material 1 :</label>
+                            <label class="col-sm-4 control-label">Material 1 :</label>
                             <div class="col-sm-4">
                                 <label class="form-control-static">${faRequest.material1}</label>
                             </div>
@@ -254,22 +274,28 @@
                                 <textarea id="inputProcess" rows="4" class="form-control" disabled><jsp:text/>${faRequest.process}</textarea>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-4 col-sm-8">
-                                <c:choose>
-                                    <c:when test="${faRequest.status eq 'engApprove' or faRequest.status eq 'qaRejectFirstShot'}">
-                                        <button type="button" id="btnApprove" class="btn btn-success">Send Item First</button>
-                                        <button type="button" id="btnReject" class="btn btn-danger col-sm-offset-1">Cancel</button>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <button type="button" id="btnApprove" class="btn btn-success" disabled>Send Item First</button>
-                                        <button type="button" id="btnReject" class="btn btn-danger col-sm-offset-1" disabled>Cancel</button>
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-                        </div>
                     </div>
                 </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-4" align="center">
+                        <c:choose>
+                            <c:when test="${faRequest.status eq 'qaApproveFinal'}">
+                                <button type="button" id="btnApprove" class="btn btn-success">Approve Document</button>
+                                <button type="button" id="btnReject" class="btn btn-danger col-sm-offset-1">Reject Document</button>
+                            </c:when>
+                            <c:otherwise>
+                                <button type="button" id="btnApprove" class="btn btn-success" disabled>Approve Document</button>
+                                <button type="button" id="btnReject" class="btn btn-danger col-sm-offset-1" disabled>Reject Document</button>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -280,30 +306,30 @@
                 <div class="panel-body">
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Update Date</th>
-                                <th>Status</th>
-                                <th>Remark</th>
-                                <th>Tooling No</th>
-                                <th>Qty</th>
-                                <th>Update By</th>
-                            </tr>
+                        <tr>
+                            <th>No.</th>
+                            <th>Update Date</th>
+                            <th>Status</th>
+                            <th>Remark</th>
+                            <th>Tooling No</th>
+                            <th>Qty</th>
+                            <th>Update By</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <c:set var="documentHistorys" value="${faRequest.documentHistorys}"/>
-                            <c:forEach var="documentHistory" items="${documentHistorys}" varStatus="loop">
-                                <tr>
-                                    <td>${loop.index + 1}</td>
-                                    <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${documentHistory.createDate}" /></td>
-                                    <td>${documentHistory.status}</td>
-                                    <td>${documentHistory.remark}</td>
-                                    <td>${documentHistory.methodFirst}</td>
-                                    <td>${documentHistory.qtyFirst}</td>
-                                    <c:set var="createBy" value="${documentHistory.createBy}"/>
-                                    <td>${createBy.name}</td>
-                                </tr>
-                            </c:forEach>
+                        <c:set var="documentHistorys" value="${faRequest.documentHistorys}"/>
+                        <c:forEach var="documentHistory" items="${documentHistorys}" varStatus="loop">
+                            <tr>
+                                <td>${loop.index + 1}</td>
+                                <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${documentHistory.createDate}" /></td>
+                                <td>${documentHistory.status}</td>
+                                <td>${documentHistory.remark}</td>
+                                <td>${documentHistory.methodFirst}</td>
+                                <td>${documentHistory.qtyFirst}</td>
+                                <c:set var="createBy" value="${documentHistory.createBy}"/>
+                                <td>${createBy.name}</td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -311,100 +337,88 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="alertSendItemFirstModal" role="dialog">
+<div class="modal fade" id="alertApproveModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                <h4 class="modal-title">Send First Shot</h4>
+                <h4 class="modal-title">Approve Document</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label for="inputTooling" class="col-sm-4 control-label">Tooling No. Or Method :</label>
-                        <div class="col-sm-8">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="inputTooling" placeholder="Tooling No. Or Method" autocomplete="off" required>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-check"></span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputQty" class="col-sm-4 control-label">Qty :</label>
-                        <div class="col-sm-8">
-                            <div class="input-group">
-                                <input type="number" class="form-control" id="inputQty" placeholder="Pcs." autocomplete="off" required>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-sort-by-order"></span></span>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                Confirm approve
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="btnSendFirst">Send Item First</button>
+                <button type="button" class="btn btn-success" id="btnApproveReason">confirm</button>
             </div>
         </div>
     </div>
 </div>
-<div class="modal fade" id="alertCancelModal" role="dialog">
+<div class="modal fade" id="alertRejectModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                <h4 class="modal-title">Cancel Reason</h4>
+                <h4 class="modal-title">Reject Reason</h4>
             </div>
             <div class="modal-body">
                 <textarea class="form-control" rows="3" id="inputReason"><jsp:text/></textarea>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="btnRejectReason">confirm</button>
+                <button type="button" class="btn btn-danger" id="btnRejectReason">reject</button>
             </div>
         </div>
     </div>
 </div>
 <script>
     $(document).ready(function() {
+
         $("#btnApprove").click(function() {
-            $("#alertSendItemFirstModal").modal({show:true});
+            $("#alertApproveModal").modal({show:true});
         });
 
-        $("#btnSendFirst").click(function() {
+        $("#btnApproveReason").click(function() {
             var data = {
                 inputId : "${faRequest.id}",
-                inputTooling : $("#inputTooling").val(),
-                inputQty : $("#inputQty").val()
+                action : "documentApprove"
             };
+
+            var formData = new FormData();
+            formData.append("data", JSON.stringify(data));
+
             $.ajax({
-                url: "${home}fams/engineerPrivate/sendFirst",
                 type: "POST",
                 headers: {
-                    Accept: "application/json"
+                    Accept: "application/json",
                 },
-                data: {
-                    data : JSON.stringify(data)
-                },
+                contentType: false,
                 dataType: "json",
+                url: "${home}fams/qaPrivate/approveDocument",
+                processData: false,
+                data: formData,
+                async: false,
                 success: function(data){
-                    window.location.href = "${home}fams/engineerPrivate?engineerView";
+                    window.location.href = "${home}fams/qaPrivate?reviewDocument";
                 },
                 error: function(data){
                     alert("saved error.");
+                    return false;
                 }
             });
             return false;
         });
 
         $("#btnReject").click(function() {
-            $("#alertCancelModal").modal({show:true});
+            $("#alertRejectModal").modal({show:true});
         });
 
         $("#btnRejectReason").click(function() {
             var data = {
                 inputId : "${faRequest.id}",
+                action : "documentReject",
                 inputReason : $("#inputReason").val()
             };
             $.ajax({
-                url: "${home}fams/engineerPrivate/cancel",
+                url: "${home}fams/qaPrivate/rejectDocument",
                 type: "POST",
                 headers: {
                     Accept: "application/json"
@@ -414,7 +428,7 @@
                 },
                 dataType: "json",
                 success: function(data){
-                    window.location.href = "${home}fams/engineerPrivate?engineerView";
+                    window.location.href = "${home}fams/qaPrivate?reviewDocument";
                 },
                 error: function(data){
                     alert("saved error.");

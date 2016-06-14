@@ -98,6 +98,18 @@
                                 <label class="form-control-static">${faRequest.samplePccQty} pcs</label>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="inputFile1" class="col-sm-4 control-label">Data File 1 :</label>
+                            <div class="col-sm-8 form-inline">
+                                <span class="btn btn-file"><input type="file" id="inputFile1"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputFile2" class="col-sm-4 control-label">Data File 2 :</label>
+                            <div class="col-sm-8 form-inline">
+                                <span class="btn btn-file"><input type="file" id="inputFile2"></span>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -264,8 +276,19 @@
             <form class="form-horizontal">
                 <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-4" align="center">
-                        <button type="button" id="btnApprove" class="btn btn-success">Approve Final</button>
-                        <button type="button" id="btnReject" class="btn btn-danger col-sm-offset-1">Reject Final</button>
+                        <c:choose>
+                            <c:when test="${faRequest.status eq 'engSendFinal'}">
+                                <button type="button" id="btnApprove" class="btn btn-success">Approve Final</button>
+                                <button type="button" id="btnReject" class="btn btn-danger col-sm-offset-1">Reject Final</button>
+                            </c:when>
+                            <c:when test="${faRequest.status eq 'documentReject'}">
+                                <button type="button" id="btnApprove" class="btn btn-success">Approve Final</button>
+                            </c:when>
+                            <c:otherwise>
+                                <button type="button" id="btnApprove" class="btn btn-success" disabled>Approve Final</button>
+                                <button type="button" id="btnReject" class="btn btn-danger col-sm-offset-1" disabled>Reject Final</button>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </form>
@@ -353,21 +376,29 @@
                 inputId : "${faRequest.id}",
                 action : "qaApproveFinal"
             };
+
+            var formData = new FormData();
+            formData.append("inputFile1", $("#inputFile1")[0].files[0]);
+            formData.append("inputFile2", $("#inputFile2")[0].files[0]);
+            formData.append("data", JSON.stringify(data));
+
             $.ajax({
-                url: "${home}fams/qaPrivate/approveFinal",
                 type: "POST",
                 headers: {
-                    Accept: "application/json"
+                    Accept: "application/json",
                 },
-                data: {
-                    data : JSON.stringify(data)
-                },
+                contentType: false,
                 dataType: "json",
+                url: "${home}fams/qaPrivate/approveFinal",
+                processData: false,
+                data: formData,
+                async: false,
                 success: function(data){
                     window.location.href = "${home}fams/qaPrivate?qaView";
                 },
                 error: function(data){
                     alert("saved error.");
+                    return false;
                 }
             });
             return false;

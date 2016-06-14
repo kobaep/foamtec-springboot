@@ -99,5 +99,35 @@
                 alert("data error.");
             }
         });
+
+        $("#btnSearch").click(function() {
+            var datanowin = {
+                startDate : $("#inputStartDate").val(),
+                endDate : $("#inputEndDate").val(),
+                status : "na_" + $("#inputTextSearch").val()
+            };
+
+            $.ajax({
+                url: "${home}fams/search/searchJson",
+                type: "POST",
+                headers: {
+                    Accept: "application/json"
+                },
+                data : {
+                    data : JSON.stringify(datanowin)
+                },
+                dataType: "json",
+                success: function(data){
+                    $(".dataTable").remove();
+                    $.each(data, function (i, item) {
+                        var dataT1 = '<tr class="dataTable"><td>'+item.no+'</td><td>'+item.faNo+'</td><td>'+item.customer+'</td><td>'+item.partNo+'</td><td>'+item.status+'</td><td><a class="btn btn-primary btn-sm" href="${home}fams/showSaleCo/'+item.id+'?detail" role="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></td></tr>';
+                        $("#tableCreate").append(dataT1);
+                    });
+                },
+                error: function(data){
+                    alert("data error.");
+                }
+            });
+        });
     });
 </script>

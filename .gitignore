@@ -15,3 +15,4 @@ mvnw*
 spring.iml
 src/main/webapp/resources/filePDF/
 src/main/webapp/resources/filePDFBackup/
+src/main/webapp/resources/filePDFFARequest/

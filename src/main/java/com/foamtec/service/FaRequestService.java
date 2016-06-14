@@ -71,7 +71,7 @@ public class FaRequestService {
         faRequest.setFaNumber("FA" + String.format("%06d", faRequest.getId()));
 
         if(drawing != null) {
-            String url = "/" + faRequest.getFaNumber() + "/Drawing.pdf";
+            String url = "/" + faRequest.getFaNumber() + "/" + drawing.getOriginalFilename();
             File convFile = new File(path + url);
             convFile.getParentFile().mkdirs();
             faRequest.setFileDrawing(url);
@@ -81,7 +81,7 @@ public class FaRequestService {
         }
 
         if(other != null) {
-            String url = "/" +faRequest.getFaNumber() + "/Other.pdf";
+            String url = "/" +faRequest.getFaNumber() + "/" + other.getOriginalFilename();
             File convFile = new File(path + url);
             convFile.getParentFile().mkdirs();
             faRequest.setFileOther(url);
@@ -158,8 +158,8 @@ public class FaRequestService {
         faRequestDao.update(faRequest);
     }
 
-    public void update(String data, Principal principal) {
-        JSONObject jsonObject = new JSONObject(data);
+    public void update(MultipartHttpServletRequest multipartHttpServletRequest, Principal principal) throws IOException {
+        JSONObject jsonObject = new JSONObject(multipartHttpServletRequest.getParameter("data"));
         Long id = jsonObject.getLong("id");
         String inputCustomer = jsonObject.getString("inputCustomer");
         String inputProductGroup = jsonObject.getString("inputProductGroup");
@@ -184,7 +184,35 @@ public class FaRequestService {
         String inputRemark = jsonObject.getString("inputRemark");
         AppUser appUser = appUserDao.getByUsername(principal.getName());
 
+        MultipartFile drawing = multipartHttpServletRequest.getFile("inputFile1");
+        MultipartFile other = multipartHttpServletRequest.getFile("inputFile2");
+
+        String path = multipartHttpServletRequest.getRealPath("./resources/filePDFFARequest/");
+
         FaRequest faRequest = faRequestDao.getById(id);
+
+        faRequest.setFileDrawing(null);
+        faRequest.setFileOther(null);
+
+        if(drawing != null) {
+            String url = "/" + faRequest.getFaNumber() + "/" + drawing.getOriginalFilename();
+            File convFile = new File(path + url);
+            convFile.getParentFile().mkdirs();
+            faRequest.setFileDrawing(url);
+            FileOutputStream fos = new FileOutputStream(convFile);
+            fos.write(drawing.getBytes());
+            fos.close();
+        }
+
+        if(other != null) {
+            String url = "/" +faRequest.getFaNumber() + "/" + other.getOriginalFilename();
+            File convFile = new File(path + url);
+            convFile.getParentFile().mkdirs();
+            faRequest.setFileOther(url);
+            FileOutputStream fos = new FileOutputStream(convFile);
+            fos.write(other.getBytes());
+            fos.close();
+        }
 
         faRequest.setUpdateBy(appUser);
         faRequest.setUpdateDate(new Date());
@@ -497,11 +525,40 @@ public class FaRequestService {
         faRequestDao.update(faRequest);
     }
 
-    public void qaApproveFinal(String data, Principal principal) {
-        JSONObject jsonObject = new JSONObject(data);
+    public void qaApproveFinal(MultipartHttpServletRequest multipartHttpServletRequest, Principal principal) throws IOException {
+        JSONObject jsonObject = new JSONObject(multipartHttpServletRequest.getParameter("data"));
         Long id = jsonObject.getLong("inputId");
         AppUser appUser = appUserDao.getByUsername(principal.getName());
         FaRequest faRequest = faRequestDao.getById(id);
+
+        MultipartFile data1 = multipartHttpServletRequest.getFile("inputFile1");
+        MultipartFile data2 = multipartHttpServletRequest.getFile("inputFile2");
+
+        String path = multipartHttpServletRequest.getRealPath("./resources/filePDFFARequest/");
+
+        faRequest.setFileData1(null);
+        faRequest.setFileData2(null);
+
+        if(data1 != null) {
+            String url = "/" + faRequest.getFaNumber() + "/" + data1.getOriginalFilename();
+            File convFile = new File(path + url);
+            convFile.getParentFile().mkdirs();
+            faRequest.setFileData1(url);
+            FileOutputStream fos = new FileOutputStream(convFile);
+            fos.write(data1.getBytes());
+            fos.close();
+        }
+
+        if(data2 != null) {
+            String url = "/" +faRequest.getFaNumber() + "/" + data2.getOriginalFilename();
+            File convFile = new File(path + url);
+            convFile.getParentFile().mkdirs();
+            faRequest.setFileData2(url);
+            FileOutputStream fos = new FileOutputStream(convFile);
+            fos.write(data2.getBytes());
+            fos.close();
+        }
+
         faRequest.setStatus("qaApproveFinal");
         faRequest.setUpdateDate(new Date());
         faRequest.setUpdateBy(appUser);
@@ -614,6 +671,48 @@ public class FaRequestService {
         documentHistory.setFaRequest(faRequest);
         documentHistories.add(documentHistory);
         faRequest.setDocumentHistorys(documentHistories);
+        faRequestDao.update(faRequest);
+    }
+
+    public void engApproveDocument(MultipartHttpServletRequest multipartHttpServletRequest, Principal principal) {
+        JSONObject jsonObject = new JSONObject(multipartHttpServletRequest.getParameter("data"));
+        Long id = jsonObject.getLong("inputId");
+        AppUser appUser = appUserDao.getByUsername(principal.getName());
+        FaRequest faRequest = faRequestDao.getById(id);
+        faRequest.setStatus("documentApprove");
+        faRequest.setUpdateDate(new Date());
+        faRequest.setUpdateBy(appUser);
+        Set<DocumentHistory> documentHistorys = faRequest.getDocumentHistorys();
+        DocumentHistory documentHistory = new DocumentHistory();
+        documentHistory.setActionType("documentApprove");
+        documentHistory.setStatus("documentApprove");
+        documentHistory.setCreateDate(new Date());
+        documentHistory.setCreateBy(appUser);
+        documentHistory.setFaRequest(faRequest);
+        documentHistorys.add(documentHistory);
+        faRequest.setDocumentHistorys(documentHistorys);
+        faRequestDao.update(faRequest);
+    }
+
+    public void engRejectDocument(String data, Principal principal) {
+        JSONObject jsonObject = new JSONObject(data);
+        Long id = jsonObject.getLong("inputId");
+        String inputReason = jsonObject.getString("inputReason");
+        AppUser appUser = appUserDao.getByUsername(principal.getName());
+        FaRequest faRequest = faRequestDao.getById(id);
+        faRequest.setStatus("documentReject");
+        faRequest.setUpdateDate(new Date());
+        faRequest.setUpdateBy(appUser);
+        Set<DocumentHistory> documentHistorys = faRequest.getDocumentHistorys();
+        DocumentHistory documentHistory = new DocumentHistory();
+        documentHistory.setActionType("documentReject");
+        documentHistory.setStatus("documentReject");
+        documentHistory.setRemark(inputReason);
+        documentHistory.setCreateDate(new Date());
+        documentHistory.setCreateBy(appUser);
+        documentHistory.setFaRequest(faRequest);
+        documentHistorys.add(documentHistory);
+        faRequest.setDocumentHistorys(documentHistorys);
         faRequestDao.update(faRequest);
     }
 

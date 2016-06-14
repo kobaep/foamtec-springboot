@@ -83,11 +83,11 @@ public class FamsControllerJson {
 
     @RequestMapping(value = "/fams/requestPrivate/saleUpdate", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
-    public ResponseEntity<String> saleUpdate(@RequestParam("data") String data, Principal principal) {
+    public ResponseEntity<String> saleUpdate(MultipartHttpServletRequest multipartHttpServletRequest, Principal principal) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
         try {
-            faRequestService.update(data, principal);
+            faRequestService.update(multipartHttpServletRequest, principal);
             return new ResponseEntity<String>("{\"process\":\"success\"}", headers, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("{\"process\":\"fail\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -200,11 +200,11 @@ public class FamsControllerJson {
 
     @RequestMapping(value = "/fams/qaPrivate/approveFinal", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
-    public ResponseEntity<String> qaApproveFinal(@RequestParam("data") String data, Principal principal) {
+    public ResponseEntity<String> qaApproveFinal(MultipartHttpServletRequest multipartHttpServletRequest, Principal principal) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
         try {
-            faRequestService.qaApproveFinal(data, principal);
+            faRequestService.qaApproveFinal(multipartHttpServletRequest, principal);
             return new ResponseEntity<String>("{\"process\":\"success\"}", headers, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("{\"process\":\"fail\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -231,6 +231,32 @@ public class FamsControllerJson {
         headers.add("Content-Type", "application/json; charset=utf-8");
         try {
             return new ResponseEntity<String>(faRequestService.findByStartDateEndDateStatus(data).toString(), headers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<String>("{\"process\":\"fail\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/fams/qaPrivate/approveDocument", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String> approveDocument(MultipartHttpServletRequest multipartHttpServletRequest, Principal principal) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        try {
+            faRequestService.engApproveDocument(multipartHttpServletRequest, principal);
+            return new ResponseEntity<String>("{\"process\":\"success\"}", headers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<String>("{\"process\":\"fail\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/fams/qaPrivate/rejectDocument", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String> rejectDocument(@RequestParam("data") String data, Principal principal) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        try {
+            faRequestService.engRejectDocument(data, principal);
+            return new ResponseEntity<String>("{\"process\":\"success\"}", headers, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("{\"process\":\"fail\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }

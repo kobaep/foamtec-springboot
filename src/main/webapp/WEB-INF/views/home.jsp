@@ -34,7 +34,7 @@
 			<p>Employee Self Test System</p>
 			<p>ระบบสอบด้วยตัวเอง</p>
 			<p>
-				<a class="btn btn-default" href="${home}mtms/materialPdf/1.pdf" target="_blank" role="button">View details</a>
+				<a class="btn btn-default" href="#" target="_blank" role="button">View details</a>
 			</p>
 		</div>
 	</div>

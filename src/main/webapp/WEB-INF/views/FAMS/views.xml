@@ -78,4 +78,20 @@
 	<definition name="FAMS/listCustomerResult" extends="layout.basic">
 		<put-attribute name="body" value="/WEB-INF/views/FAMS/listCustomerResult.jsp" />
 	</definition>
+
+	<definition name="FAMS/reviewDocumentList" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/reviewDocumentList.jsp" />
+	</definition>
+
+	<definition name="FAMS/showQaApproveFinal" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/showQaApproveFinal.jsp" />
+	</definition>
+
+	<definition name="FAMS/reviewDocument" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/reviewDocument.jsp" />
+	</definition>
+
+	<definition name="FAMS/faSummary" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/faSummary.jsp" />
+	</definition>
 </tiles-definitions>

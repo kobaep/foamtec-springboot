@@ -154,6 +154,12 @@ public class FaRequest implements Serializable {
     @Column(name="fileOther")
     private String fileOther;
 
+    @Column(name="fileData1")
+    private String fileData1;
+
+    @Column(name="fileData2")
+    private String fileData2;
+
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     @Column(name="engCommitDate")
@@ -524,5 +530,21 @@ public class FaRequest implements Serializable {
 
     public void setFileOther(String fileOther) {
         this.fileOther = fileOther;
+    }
+
+    public String getFileData1() {
+        return fileData1;
+    }
+
+    public void setFileData1(String fileData1) {
+        this.fileData1 = fileData1;
+    }
+
+    public String getFileData2() {
+        return fileData2;
+    }
+
+    public void setFileData2(String fileData2) {
+        this.fileData2 = fileData2;
     }
 }

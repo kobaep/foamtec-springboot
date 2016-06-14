@@ -11,11 +11,12 @@
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#saleRequest">Sale Request FA</a></li>
             <li><a data-toggle="tab" href="#engineerApprove">Engineer Approve</a></li>
-            <li><a data-toggle="tab" href="#qaFirst">QA First Inspection</a></li>
-            <li><a data-toggle="tab" href="#qaApproveFirst">QA Approve First Shot</a></li>
-            <li><a data-toggle="tab" href="#qaFinalInspection">QA Final Inspection</a></li>
-            <li><a data-toggle="tab" href="#qaApproveFinal">QA Approve Final</a></li>
-            <li><a data-toggle="tab" href="#saleCoSendItem">Sale Co. Send Item Customer</a></li>
+            <li><a data-toggle="tab" href="#qaFirst">Wait First Inspection</a></li>
+            <li><a data-toggle="tab" href="#qaApproveFirst">Wait Eng Send Final</a></li>
+            <li><a data-toggle="tab" href="#qaFinalInspection">Wait Final Inspection</a></li>
+            <li><a data-toggle="tab" href="#qaEngReviewDocument">Wait Review Document</a></li>
+            <li><a data-toggle="tab" href="#qaEngApproveDocument">Wait Sale Co. Follow</a></li>
+            <li><a data-toggle="tab" href="#saleCoSendItem">Wait Sale Out Follow</a></li>
         </ul>
         <div class="tab-content">
             <div id="saleRequest" class="tab-pane fade in active">
@@ -117,7 +118,7 @@
             <div id="qaFirst" class="tab-pane fade">
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title" align="center">QA First Shot Inspection</h3>
+                        <h3 class="panel-title" align="center">Wait First Inspection</h3>
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive" style="height: 300px;">
@@ -165,7 +166,7 @@
             <div id="qaApproveFirst" class="tab-pane fade">
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title" align="center">QA Approve First Shot</h3>
+                        <h3 class="panel-title" align="center">Wait Eng Send Final</h3>
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive" style="height: 300px;">
@@ -213,7 +214,7 @@
             <div id="qaFinalInspection" class="tab-pane fade">
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title" align="center">QA Final Inspection</h3>
+                        <h3 class="panel-title" align="center">Wait Final Inspection</h3>
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive" style="height: 300px;">
@@ -258,10 +259,58 @@
                     </div>
                 </div>
             </div>
-            <div id="qaApproveFinal" class="tab-pane fade">
+            <div id="qaEngReviewDocument" class="tab-pane fade">
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title" align="center">QA Approve Final</h3>
+                        <h3 class="panel-title" align="center">Wait Review Document</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive" style="height: 300px;">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>FA No.</th>
+                                    <th>Request Date</th>
+                                    <th>Update Date</th>
+                                    <th>Need Date</th>
+                                    <th>Customer</th>
+                                    <th>Part No.</th>
+                                    <th>Sale Out</th>
+                                    <th>Request By</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="faRequest" items="${faRequestQaApproveFinal}" varStatus="loop">
+                                    <tr>
+                                        <td>${loop.index + 1}</td>
+                                        <td>${faRequest.faNumber}</td>
+                                        <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${faRequest.createDate}" /></td>
+                                        <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${faRequest.updateDate}" /></td>
+                                        <td><fmt:formatDate pattern="dd/MM/yyyy"  value="${faRequest.needDate}" /></td>
+                                        <td>${faRequest.customer}</td>
+                                        <td>${faRequest.partNo}</td>
+                                        <td>${faRequest.saleOut}</td>
+                                        <c:set var="appuserCreate" value="${faRequest.createBy}"/>
+                                        <td>${appuserCreate.name}</td>
+                                        <td>
+                                            <a class="btn btn-primary btn-sm" href="${home}fams/showQaApproveFinal/${faRequest.id}?detail" role="button">
+                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="qaEngApproveDocument" class="tab-pane fade">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" align="center">Wait Sale Co. Follow</h3>
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive" style="height: 300px;">
@@ -281,7 +330,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="faRequest" items="${faRequestQaApproveFinal}" varStatus="loop">
+                                    <c:forEach var="faRequest" items="${faRequestQaEngApproveDocument}" varStatus="loop">
                                         <tr>
                                             <td>${loop.index + 1}</td>
                                             <td>${faRequest.faNumber}</td>
@@ -309,7 +358,7 @@
             <div id="saleCoSendItem" class="tab-pane fade">
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title" align="center">Sale Co. Send Item Customer</h3>
+                        <h3 class="panel-title" align="center">Wait Sale Out Follow</h3>
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive" style="height: 300px;">
@@ -361,6 +410,7 @@
             <li class="active"><a data-toggle="tab" href="#engReject">Engineer Reject</a></li>
             <li><a data-toggle="tab" href="#qaRejectFirst">QA Reject First Shot</a></li>
             <li><a data-toggle="tab" href="#qaRejectFinal">QA Reject Final</a></li>
+            <li><a data-toggle="tab" href="#qaEngRejectDocument">Reject Document</a></li>
         </ul>
         <div class="tab-content">
             <div id="engReject" class="tab-pane fade in active">
@@ -495,6 +545,52 @@
                                             </td>
                                         </tr>
                                     </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="qaEngRejectDocument" class="tab-pane fade">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" align="center">Reject Document</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive" style="height: 300px;">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>FA No.</th>
+                                    <th>Request Date</th>
+                                    <th>Need Date</th>
+                                    <th>Customer</th>
+                                    <th>Part No.</th>
+                                    <th>Sale Out</th>
+                                    <th>Request By</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="faRequest" items="${faRequestQaEngRejectDocument}" varStatus="loop">
+                                    <tr>
+                                        <td>${loop.index + 1}</td>
+                                        <td>${faRequest.faNumber}</td>
+                                        <td><fmt:formatDate pattern="dd/MM/yyyy [hh:mm]"  value="${faRequest.createDate}" /></td>
+                                        <td><fmt:formatDate pattern="dd/MM/yyyy"  value="${faRequest.needDate}" /></td>
+                                        <td>${faRequest.customer}</td>
+                                        <td>${faRequest.partNo}</td>
+                                        <td>${faRequest.saleOut}</td>
+                                        <c:set var="appuserCreate" value="${faRequest.createBy}"/>
+                                        <td>${appuserCreate.name}</td>
+                                        <td>
+                                            <a class="btn btn-primary btn-sm" href="${home}fams/show/${faRequest.id}?detail" role="button">
+                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>

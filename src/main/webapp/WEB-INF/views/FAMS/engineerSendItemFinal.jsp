@@ -236,7 +236,14 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-4 col-sm-8">
-                                <button type="button" id="btnApprove" class="btn btn-success">Send Item Final</button>
+                                <c:choose>
+                                    <c:when test="${faRequest.status eq 'qaApproveFirstShot' or faRequest.status eq 'qaRejectFirstShot'}">
+                                        <button type="button" id="btnApprove" class="btn btn-success">Send Item Final</button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <button type="button" id="btnApprove" class="btn btn-success" disabled>Send Item Final</button>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>

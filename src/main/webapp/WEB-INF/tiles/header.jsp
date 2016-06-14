@@ -21,6 +21,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="${home}fams">Status</a></li>
 						<li><a href="${home}fams/search?search">Search</a></li>
+						<li><a href="${home}fams/search?faSummary">FA Summary</a></li>
 						<c:if test="${roleName eq 'admin' or roleName eq 'saleCo' or roleName eq 'saleOut'}">
                             <li><a href="${home}fams/requestPrivate?form">Request</a></li>
                             <li><a href="${home}fams/requestPrivate?updateList">List</a></li>
@@ -32,6 +33,9 @@
                         <c:if test="${roleName eq 'admin' or roleName eq 'qa'}">
                             <li><a href="${home}fams/qaPrivate?qaView">Qa View</a></li>
                         </c:if>
+						<c:if test="${roleName eq 'admin' or roleName eq 'qaEngineer'or roleName eq 'qaManager'}">
+							<li><a href="${home}fams/qaPrivate?reviewDocument">Review Document</a></li>
+						</c:if>
 					</ul>
 				</li>
 				<li id="linkMTMS"><a href="${home}mtms">MTMS <span class="sr-only">(current)</span></a></li>
