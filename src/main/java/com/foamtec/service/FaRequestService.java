@@ -1,6 +1,7 @@
 package com.foamtec.service;
 
 import com.foamtec.dao.AppUserDao;
+import com.foamtec.dao.DocumentHistoryDao;
 import com.foamtec.dao.FaRequestDao;
 import com.foamtec.domain.AppUser;
 import com.foamtec.domain.DocumentHistory;
@@ -35,6 +36,9 @@ public class FaRequestService {
 
     @Autowired
     private AppUserDao appUserDao;
+
+    @Autowired
+    private DocumentHistoryDao documentHistoryDao;
 
     public void create(MultipartHttpServletRequest multipartHttpServletRequest, Principal principal) throws IOException {
         JSONObject jsonObject = new JSONObject(multipartHttpServletRequest.getParameter("data"));
@@ -716,6 +720,29 @@ public class FaRequestService {
         faRequestDao.update(faRequest);
     }
 
+    public JSONArray getDataFaSummary() {
+
+        JSONArray jsonArray = new JSONArray();
+
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("January", documentHistoryDao.findByStartDateEndDateAndStatus(getDate("start", 0), getDate("end", 0), "qaRejectFirstShot").size());
+        jsonObject.put("February", documentHistoryDao.findByStartDateEndDateAndStatus(getDate("start", 1), getDate("end", 1), "qaRejectFirstShot").size());
+        jsonObject.put("March", documentHistoryDao.findByStartDateEndDateAndStatus(getDate("start", 2), getDate("end", 2), "qaRejectFirstShot").size());
+        jsonObject.put("April", documentHistoryDao.findByStartDateEndDateAndStatus(getDate("start", 3), getDate("end", 3), "qaRejectFirstShot").size());
+        jsonObject.put("May", documentHistoryDao.findByStartDateEndDateAndStatus(getDate("start", 4), getDate("end", 4), "qaRejectFirstShot").size());
+        jsonObject.put("June", documentHistoryDao.findByStartDateEndDateAndStatus(getDate("start", 5), getDate("end", 5), "qaRejectFirstShot").size());
+        jsonObject.put("July", documentHistoryDao.findByStartDateEndDateAndStatus(getDate("start", 6), getDate("end", 6), "qaRejectFirstShot").size());
+        jsonObject.put("August", documentHistoryDao.findByStartDateEndDateAndStatus(getDate("start", 7), getDate("end", 7), "qaRejectFirstShot").size());
+        jsonObject.put("September", documentHistoryDao.findByStartDateEndDateAndStatus(getDate("start", 8), getDate("end", 8), "qaRejectFirstShot").size());
+        jsonObject.put("October", documentHistoryDao.findByStartDateEndDateAndStatus(getDate("start", 9), getDate("end", 9), "qaRejectFirstShot").size());
+        jsonObject.put("November", documentHistoryDao.findByStartDateEndDateAndStatus(getDate("start", 10), getDate("end", 10), "qaRejectFirstShot").size());
+        jsonObject.put("December", documentHistoryDao.findByStartDateEndDateAndStatus(getDate("start", 11), getDate("end", 11), "qaRejectFirstShot").size());
+
+        jsonArray.put(jsonObject);
+        return jsonArray;
+    }
+
     public JSONArray findByStartDateEndDateStatus(String data) {
         try {
             JSONObject jsonObject = new JSONObject(data);
@@ -754,6 +781,34 @@ public class FaRequestService {
             return dataAllForSend;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Date getDate(String month, int m) {
+
+        Calendar calCurrent = Calendar.getInstance();
+        calCurrent.setTime(new Date());
+        int year = calCurrent.get(Calendar.YEAR);
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+
+        if(month.equals("start")) {
+            cal.set(Calendar.MONTH, m);
+            cal.set(Calendar.DAY_OF_MONTH, 1);
+            cal.set(Calendar.HOUR_OF_DAY, 0);
+            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.SECOND, 0);
+            return cal.getTime();
+        } else if(month.equals("end")) {
+            cal.set(Calendar.MONTH, m);
+            cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+            cal.set(Calendar.HOUR_OF_DAY, 23);
+            cal.set(Calendar.MINUTE, 59);
+            cal.set(Calendar.SECOND, 59);
+            return cal.getTime();
+        } else {
             return null;
         }
     }

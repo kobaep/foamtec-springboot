@@ -92,4 +92,22 @@ public class FaRequestDao {
         return c.list();
     }
 
+    public List<FaRequest> findByStartDateEndDateAndStatusQtySell(Date start, Date end) {
+        Criteria c = ((Session)entityManager.getDelegate()).createCriteria(FaRequest.class);
+        Criterion case1 = Restrictions.between("createDate", start, end);
+        Criterion case2 = Restrictions.gt("faForSellQty", 0);
+        c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        c.add(Restrictions.and(case1, case2));
+        return c.list();
+    }
+
+    public List<FaRequest> findByStartDateEndDateAndStatusQtyFree(Date start, Date end) {
+        Criteria c = ((Session)entityManager.getDelegate()).createCriteria(FaRequest.class);
+        Criterion case1 = Restrictions.between("createDate", start, end);
+        Criterion case2 = Restrictions.le("faForSellQty", 0);
+        c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        c.add(Restrictions.and(case1, case2));
+        return c.list();
+    }
+
 }

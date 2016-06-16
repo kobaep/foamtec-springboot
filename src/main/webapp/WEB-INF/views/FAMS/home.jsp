@@ -295,7 +295,7 @@
                                         <c:set var="appuserCreate" value="${faRequest.createBy}"/>
                                         <td>${appuserCreate.name}</td>
                                         <td>
-                                            <a class="btn btn-primary btn-sm" href="${home}fams/showQaApproveFinal/${faRequest.id}?detail" role="button">
+                                            <a class="btn btn-primary btn-sm" href="${home}fams/showEngApprove/${faRequest.id}?detail" role="button">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                             </a>
                                         </td>
@@ -343,7 +343,7 @@
                                             <c:set var="appuserCreate" value="${faRequest.createBy}"/>
                                             <td>${appuserCreate.name}</td>
                                             <td>
-                                                <a class="btn btn-primary btn-sm" href="${home}fams/showEngApprove/${faRequest.id}?detail" role="button">
+                                                <a class="btn btn-primary btn-sm" href="${home}fams/showQaApproveFinal/${faRequest.id}?detail" role="button">
                                                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                                 </a>
                                             </td>

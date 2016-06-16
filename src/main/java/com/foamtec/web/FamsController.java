@@ -123,6 +123,32 @@ public class FamsController {
         return model;
     }
 
+    @RequestMapping(value = "/fams/saleSummaryFree/{id}", method = RequestMethod.GET)
+    public ModelAndView saleSummaryFree(@PathVariable("id") int m, ModelAndView model, Principal principal) {
+        try {
+            principal.getName();
+            viewService.addMenuAndName(model, principal);
+        } catch (Exception e) {
+            viewService.addLogin(model);
+        }
+        viewService.addViewSaleSummaryFree(model, m);
+        model.setViewName("FAMS/saleSummaryFree");
+        return model;
+    }
+
+    @RequestMapping(value = "/fams/saleSummarySell/{id}", method = RequestMethod.GET)
+    public ModelAndView saleSummarySell(@PathVariable("id") int m, ModelAndView model, Principal principal) {
+        try {
+            principal.getName();
+            viewService.addMenuAndName(model, principal);
+        } catch (Exception e) {
+            viewService.addLogin(model);
+        }
+        viewService.addViewSaleSummarySell(model, m);
+        model.setViewName("FAMS/saleSummarySell");
+        return model;
+    }
+
     @RequestMapping(value = "/fams/generate/file/{id}", params = "pdf", method = RequestMethod.GET)
     @ResponseBody
     public void generateReport(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -235,7 +261,21 @@ public class FamsController {
         } catch (Exception e) {
             viewService.addLogin(model);
         }
+        viewService.addGraphFa(model);
         model.setViewName("FAMS/faSummary");
+        return model;
+    }
+
+    @RequestMapping(value = "/fams/search", params = "saleSummary", method = RequestMethod.GET)
+    public ModelAndView saleSummary(ModelAndView model, Principal principal) {
+        try {
+            principal.getName();
+            viewService.addMenuAndName(model, principal);
+        } catch (Exception e) {
+            viewService.addLogin(model);
+        }
+        viewService.addGraphSale(model);
+        model.setViewName("FAMS/saleSummary");
         return model;
     }
 

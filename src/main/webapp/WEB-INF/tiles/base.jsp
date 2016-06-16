@@ -21,11 +21,13 @@
     <spring:url value="/resources/core/js/bootstrap.min.js" var="bootstrapJs" />
     <spring:url value="/resources/core/js/jquery-ui.min.js" var="jqueryUiJs" />
     <spring:url value="/resources/core/js/angular.min.js" var="angularJs" />
+    <spring:url value="/resources/core/js/Chart.min.js" var="chartJs" />
     <script src="${coreJs}"></script>
     <script src="${jqueryJs}"></script>
     <script src="${jqueryUiJs}"></script>
     <script src="${bootstrapJs}"></script>
     <script src="${angularJs}"></script>
+    <script src="${chartJs}"></script>
 </head>
 <body onunload="">
     <tiles:insertAttribute name="header" />

@@ -22,6 +22,7 @@
 						<li><a href="${home}fams">Status</a></li>
 						<li><a href="${home}fams/search?search">Search</a></li>
 						<li><a href="${home}fams/search?faSummary">FA Summary</a></li>
+						<li><a href="${home}fams/search?saleSummary">Sale Summary</a></li>
 						<c:if test="${roleName eq 'admin' or roleName eq 'saleCo' or roleName eq 'saleOut'}">
                             <li><a href="${home}fams/requestPrivate?form">Request</a></li>
                             <li><a href="${home}fams/requestPrivate?updateList">List</a></li>

@@ -94,4 +94,16 @@
 	<definition name="FAMS/faSummary" extends="layout.basic">
 		<put-attribute name="body" value="/WEB-INF/views/FAMS/faSummary.jsp" />
 	</definition>
+
+	<definition name="FAMS/saleSummary" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/saleSummary.jsp" />
+	</definition>
+
+	<definition name="FAMS/saleSummaryFree" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/saleSummaryFree.jsp" />
+	</definition>
+
+	<definition name="FAMS/saleSummarySell" extends="layout.basic">
+		<put-attribute name="body" value="/WEB-INF/views/FAMS/saleSummarySell.jsp" />
+	</definition>
 </tiles-definitions>

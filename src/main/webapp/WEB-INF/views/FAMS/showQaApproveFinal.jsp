@@ -98,26 +98,26 @@
                                 <label class="form-control-static">${faRequest.samplePccQty} pcs</label>
                             </div>
                         </div>
-                        <%--<c:if test="${not empty faRequest.fileData1}">--%>
-                            <%--<div class="form-group form-inline">--%>
-                                <%--<label class="col-sm-4 control-label">File Data 1 :</label>--%>
-                                <%--<div class="col-sm-8">--%>
-                                    <%--<p class="form-control-static">--%>
-                                        <%--<a class="btn btn-info" href="${home}resources/filePDFFARequest${faRequest.fileData1}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>--%>
-                                    <%--</p>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                        <%--</c:if>--%>
-                        <%--<c:if test="${not empty faRequest.fileData2}">--%>
-                            <%--<div class="form-group form-inline">--%>
-                                <%--<label class="col-sm-4 control-label">File Data 2 :</label>--%>
-                                <%--<div class="col-sm-8">--%>
-                                    <%--<p class="form-control-static">--%>
-                                        <%--<a class="btn btn-info" href="${home}resources/filePDFFARequest${faRequest.fileData2}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>--%>
-                                    <%--</p>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                        <%--</c:if>--%>
+                        <c:if test="${not empty faRequest.fileData1}">
+                            <div class="form-group form-inline">
+                                <label class="col-sm-4 control-label">File Data 1 :</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">
+                                        <a class="btn btn-info" href="${home}resources/filePDFFARequest${faRequest.fileData1}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </c:if>
+                        <c:if test="${not empty faRequest.fileData2}">
+                            <div class="form-group form-inline">
+                                <label class="col-sm-4 control-label">File Data 2 :</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">
+                                        <a class="btn btn-info" href="${home}resources/filePDFFARequest${faRequest.fileData2}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </c:if>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
