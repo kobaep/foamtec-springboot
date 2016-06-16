@@ -73,7 +73,7 @@
                                 <div class="panel panel-info">
                                     <div class="panel-heading" role="tab" id="sale_${loop.index}">
                                         <h4 class="panel-title">
-                                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseC_${loop.index}" aria-expanded="true" aria-controls="collapseC_${loop.index}">
+                                            <a role="button" data-toggle="collapse" data-parent="#accordion2" href="#collapseC_${loop.index}" aria-expanded="true" aria-controls="collapseC_${loop.index}">
                                                 <span class="badge">${fn:length(customer.value)}</span>
                                                     ${customer.key}
                                             </a>
