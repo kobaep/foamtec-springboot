@@ -52,7 +52,7 @@
                                         </td>
                                     </tr>
                                 </c:when>
-                                <c:when test="${faRequest.status eq 'qaApproveFinal'}">
+                                <c:when test="${faRequest.status eq 'documentApprove'}">
                                     <tr class="success">
                                         <td>${loop.index + 1}</td>
                                         <td>${faRequest.faNumber}</td>
