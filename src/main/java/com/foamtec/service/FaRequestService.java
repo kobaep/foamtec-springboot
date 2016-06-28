@@ -249,18 +249,23 @@ public class FaRequestService {
             faRequest.setSamplePccQty(0);
         }
         faRequest.setMaterial1(inputMat1);
+        faRequest.setMaterial2(null);
         if(inputMat2.length() > 0) {
             faRequest.setMaterial2(inputMat2);
         }
+        faRequest.setMaterial3(null);
         if(inputMat3.length() > 0) {
             faRequest.setMaterial3(inputMat3);
         }
+        faRequest.setMaterial4(null);
         if(inputMat4.length() > 0) {
             faRequest.setMaterial4(inputMat4);
         }
+        faRequest.setMaterial5(null);
         if(inputMat5.length() > 0) {
             faRequest.setMaterial5(inputMat5);
         }
+        faRequest.setMaterial6(null);
         if(inputMat6.length() > 0) {
             faRequest.setMaterial6(inputMat6);
         }

@@ -397,7 +397,6 @@
                 inputSampleTest : $("#inputSampleTest").val(),
                 inputSamplePcc : $("#inputSamplePcc").val(),
                 inputMat1 : $("#inputMat1").val(),
-                inputMat1 : $("#inputMat1").val(),
                 inputMat2 : $("#inputMat2").val(),
                 inputMat3 : $("#inputMat3").val(),
                 inputMat4 : $("#inputMat4").val(),
