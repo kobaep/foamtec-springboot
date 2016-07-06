@@ -58,6 +58,8 @@ public class MatterService {
         MultipartFile rohs = multipartHttpServletRequest.getFile("inputRoHs");
         MultipartFile msds = multipartHttpServletRequest.getFile("inputMSDS");
         MultipartFile halogen = multipartHttpServletRequest.getFile("inputHalogen");
+        MultipartFile guaranteeLetter = multipartHttpServletRequest.getFile("inputGuarantee");
+        MultipartFile redPhosphorus = multipartHttpServletRequest.getFile("inputRedPhosphorus");
 
         String dateRohs = multipartHttpServletRequest.getParameter("inputDateRoHs");
         String dateHalogen = multipartHttpServletRequest.getParameter("inputDateHF");
@@ -128,20 +130,49 @@ public class MatterService {
             fos.write(halogen.getBytes());
             fos.close();
         }
+        if(guaranteeLetter != null) {
+            String url = "/" + matter.getMaterialType().getTypeName() +"/guaranteeLetter/" + matter.getMaterialName() + "/" + matter.getMaterialName() + "_guaranteeLetter.pdf";
+            File convFile = new File(path + url);
+            convFile.getParentFile().mkdirs();
+            matter.setGuaranteeLetterUrl(url);
+
+            FileOutputStream fos = new FileOutputStream(convFile);
+            fos.write(guaranteeLetter.getBytes());
+            fos.close();
+        }
+
+        if(redPhosphorus != null) {
+            String url = "/" + matter.getMaterialType().getTypeName() +"/redPhosphorus/" + matter.getMaterialName() + "/" + matter.getMaterialName() + "_redPhosphorus.pdf";
+            File convFile = new File(path + url);
+            convFile.getParentFile().mkdirs();
+            matter.setRedPhosphorusUrl(url);
+
+            FileOutputStream fos = new FileOutputStream(convFile);
+            fos.write(redPhosphorus.getBytes());
+            fos.close();
+        }
 
         AppUser appUser = appUserService.findByUsername(principal.getName());
 
-        matter.setCreateBy(appUser);
-        matter.setUpdateDate(new Date());
-        matter.setStatus("UPDATE");
-        matter.setFolw("QA");
-
         Set<DocumentHistory> documentHistories = matter.getDocumentHistorys();
         DocumentHistory documentHistory = new DocumentHistory();
+
+        if(matter.getSpecUrl() == null || matter.getRohsUrl() == null || matter.getMsdsUrl() == null ) {
+            matter.setStatus("REQUESTDOC");
+            matter.setFolw("CREATOR");
+            documentHistory.setRemark("Request Document");
+        } else {
+            matter.setStatus("UPDATE");
+            matter.setFolw("QA");
+            documentHistory.setRemark("update material");
+        }
+
+        matter.setCreateBy(appUser);
+        matter.setUpdateDate(new Date());
+
         documentHistory.setCreateBy(appUser);
         documentHistory.setCreateDate(new Date());
         documentHistory.setActionType("UPDATE");
-        documentHistory.setRemark("update material");
         documentHistory.setStatus("UPDATE");
         documentHistory.setMatter(matter);
         documentHistories.add(documentHistory);

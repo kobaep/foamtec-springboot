@@ -38,52 +38,158 @@
                 </div>
                 <div class="col-sm-7">
                     <c:if test="${not empty material.specUrl}">
-                        <div class="form-group form-inline">
-                            <label class="col-sm-5 control-label">Spec</label>
-                            <div class="col-sm-7">
-                                <p class="form-control-static">
-                                    <a class="btn btn-info" href="${home}resources/filePDF${material.specUrl}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
-                                </p>
-                            </div>
-                        </div>
+                        <c:choose>
+                            <c:when test="${material.status eq 'CREATE' or material.status eq 'UPDATE' or material.status eq 'REJECT' or material.status eq 'REQUESTDOC'}">
+                                <div class="form-group form-inline">
+                                    <label class="col-sm-5 control-label">Spec</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">
+                                            <a class="btn btn-info not-active" href="${home}resources/filePDF${material.specUrl}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="form-group form-inline">
+                                    <label class="col-sm-5 control-label">Spec</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">
+                                            <a class="btn btn-info" href="${home}resources/filePDF${material.specUrl}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
                     </c:if>
                     <c:if test="${not empty material.msdsUrl}">
-                        <div class="form-group form-inline">
-                            <label class="col-sm-5 control-label">MSDS</label>
-                            <div class="col-sm-7">
-                                <p class="form-control-static">
-                                    <a class="btn btn-info" href="${home}resources/filePDF${material.msdsUrl}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
-                                </p>
-                            </div>
-                        </div>
+                        <c:choose>
+                            <c:when test="${material.status eq 'CREATE' or material.status eq 'UPDATE' or material.status eq 'REJECT' or material.status eq 'REQUESTDOC'}">
+                                <div class="form-group form-inline">
+                                    <label class="col-sm-5 control-label">MSDS</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">
+                                            <a class="btn btn-info not-active" href="${home}resources/filePDF${material.msdsUrl}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="form-group form-inline">
+                                    <label class="col-sm-5 control-label">MSDS</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">
+                                            <a class="btn btn-info" href="${home}resources/filePDF${material.msdsUrl}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
                     </c:if>
                     <c:if test="${not empty material.rohsUrl}">
-                        <div class="form-group form-inline">
-                            <label class="col-sm-5 control-label">RoHs</label>
-                            <div class="col-sm-7">
-                                <p class="form-control-static">
-                                    <a class="btn btn-info" href="${home}resources/filePDF${material.rohsUrl}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
-                                </p>
-                                <p class="form-control-static">Expired Date <fmt:formatDate pattern="dd/MM/yyyy"  value="${material.rohsEndDateTest}" /></p>
-                            </div>
-                        </div>
+                        <c:choose>
+                            <c:when test="${material.status eq 'CREATE' or material.status eq 'UPDATE' or material.status eq 'REJECT' or material.status eq 'REQUESTDOC'}">
+                                <div class="form-group form-inline">
+                                    <label class="col-sm-5 control-label">RoHs</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">
+                                            <a class="btn btn-info not-active" href="${home}resources/filePDF${material.rohsUrl}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                        </p>
+                                        <p class="form-control-static">Expired Date <fmt:formatDate pattern="dd/MM/yyyy"  value="${material.rohsEndDateTest}" /></p>
+                                    </div>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="form-group form-inline">
+                                    <label class="col-sm-5 control-label">RoHs</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">
+                                            <a class="btn btn-info" href="${home}resources/filePDF${material.rohsUrl}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                        </p>
+                                        <p class="form-control-static">Expired Date <fmt:formatDate pattern="dd/MM/yyyy"  value="${material.rohsEndDateTest}" /></p>
+                                    </div>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
                     </c:if>
                     <c:if test="${not empty material.halogenUrl}">
-                        <div class="form-group form-inline">
-                            <label class="col-sm-5 control-label">Halogen Free</label>
-                            <div class="col-sm-7">
-                                <p class="form-control-static">
-                                    <a class="btn btn-info" href="${home}resources/filePDF${material.halogenUrl}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
-                                </p>
-                                <p class="form-control-static">Expired Date <fmt:formatDate pattern="dd/MM/yyyy"  value="${material.halogenEndDateTest}" /></p>
-                            </div>
-                        </div>
+                        <c:choose>
+                            <c:when test="${material.status eq 'CREATE' or material.status eq 'UPDATE' or material.status eq 'REJECT' or material.status eq 'REQUESTDOC'}">
+                                <div class="form-group form-inline">
+                                    <label class="col-sm-5 control-label">Halogen Free</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">
+                                            <a class="btn btn-info not-active" href="${home}resources/filePDF${material.halogenUrl}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                        </p>
+                                        <p class="form-control-static">Expired Date <fmt:formatDate pattern="dd/MM/yyyy"  value="${material.halogenEndDateTest}" /></p>
+                                    </div>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="form-group form-inline">
+                                    <label class="col-sm-5 control-label">Halogen Free</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">
+                                            <a class="btn btn-info" href="${home}resources/filePDF${material.halogenUrl}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                        </p>
+                                        <p class="form-control-static">Expired Date <fmt:formatDate pattern="dd/MM/yyyy"  value="${material.halogenEndDateTest}" /></p>
+                                    </div>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:if>
+                    <c:if test="${not empty material.guaranteeLetterUrl}">
+                        <c:choose>
+                            <c:when test="${material.status eq 'CREATE' or material.status eq 'UPDATE' or material.status eq 'REJECT' or material.status eq 'REQUESTDOC'}">
+                                <div class="form-group form-inline">
+                                    <label class="col-sm-5 control-label">Guarantee Letter</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">
+                                            <a class="btn btn-info not-active" href="${home}resources/filePDF${material.guaranteeLetterUrl}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="form-group form-inline">
+                                    <label class="col-sm-5 control-label">Guarantee Letter</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">
+                                            <a class="btn btn-info" href="${home}resources/filePDF${material.halogenUrl}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:if>
+                    <c:if test="${not empty material.redPhosphorusUrl}">
+                        <c:choose>
+                            <c:when test="${material.status eq 'CREATE' or material.status eq 'UPDATE' or material.status eq 'REJECT' or material.status eq 'REQUESTDOC'}">
+                                <div class="form-group form-inline">
+                                    <label class="col-sm-5 control-label">Red Phosphorus</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">
+                                            <a class="btn btn-info not-active" href="${home}resources/filePDF${material.redPhosphorusUrl}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="form-group form-inline">
+                                    <label class="col-sm-5 control-label">Red Phosphorus</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control-static">
+                                            <a class="btn btn-info" href="${home}resources/filePDF${material.redPhosphorusUrl}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
                     </c:if>
                 </div>
             </form>
         </div>
     </div>
-    <c:if test="${roleName eq 'qa' or roleName eq 'admin'}">
+    <c:if test="${roleName eq 'qa' or roleName eq 'admin' and material.status eq 'APPROVE'}">
         <div class="row">
             <form class="form-horizontal">
                 <div class="col-sm-offset-4 col-sm-4">

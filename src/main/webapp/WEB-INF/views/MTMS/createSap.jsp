@@ -18,9 +18,7 @@
             <div class="col-sm-10">
                 <select class="form-control input-lg" id="inputMaterialName">
                     <c:forEach var="material" items="${materialType.matters}">
-                        <c:if test="${material.status eq 'APPROVE'}">
-                            <option value="${material.id}">${material.materialName}</option>
-                        </c:if>
+                        <option value="${material.id}">${material.materialName}</option>
                     </c:forEach>
                 </select>
             </div>

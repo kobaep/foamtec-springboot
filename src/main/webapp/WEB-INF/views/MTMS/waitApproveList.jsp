@@ -21,6 +21,8 @@
                                 <th>MSDS</th>
                                 <th>RoHS</th>
                                 <th>Halogen Free</th>
+                                <th>Guarantee L.</th>
+                                <th>Red P.</th>
                                 <th>Create By</th>
                                 <th></th>
                             </tr>
@@ -59,6 +61,22 @@
                                     </c:choose>
                                     <c:choose>
                                         <c:when test="${not empty material.halogenUrl}">
+                                            <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:choose>
+                                        <c:when test="${not empty material.guaranteeLetterUrl}">
+                                            <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:choose>
+                                        <c:when test="${not empty material.redPhosphorusUrl}">
                                             <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
                                         </c:when>
                                         <c:otherwise>

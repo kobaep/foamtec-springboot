@@ -115,6 +115,12 @@ public class Matter implements Serializable {
     @Column(name = "halogenUrl")
     private String halogenUrl;
 
+    @Column(name = "guaranteeLetterUrl")
+    private String guaranteeLetterUrl;
+
+    @Column(name = "redPhosphorusUrl")
+    private String redPhosphorusUrl;
+
     @OrderBy("createDate")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "matter")
     private Set<MaterialCode> materialCodes = new HashSet<MaterialCode>();
@@ -345,5 +351,21 @@ public class Matter implements Serializable {
 
     public void setHalogenUrl(String halogenUrl) {
         this.halogenUrl = halogenUrl;
+    }
+
+    public String getGuaranteeLetterUrl() {
+        return guaranteeLetterUrl;
+    }
+
+    public void setGuaranteeLetterUrl(String guaranteeLetterUrl) {
+        this.guaranteeLetterUrl = guaranteeLetterUrl;
+    }
+
+    public String getRedPhosphorusUrl() {
+        return redPhosphorusUrl;
+    }
+
+    public void setRedPhosphorusUrl(String redPhosphorusUrl) {
+        this.redPhosphorusUrl = redPhosphorusUrl;
     }
 }

@@ -51,13 +51,14 @@
                 </div>
             </c:if>
             <c:if test="${not empty material.msdsUrl}">
-            <div class="form-group">
-                <label class="col-sm-2 control-label">MSDS :</label>
-                <div class="col-sm-10 form-inline">
-                    <a href="${home}resources/filePDF${material.msdsUrl}" target="_blank" role="button"><p class="form-control-static">MSDS PDF File</p></a>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">MSDS :</label>
+                    <div class="col-sm-10 form-inline">
+                        <a href="${home}resources/filePDF${material.msdsUrl}" target="_blank" role="button"><p class="form-control-static">MSDS PDF File</p></a>
+                    </div>
+                    </c:if>
                 </div>
-                </c:if>
-                <c:if test="${not empty material.halogenUrl}">
+            <c:if test="${not empty material.halogenUrl}">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Halogen Free :</label>
                     <div class="col-sm-10 form-inline">
@@ -65,13 +66,28 @@
                         <p class="form-control-static">Test Date <fmt:formatDate pattern="dd/MM/yyyy"  value="${material.halogenDateTest}" /></p>
                     </div>
                 </div>
-                </c:if>
-                <input type="text" class="hidden" id="inputId" value="${material.id}">
+            </c:if>
+            <c:if test="${not empty material.guaranteeLetterUrl}">
                 <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="button" id="btnReject" class="btn btn-danger btn-lg">Reject</button>
-                        <button type="button" id="btnApprove" class="col-sm-offset-1 btn btn-success btn-lg">Approve</button>
+                    <label class="col-sm-2 control-label">Guarantee Letter :</label>
+                    <div class="col-sm-10 form-inline">
+                        <a href="${home}resources/filePDF${material.guaranteeLetterUrl}" target="_blank" role="button"><p class="form-control-static">Guarantee Letter PDF File</p></a>
                     </div>
+                </div>
+            </c:if>
+            <c:if test="${not empty material.redPhosphorusUrl}">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Red Phosphorus :</label>
+                    <div class="col-sm-10 form-inline">
+                        <a href="${home}resources/filePDF${material.redPhosphorusUrl}" target="_blank" role="button"><p class="form-control-static">Red Phosphorus PDF File</p></a>
+                    </div>
+                </div>
+            </c:if>
+            <input type="text" class="hidden" id="inputId" value="${material.id}">
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" id="btnReject" class="btn btn-danger btn-lg">Reject</button>
+                    <button type="button" id="btnApprove" class="col-sm-offset-1 btn btn-success btn-lg">Approve</button>
                 </div>
             </div>
         </form>

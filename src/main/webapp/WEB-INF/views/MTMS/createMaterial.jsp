@@ -57,6 +57,18 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="inputGuarantee" class="col-sm-2 control-label">Guarantee Letter</label>
+            <div class="col-sm-10 form-inline">
+                <span class="btn btn-file"><input type="file" id="inputGuarantee"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputRedPhosphorus" class="col-sm-2 control-label">Red Phosphorus</label>
+            <div class="col-sm-10 form-inline">
+                <span class="btn btn-file"><input type="file" id="inputRedPhosphorus"></span>
+            </div>
+        </div>
+        <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" id="submit" class="btn btn-default btn-lg">Submit</button>
             </div>
@@ -93,6 +105,8 @@
                     return false;
                 }
             }
+            formData.append("inputGuarantee", $('#inputGuarantee')[0].files[0]);
+            formData.append("inputRedPhosphorus", $('#inputRedPhosphorus')[0].files[0]);
             formData.append("inputMaterialName", $("#inputMaterialName").val());
             formData.append("inputManufacturing", $("#inputManufacturing").val());
             formData.append("inputUlNumber", $("#inputUlNumber").val());

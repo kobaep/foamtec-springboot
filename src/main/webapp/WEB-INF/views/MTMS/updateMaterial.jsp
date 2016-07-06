@@ -47,6 +47,12 @@
                     <c:if test="${not empty material.halogenUrl}">
                         <a class="btn btn-info" href="${home}resources/filePDF${material.halogenUrl}" target="_blank" role="button">Halogen Free <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
                     </c:if>
+                    <c:if test="${not empty material.guaranteeLetterUrl}">
+                        <a class="btn btn-info" href="${home}resources/filePDF${material.guaranteeLetterUrl}" target="_blank" role="button">Guarantee Letter <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                    </c:if>
+                    <c:if test="${not empty material.redPhosphorusUrl}">
+                        <a class="btn btn-info" href="${home}resources/filePDF${material.redPhosphorusUrl}" target="_blank" role="button">Red Phosphorus <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                    </c:if>
                 </p>
             </div>
         </div>
@@ -75,6 +81,18 @@
             <div class="col-sm-10 form-inline">
                 <span class="btn btn-file"><input type="file" id="inputHalogen"></span>
                 <input type="text" class="form-control input-lg" id="inputDateHF" placeholder="Start Test Date" autocomplete="off">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputGuarantee" class="col-sm-2 control-label"><font color="red">Guarantee Letter</font></label>
+            <div class="col-sm-10 form-inline">
+                <span class="btn btn-file"><input type="file" id="inputGuarantee"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputRedPhosphorus" class="col-sm-2 control-label"><font color="red">Red Phosphorus</font></label>
+            <div class="col-sm-10 form-inline">
+                <span class="btn btn-file"><input type="file" id="inputRedPhosphorus"></span>
             </div>
         </div>
         <div class="form-group">
@@ -132,6 +150,8 @@
                     return false;
                 }
             }
+            formData.append("inputGuarantee", $('#inputGuarantee')[0].files[0]);
+            formData.append("inputRedPhosphorus", $('#inputRedPhosphorus')[0].files[0]);
             formData.append("inputManufacturing", $("#inputManufacturing").val());
             formData.append("inputMaterialName", $("#inputMaterialName").val());
             formData.append("inputUlNumber", $("#inputUlNumber").val());

@@ -23,9 +23,20 @@ public class MtmsControllerTest extends AbstractTestController {
 
 	@Test
 	public void homeMtmsNonTest() throws Exception {
-		this.mockMvc.perform(get("/mtms")).andExpect(status().isOk())
+		this.mockMvc.perform(get("/mtms"))
+				.andExpect(status().isOk())
 				.andExpect(view().name("MTMS/home"))
 				.andExpect(model().attribute("login", "on"));
+	}
+
+	@Test
+	public void homeMtmsOnTest() throws Exception {
+		this.mockMvc.perform(get("/mtms").principal(principal))
+				.andExpect(status().isOk())
+				.andExpect(view().name("MTMS/home"))
+				.andExpect(model().attribute("name", notNullValue()))
+                .andExpect(model().attribute("logout", "on"))
+                .andExpect(model().attribute("roleName", notNullValue()));
 	}
 
     @Test

@@ -21,8 +21,9 @@
                                 <th>MSDS</th>
                                 <th>RoHS</th>
                                 <th>Halogen Free</th>
+                                <th>Guarantee L.</th>
+                                <th>Red P.</th>
                                 <th>Reason</th>
-                                <th>Reject By</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -66,14 +67,26 @@
                                             <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
                                         </c:otherwise>
                                     </c:choose>
+                                    <c:choose>
+                                        <c:when test="${not empty material.guaranteeLetterUrl}">
+                                            <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:choose>
+                                        <c:when test="${not empty material.redPhosphorusUrl}">
+                                            <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+                                        </c:otherwise>
+                                    </c:choose>
                                         <c:forEach var="documentHistory" items="${documentHistorys}" varStatus="loopStatus">
                                             <c:if test="${loopStatus.last}">
                                                 <td>
                                                     ${documentHistory.remark}
-                                                </td>
-                                                <td>
-                                                    <c:set var="rejectBy" value="${documentHistory.createBy}"/>
-                                                    ${rejectBy.name}
                                                 </td>
                                             </c:if>
                                         </c:forEach>
