@@ -351,6 +351,187 @@
                 $("#inputMat6").focus();
                 return false;
             }
+
+            if(materials.indexOf($("#inputMat1").val()) > 0) {
+                var data = {
+                    inputMat : $("#inputMat1").val()
+                }
+                $.ajax({
+                    url: '${home}mtms/materialPrivate/getDataMatOrSap',
+                    type: "POST",
+                    headers: {
+                        Accept: "application/json"
+                    },
+                    data: {
+                        data : JSON.stringify(data)
+                    },
+                    dataType: "json",
+                    success: function(data){
+                        if(data["document"] == "ok") {
+                            console.log(data["document"]);
+                        } else {
+                            if($("#inputDocumentRequest").val() == "Full FA Package" || $("#inputDocumentRequest").val() == "PPAP") {
+                                alert("เอกสารไม่ครบไม่สามารถเลือก Full FA หรือ PPAP ได้");
+                                return false;
+                            }
+                        }
+                    },
+                    error: function(data){
+                        alert("no data");
+                    }
+                });
+            }
+
+            if(materials.indexOf($("#inputMat2").val()) > 0) {
+                var data = {
+                    inputMat : $("#inputMat2").val()
+                }
+                $.ajax({
+                    url: '${home}mtms/materialPrivate/getDataMatOrSap',
+                    type: "POST",
+                    headers: {
+                        Accept: "application/json"
+                    },
+                    data: {
+                        data : JSON.stringify(data)
+                    },
+                    dataType: "json",
+                    success: function(data){
+                        if(data["document"] == "ok") {
+                            console.log(data["document"]);
+                        } else {
+                            if($("#inputDocumentRequest").val() == "Full FA Package" || $("#inputDocumentRequest").val() == "PPAP") {
+                                alert("เอกสารไม่ครบไม่สามารถเลือก Full FA หรือ PPAP ได้");
+                                return false;
+                            }
+                        }
+                    },
+                    error: function(data){
+                        alert("no data");
+                    }
+                });
+            }
+
+            if(materials.indexOf($("#inputMat3").val()) > 0) {
+                var data = {
+                    inputMat : $("#inputMat3").val()
+                }
+                $.ajax({
+                    url: '${home}mtms/materialPrivate/getDataMatOrSap',
+                    type: "POST",
+                    headers: {
+                        Accept: "application/json"
+                    },
+                    data: {
+                        data : JSON.stringify(data)
+                    },
+                    dataType: "json",
+                    success: function(data){
+                        if(data["document"] == "ok") {
+                            console.log(data["document"]);
+                        } else {
+                            if($("#inputDocumentRequest").val() == "Full FA Package" || $("#inputDocumentRequest").val() == "PPAP") {
+                                alert("เอกสารไม่ครบไม่สามารถเลือก Full FA หรือ PPAP ได้");
+                                return false;
+                            }
+                        }
+                    },
+                    error: function(data){
+                        alert("no data");
+                    }
+                });
+            }
+
+            if(materials.indexOf($("#inputMat4").val()) > 0) {
+                var data = {
+                    inputMat : $("#inputMat4").val()
+                }
+                $.ajax({
+                    url: '${home}mtms/materialPrivate/getDataMatOrSap',
+                    type: "POST",
+                    headers: {
+                        Accept: "application/json"
+                    },
+                    data: {
+                        data : JSON.stringify(data)
+                    },
+                    dataType: "json",
+                    success: function(data){
+                        if(data["document"] == "ok") {
+                            console.log(data["document"]);
+                        } else {
+                            if($("#inputDocumentRequest").val() == "Full FA Package" || $("#inputDocumentRequest").val() == "PPAP") {
+                                alert("เอกสารไม่ครบไม่สามารถเลือก Full FA หรือ PPAP ได้");
+                                return false;
+                            }
+                        }
+                    },
+                    error: function(data){
+                        alert("no data");
+                    }
+                });
+            }
+
+            if(materials.indexOf($("#inputMat5").val()) > 0) {
+                var data = {
+                    inputMat : $("#inputMat5").val()
+                }
+                $.ajax({
+                    url: '${home}mtms/materialPrivate/getDataMatOrSap',
+                    type: "POST",
+                    headers: {
+                        Accept: "application/json"
+                    },
+                    data: {
+                        data : JSON.stringify(data)
+                    },
+                    dataType: "json",
+                    success: function(data){
+                        if(data["document"] == "ok") {
+                            console.log(data["document"]);
+                        } else {
+                            if($("#inputDocumentRequest").val() == "Full FA Package" || $("#inputDocumentRequest").val() == "PPAP") {
+                                alert("เอกสารไม่ครบไม่สามารถเลือก Full FA หรือ PPAP ได้");
+                                return false;
+                            }
+                        }
+                    },
+                    error: function(data){
+                        alert("no data");
+                    }
+                });
+            }
+
+            if(materials.indexOf($("#inputMat6").val()) > 0) {
+                var data = {
+                    inputMat : $("#inputMat6").val()
+                }
+                $.ajax({
+                    url: '${home}mtms/materialPrivate/getDataMatOrSap',
+                    type: "POST",
+                    headers: {
+                        Accept: "application/json"
+                    },
+                    data: {
+                        data : JSON.stringify(data)
+                    },
+                    dataType: "json",
+                    success: function(data){
+                        if(data["document"] == "ok") {
+                            console.log(data["document"]);
+                        } else {
+                            if($("#inputDocumentRequest").val() == "Full FA Package" || $("#inputDocumentRequest").val() == "PPAP") {
+                                alert("เอกสารไม่ครบไม่สามารถเลือก Full FA หรือ PPAP ได้");
+                                return false;
+                            }
+                        }
+                    },
+                    error: function(data){
+                        alert("no data");
+                    }
+                });
+            }
+
             var data = {
                 inputCustomer : $("#inputCustomer").val(),
                 inputProductGroup : $("#inputProductGroup").val(),

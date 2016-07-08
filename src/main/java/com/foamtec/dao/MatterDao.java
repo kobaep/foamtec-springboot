@@ -54,6 +54,12 @@ public class MatterDao {
         return query.list();
     }
 
+    public List<Matter> findAll() {
+        Session session = ((Session) entityManager.getDelegate());
+        org.hibernate.Query query = session.createQuery("SELECT o FROM Matter o order by createDate");
+        return query.list();
+    }
+
     public void update(Matter matter) {
         entityManager.merge(matter);
         entityManager.flush();
@@ -84,5 +90,17 @@ public class MatterDao {
                 )
         );
         return entityManager.createQuery(cq).getResultList();
+    }
+
+    public Matter findMatter(String mat) {
+        Criteria criteria = ((Session)entityManager.getDelegate()).createCriteria(Matter.class);
+        criteria.createCriteria("materialCodes", "sap");
+
+        Criterion case1 = Restrictions.eq("materialName", mat);
+        Criterion case2 = Restrictions.eq("sap.codeName", mat);
+
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        criteria.add(Restrictions.or(case1, case2));
+        return (Matter) criteria.uniqueResult();
     }
 }

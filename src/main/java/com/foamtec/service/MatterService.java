@@ -266,7 +266,7 @@ public class MatterService {
     }
 
     public JSONArray getAllJson() {
-        List<Matter> matters = matterDao.findByStatus("APPROVE");
+        List<Matter> matters = matterDao.findAll();
         JSONArray jsonArray = new JSONArray();
         for (Matter m : matters) {
             JSONObject jsonObject = new JSONObject();
@@ -280,5 +280,17 @@ public class MatterService {
             }
         }
         return jsonArray;
+    }
+
+    public JSONObject getDataMatOrSap(String data) {
+        JSONObject jsonObjectData = new JSONObject(data);
+        Matter matter = matterDao.findMatter(jsonObjectData.getString("inputMat"));
+        JSONObject jsonObject = new JSONObject();
+        if(matter.getSpecUrl() == null || matter.getMsdsUrl() == null || matter.getRohsUrl() == null) {
+            jsonObject.put("document", "no");
+        } else {
+            jsonObject.put("document", "ok");
+        }
+        return jsonObject;
     }
 }

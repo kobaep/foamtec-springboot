@@ -228,21 +228,25 @@ public class FaRequestService {
         faRequest.setQwsNo(inputQwsNo);
         faRequest.setApqpNo(inputApqpNo);
         faRequest.setNeedDate(convertToDate(inputNeedDate));
+        faRequest.setFaApproveQty(null);
         if(inputFaApprove.length() > 0) {
             faRequest.setFaApproveQty(Integer.parseInt(inputFaApprove));
         } else {
             faRequest.setFaApproveQty(0);
         }
+        faRequest.setFaForSellQty(null);
         if(inputFaForSell.length() > 0) {
             faRequest.setFaForSellQty(Integer.parseInt(inputFaForSell));
         } else {
             faRequest.setFaForSellQty(0);
         }
+        faRequest.setSamplTestQty(null);
         if(inputSampleTest.length() > 0) {
             faRequest.setSamplTestQty(Integer.parseInt(inputSampleTest));
         } else {
             faRequest.setSamplTestQty(0);
         }
+        faRequest.setSamplePccQty(null);
         if(inputSamplePcc.length() > 0) {
             faRequest.setSamplePccQty(Integer.parseInt(inputSamplePcc));
         } else {
