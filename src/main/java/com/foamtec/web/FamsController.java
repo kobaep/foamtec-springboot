@@ -161,6 +161,7 @@ public class FamsController {
         map.put("faNumber", faRequest.getFaNumber());
         map.put("productGroup",faRequest.getProductGroup());
         map.put("partNo",faRequest.getPartNo());
+        map.put("partName",faRequest.getPartNo());
         map.put("revision", faRequest.getRevision());
         map.put("requestBy", faRequest.getCreateBy().getName());
         map.put("saleOut", faRequest.getSaleOut());
@@ -169,6 +170,7 @@ public class FamsController {
         map.put("apqpNo", faRequest.getApqpNo());
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         map.put("needDate", df.format(faRequest.getNeedDate()));
+        map.put("requestDate", df.format(faRequest.getCreateDate()));
         map.put("faApprove", faRequest.getFaApproveQty() + "");
         map.put("faForSell", faRequest.getFaForSellQty() + "");
         map.put("sampleTest", faRequest.getSamplTestQty() + "");
@@ -182,6 +184,12 @@ public class FamsController {
         map.put("documentRequest", faRequest.getDocumentRequest());
         map.put("tool", faRequest.getTool());
         map.put("remark", faRequest.getRemark());
+        map.put("cuttingType", faRequest.getCuttingType());
+        map.put("process", faRequest.getProcess());
+        map.put("process", faRequest.getProcess());
+        map.put("commitDate", df.format(faRequest.getEngCommitDate()));
+        map.put("engReview", faRequest.getUpdateBy().getName());
+        map.put("engCommitDate", df.format(faRequest.getUpdateDate()));
         JasperPrint jasperPrint = JasperFillManager.fillReport(fileName, map, ds);
         response.setContentType("application/x-pdf");
         response.setHeader("Content-disposition", "inline; filename=FaRequest.pdf");

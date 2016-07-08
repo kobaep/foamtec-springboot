@@ -280,6 +280,14 @@
                                 <textarea id="inputProcess" rows="4" class="form-control" disabled><jsp:text/>${faRequest.process}</textarea>
                             </div>
                         </div>
+                        <div class="form-group form-inline">
+                            <label class="col-sm-4 control-label">Dowload FA PDF :</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static">
+                                    <a class="btn btn-info" href="${home}fams/generate/file/${faRequest.id}?pdf" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </fieldset>
             </form>
