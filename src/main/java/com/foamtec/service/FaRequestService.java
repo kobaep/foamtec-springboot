@@ -45,6 +45,7 @@ public class FaRequestService {
         String inputCustomer = jsonObject.getString("inputCustomer");
         String inputProductGroup = jsonObject.getString("inputProductGroup");
         String inputPartNo = jsonObject.getString("inputPartNo");
+        String inputPartName = jsonObject.getString("inputPartName");
         String inputRevision = jsonObject.getString("inputRevision");
         String inputSaleOut = jsonObject.getString("inputSaleOut");
         String inputQwsNo = jsonObject.getString("inputQwsNo");
@@ -63,6 +64,9 @@ public class FaRequestService {
         String inputDocumentRequest = jsonObject.getString("inputDocumentRequest");
         String inputTools = jsonObject.getString("inputTools");
         String inputRemark = jsonObject.getString("inputRemark");
+        String inputTypeRequest = jsonObject.getString("inputTypeRequest");
+        String inputReSubmitDetail = jsonObject.getString("inputReSubmitDetail");
+        String inputCuttingType = jsonObject.getString("inputCuttingType");
         AppUser appUser = appUserDao.getByUsername(principal.getName());
 
         MultipartFile drawing = multipartHttpServletRequest.getFile("inputFile1");
@@ -101,11 +105,17 @@ public class FaRequestService {
         faRequest.setCustomer(inputCustomer);
         faRequest.setProductGroup(inputProductGroup);
         faRequest.setPartNo(inputPartNo);
+        faRequest.setPartName(inputPartName);
         faRequest.setRevision(inputRevision);
         faRequest.setSaleOut(inputSaleOut);
         faRequest.setQwsNo(inputQwsNo);
         faRequest.setApqpNo(inputApqpNo);
         faRequest.setNeedDate(convertToDate(inputNeedDate));
+        faRequest.setTypeRequest(inputTypeRequest);
+        faRequest.setCuttingType(inputCuttingType);
+        if(inputReSubmitDetail.length() > 0) {
+            faRequest.setReSubmitDetail(inputReSubmitDetail);
+        }
         if(inputFaApprove.length() > 0) {
             faRequest.setFaApproveQty(Integer.parseInt(inputFaApprove));
         } else {
@@ -168,6 +178,7 @@ public class FaRequestService {
         String inputCustomer = jsonObject.getString("inputCustomer");
         String inputProductGroup = jsonObject.getString("inputProductGroup");
         String inputPartNo = jsonObject.getString("inputPartNo");
+        String inputPartName = jsonObject.getString("inputPartName");
         String inputRevision = jsonObject.getString("inputRevision");
         String inputSaleOut = jsonObject.getString("inputSaleOut");
         String inputQwsNo = jsonObject.getString("inputQwsNo");
@@ -186,6 +197,9 @@ public class FaRequestService {
         String inputDocumentRequest = jsonObject.getString("inputDocumentRequest");
         String inputTools = jsonObject.getString("inputTools");
         String inputRemark = jsonObject.getString("inputRemark");
+        String inputTypeRequest = jsonObject.getString("inputTypeRequest");
+        String inputReSubmitDetail = jsonObject.getString("inputReSubmitDetail");
+        String inputCuttingType = jsonObject.getString("inputCuttingType");
         AppUser appUser = appUserDao.getByUsername(principal.getName());
 
         MultipartFile drawing = multipartHttpServletRequest.getFile("inputFile1");
@@ -223,11 +237,19 @@ public class FaRequestService {
         faRequest.setCustomer(inputCustomer);
         faRequest.setProductGroup(inputProductGroup);
         faRequest.setPartNo(inputPartNo);
+        faRequest.setPartName(inputPartName);
         faRequest.setRevision(inputRevision);
         faRequest.setSaleOut(inputSaleOut);
         faRequest.setQwsNo(inputQwsNo);
         faRequest.setApqpNo(inputApqpNo);
         faRequest.setNeedDate(convertToDate(inputNeedDate));
+        faRequest.setTypeRequest(inputTypeRequest);
+        faRequest.setCuttingType(inputCuttingType);
+        faRequest.setReSubmitDetail(null);
+        if(inputReSubmitDetail.length() > 0) {
+            faRequest.setReSubmitDetail(inputReSubmitDetail);
+        }
+
         faRequest.setFaApproveQty(null);
         if(inputFaApprove.length() > 0) {
             faRequest.setFaApproveQty(Integer.parseInt(inputFaApprove));

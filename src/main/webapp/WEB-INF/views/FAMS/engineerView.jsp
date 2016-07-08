@@ -46,7 +46,7 @@
                                             <td><fmt:formatDate pattern="dd/MM/yyyy"  value="${faRequest.needDate}" /></td>
                                             <td>${faRequest.customer}</td>
                                             <td>${faRequest.partNo}</td>
-                                            <td>${faRequest.status}</td>
+                                            <td>${faRequest.saleOut}</td>
                                             <c:set var="appuser" value="${faRequest.updateBy}"/>
                                             <td>${appuser.name}</td>
                                             <td>

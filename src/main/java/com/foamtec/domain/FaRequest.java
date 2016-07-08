@@ -49,6 +49,9 @@ public class FaRequest implements Serializable {
     @Column(name="partNo")
     private String partNo;
 
+    @Column(name="partName")
+    private String partName;
+
     @Column(name="revision")
     private String revision;
 
@@ -167,6 +170,15 @@ public class FaRequest implements Serializable {
 
     @Column(name="engineerReason")
     private String engineerReason;
+
+    @Column(name="typeRequest")
+    private String typeRequest;
+
+    @Column(name="reSubmitDetail")
+    private String reSubmitDetail;
+
+    @Column(name="cuttingType")
+    private String cuttingType;
 
     @OrderBy("createDate")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "faRequest")
@@ -546,5 +558,37 @@ public class FaRequest implements Serializable {
 
     public void setFileData2(String fileData2) {
         this.fileData2 = fileData2;
+    }
+
+    public String getPartName() {
+        return partName;
+    }
+
+    public void setPartName(String partName) {
+        this.partName = partName;
+    }
+
+    public String getTypeRequest() {
+        return typeRequest;
+    }
+
+    public void setTypeRequest(String typeRequest) {
+        this.typeRequest = typeRequest;
+    }
+
+    public String getReSubmitDetail() {
+        return reSubmitDetail;
+    }
+
+    public void setReSubmitDetail(String reSubmitDetail) {
+        this.reSubmitDetail = reSubmitDetail;
+    }
+
+    public String getCuttingType() {
+        return cuttingType;
+    }
+
+    public void setCuttingType(String cuttingType) {
+        this.cuttingType = cuttingType;
     }
 }

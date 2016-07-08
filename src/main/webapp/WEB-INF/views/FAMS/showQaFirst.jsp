@@ -38,6 +38,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-4 control-label">Part Name :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.partName}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-4 control-label">Revision :</label>
                             <div class="col-sm-8">
                                 <label class="form-control-static">${faRequest.revision}</label>
@@ -98,6 +104,20 @@
                                 <label class="form-control-static">${faRequest.samplePccQty} pcs</label>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Type Request :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.typeRequest}</label>
+                            </div>
+                        </div>
+                        <c:if test="${not empty faRequest.reSubmitDetail}">
+                            <div class="form-group">
+                                <label for="inputRemark" class="col-sm-4 control-label">Re Submit Detail :</label>
+                                <div class="col-sm-8">
+                                    <textarea rows="2" class="form-control"  disabled>${faRequest.reSubmitDetail}</textarea>
+                                </div>
+                            </div>
+                        </c:if>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -214,6 +234,12 @@
                             <label class="col-sm-4 control-label">Tools :</label>
                             <div class="col-sm-8">
                                 <label class="form-control-static">${faRequest.tool}</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Cutting Type :</label>
+                            <div class="col-sm-8">
+                                <label class="form-control-static">${faRequest.cuttingType}</label>
                             </div>
                         </div>
                         <c:if test="${not empty faRequest.fileDrawing}">

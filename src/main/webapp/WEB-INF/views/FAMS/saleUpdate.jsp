@@ -40,6 +40,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="inputPartName" class="col-sm-3 control-label">Part Name. :</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputPartName" placeholder="Part Name" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="inputRevision" class="col-sm-3 control-label">Revision :</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="inputRevision" placeholder="Revision" autocomplete="off" value="${faRequest.revision}" required>
@@ -98,6 +104,23 @@
                         <label for="inputSamplePcc" class="col-sm-3 control-label">Sample PCC :</label>
                         <div class="col-sm-9">
                             <input type="number" class="form-control" id="inputSamplePcc" placeholder="Qty" value="${faRequest.samplePccQty}" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Type Request:</label>
+                        <div class="col-sm-9">
+                            <label class="radio-inline">
+                                <input type="radio" name="typeRequest" value="New FA Request" checked>New FA Request
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="typeRequest" value="Re Submit">Re Submit
+                            </label>
+                        </div>
+                    </div>
+                    <div id="reSubmitDiv" class="form-group hidden">
+                        <label for="inputReSubmitDetail" class="col-sm-3 control-label">Re Submit Detail :</label>
+                        <div class="col-sm-9">
+                            <textarea id="inputReSubmitDetail" rows="2" class="form-control"><jsp:text/></textarea>
                         </div>
                     </div>
                 </div>
@@ -179,6 +202,17 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-3 control-label">Cutting Type :</label>
+                        <div class="col-sm-9">
+                            <label class="radio-inline">
+                                <input type="radio" name="cuttingType" value="Full Cut" checked>Full Cut
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="cuttingType" value="Half Cut">Half Cut
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="inputRemark" class="col-sm-3 control-label">Remark :</label>
                         <div class="col-sm-9">
                             <textarea id="inputRemark" rows="2" class="form-control"><jsp:text/>${faRequest.remark}</textarea>
@@ -236,6 +270,16 @@
 </div>
 <script>
     $(document).ready(function() {
+
+        $('input[type=radio][name=typeRequest]').change(function() {
+            if (this.value == 'New FA Request') {
+                $("#reSubmitDiv").addClass("hidden");
+                $("#inputReSubmitDetail").val("");
+            }
+            else {
+                $("#reSubmitDiv").removeClass("hidden");
+            }
+        });
 
         $("#inputNeedDate").datepicker({ dateFormat: "dd/mm/yy" });
 
@@ -353,7 +397,8 @@
                 return false;
             }
 
-            if(materials.indexOf($("#inputMat1").val()) < 0) {
+            var inputMat1 = $("#inputMat1").val();
+            if(materials.indexOf(inputMat1) < 0) {
                 $("#inputMat1").focus();
                 return false;
             }
@@ -383,7 +428,8 @@
                 return false;
             }
 
-            if(materials.indexOf($("#inputMat1").val()) > 0) {
+            if(inputMat1.length > 0) {
+                console.log("1");
                 var data = {
                     inputMat : $("#inputMat1").val()
                 }
@@ -398,9 +444,11 @@
                     },
                     dataType: "json",
                     success: function(data){
+                        console.log("2");
                         if(data["document"] == "ok") {
                             console.log(data["document"]);
                         } else {
+                            console.log("3");
                             if($("#inputDocumentRequest").val() == "Full FA Package" || $("#inputDocumentRequest").val() == "PPAP") {
                                 alert("เอกสารไม่ครบไม่สามารถเลือก Full FA หรือ PPAP ได้");
                                 return false;
@@ -413,7 +461,7 @@
                 });
             }
 
-            if(materials.indexOf($("#inputMat2").val()) > 0) {
+            if(inputMat2.length > 0) {
                 var data = {
                     inputMat : $("#inputMat2").val()
                 }
@@ -443,7 +491,7 @@
                 });
             }
 
-            if(materials.indexOf($("#inputMat3").val()) > 0) {
+            if(inputMat3.length > 0) {
                 var data = {
                     inputMat : $("#inputMat3").val()
                 }
@@ -473,7 +521,7 @@
                 });
             }
 
-            if(materials.indexOf($("#inputMat4").val()) > 0) {
+            if(inputMat4.length > 0) {
                 var data = {
                     inputMat : $("#inputMat4").val()
                 }
@@ -503,7 +551,7 @@
                 });
             }
 
-            if(materials.indexOf($("#inputMat5").val()) > 0) {
+            if(inputMat5.length > 0) {
                 var data = {
                     inputMat : $("#inputMat5").val()
                 }
@@ -533,7 +581,7 @@
                 });
             }
 
-            if(materials.indexOf($("#inputMat6").val()) > 0) {
+            if(inputMat6.length > 0) {
                 var data = {
                     inputMat : $("#inputMat6").val()
                 }
@@ -564,10 +612,10 @@
             }
 
             var data = {
-                id : "${faRequest.id}",
                 inputCustomer : $("#inputCustomer").val(),
                 inputProductGroup : $("#inputProductGroup").val(),
                 inputPartNo : $("#inputPartNo").val(),
+                inputPartName : $("#inputPartName").val(),
                 inputRevision : $("#inputRevision").val(),
                 inputSaleOut : $("#inputSaleOut").val(),
                 inputQwsNo : $("#inputQwsNo").val(),
@@ -578,6 +626,7 @@
                 inputSampleTest : $("#inputSampleTest").val(),
                 inputSamplePcc : $("#inputSamplePcc").val(),
                 inputMat1 : $("#inputMat1").val(),
+                inputMat1 : $("#inputMat1").val(),
                 inputMat2 : $("#inputMat2").val(),
                 inputMat3 : $("#inputMat3").val(),
                 inputMat4 : $("#inputMat4").val(),
@@ -585,6 +634,9 @@
                 inputMat6 : $("#inputMat6").val(),
                 inputDocumentRequest : $("#inputDocumentRequest").val(),
                 inputTools : $("#inputTools").val(),
+                inputTypeRequest : $('input[name=typeRequest]:checked').val(),
+                inputReSubmitDetail : $("#inputReSubmitDetail").val(),
+                inputCuttingType : $('input[name=cuttingType]:checked').val(),
                 inputRemark : $("#inputRemark").val()
             }
 
