@@ -186,13 +186,14 @@ public class FamsController {
         map.put("remark", faRequest.getRemark());
         map.put("cuttingType", faRequest.getCuttingType());
         map.put("process", faRequest.getProcess());
-        map.put("process", faRequest.getProcess());
+        map.put("typeOfRequest", faRequest.getTypeRequest());
+        map.put("reSubmitDetail", faRequest.getReSubmitDetail());
         map.put("commitDate", df.format(faRequest.getEngCommitDate()));
         map.put("engReview", faRequest.getUpdateBy().getName());
         map.put("engCommitDate", df.format(faRequest.getUpdateDate()));
         JasperPrint jasperPrint = JasperFillManager.fillReport(fileName, map, ds);
         response.setContentType("application/x-pdf");
-        response.setHeader("Content-disposition", "inline; filename=FaRequest.pdf");
+        response.setHeader("Content-disposition", "inline; filename=" + faRequest.getFaNumber() +".pdf");
         final OutputStream outStream = response.getOutputStream();
         JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
     }
