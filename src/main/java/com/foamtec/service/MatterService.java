@@ -266,7 +266,8 @@ public class MatterService {
     }
 
     public JSONArray getAllJson() {
-        List<Matter> matters = matterDao.findByStatus("APPROVE");
+        // List<Matter> matters = matterDao.findByStatus("APPROVE");
+        List<Matter> matters = matterDao.getAll();
         JSONArray jsonArray = new JSONArray();
         for (Matter m : matters) {
             JSONObject jsonObject = new JSONObject();

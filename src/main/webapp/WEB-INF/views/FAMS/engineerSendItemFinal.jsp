@@ -241,7 +241,7 @@
                                         <button type="button" id="btnApprove" class="btn btn-success">Send Item Final</button>
                                     </c:when>
                                     <c:otherwise>
-                                        <button type="button" id="btnApprove" class="btn btn-success" disabled>Send Item Final</button>
+                                        <button type="button" id="btnApprove" class="btn btn-success">Send Item Final</button>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
